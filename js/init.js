@@ -6,6 +6,7 @@ $( document ).ready(function() {
 /* Globals */
 var ServerVars,
 	AppVars = {
+		collectionAlias: 'p15963coll18',
 		map: {},
 		mapBounds: {
 			north: 27.5,
@@ -32,8 +33,9 @@ function initEvents(){
 
 function loadData(){
 	$.get( "loadData.php", {
-		field: 'value',
-		name: 'test name'
+		collection: AppVars.collectionAlias,
+		fields: ['subjec', 'date', 'covera'],
+		force: 'true'
 	}).done( function( data ) {
 		$( '#timeline' ).html( data );
 	});

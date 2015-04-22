@@ -1,6 +1,6 @@
 <?php
 
-if( checkCacheAge() ) {
+if( checkCacheAge() OR $_REQUEST["force"] ) {
 	loadData();
 }
 
@@ -10,7 +10,7 @@ fclose( $data );
 
 
 function checkCacheAge() {
-	return true;
+	return false;
 }
 
 function loadData( ){
@@ -19,7 +19,17 @@ function loadData( ){
 	
 	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false); //TODO: Trust actual certificate instead of all certificates. Do we need to do this or not?
 	curl_setopt( $ch, CURLOPT_FILE, $temp );
-	curl_setopt( $ch, CURLOPT_URL, "https://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmQuery/p15963coll18/0/title!subjec!date!covera/title/1024/1/0/0/0/0/0/0/json" );
+	
+	$url = "https://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmQuery/";
+	$url = $url . $_REQUEST["collection"] . '/0/title';
+	if( ! empty ( $_REQUEST["fields"] ) ) {
+		foreach( $_REQUEST["fields"] as $field ) {
+			$url = $url . '!' . $field;
+		}
+	}
+	$url = $url . "/title/1024/1/0/0/0/0/0/0/json";
+	
+	curl_setopt( $ch, CURLOPT_URL, $url );
 	
 	if( curl_exec( $ch ) === false ) {
 		echo 'Curl error: ' . curl_error( $ch );
@@ -55,13 +65,13 @@ function processData(){
 			$maxYear = substr( $value -> {'date'}, 0, 4 );
 	}
 	
-	$json = array( 
+	$json = [ 
 		'formats' => $formats,
 		'tags' => $tags,
 		'minYear' => $minYear,
 		'maxYear' => $maxYear,
 		'entries' => $entries,
-	);
+	];
 	
 	fwrite( $json_file, json_encode( $json, JSON_NUMERIC_CHECK ) );
 	fclose( $json_file );
