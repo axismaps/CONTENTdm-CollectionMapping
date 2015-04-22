@@ -1,8 +1,8 @@
 {
   "tags" : [ "a", "b", "c", "d" ],
   "formats" : [ "z", "y", "x" ],
-  "minYear" : 1800,
-  "maxYear" : 1900,
+  "minYear" : 1840,
+  "maxYear" : 1953,
   "entries" : [
     {
       "title" : "\"A Tribute to America\" by Ruth Mather",
@@ -20,7 +20,7 @@
       "tags" : [ "a", "b", "c" ],
       "format" : "pdf",
       "url" : "http://axismaps.com",
-      "location" : "Rangoon, Burma"
+      "location" : "Namhkam, Burma"
     },
 	 {
       "title" : "\"Beyond His Calling: The Life of Chester Leroy Klein 1893-1942\" book jacket",
@@ -29,7 +29,7 @@
       "tags" : [ "a", "b", "c" ],
       "format" : "pdf",
       "url" : "http://axismaps.com",
-      "location" : "Rangoon, Burma"
+      "location" : "Shaowu, China"
     },
 	 {
       "title" : "\"Blossoms in Burma\" by Ruth Mather",
@@ -38,7 +38,7 @@
       "tags" : [ "a", "b", "c" ],
       "format" : "pdf",
       "url" : "http://axismaps.com",
-      "location" : "Rangoon, Burma"
+      "location" : ["Pyay, Burma",  "Rangoon, Burma",  "Kalaw, Burma"]
     },
 	 {
       "title" : "\"Burma Surgeon Returns\" book jacket",
@@ -47,16 +47,16 @@
       "tags" : [ "a", "b", "c" ],
       "format" : "pdf",
       "url" : "http://axismaps.com",
-      "location" : "Rangoon, Burma"
+      "location" : ["Namkham", "Rangoon, Burma"]
     },
 	 {
       "title" : "\"Burmese Art Reflects Heritage\" by Jane Terry Bailey",
       "description" : "...",
-      "year" : 1845,
+      "year" : 1953,
       "tags" : [ "a", "b", "c" ],
-      "format" : "pdf",
+      "format" : "jpg",
       "url" : "http://axismaps.com",
-      "location" : "Rangoon, Burma"
+      "location" : "Burma"
     },
   ]
 }
