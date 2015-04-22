@@ -1,3 +1,5 @@
+/* General */
+
 html, body{
 	width: 100%;
 	height: 100%;
@@ -26,7 +28,6 @@ html, body{
 /* Sidebar */
 
 #sidebar{
-	width: 100px;
 	height: 100%;
 	background-color: blue;
 	float: left;
@@ -34,8 +35,9 @@ html, body{
 
 #bar{
 	background-color: #666;
-	width: 100%;
+	width: 100px;
 	height: 100%;
+	float: left;
 }
 
 #bar > div{
@@ -43,7 +45,10 @@ html, body{
 }
 
 #bar-expanded{
+	float: left;
 	display: none;
+	height: 100%;
+	width: 300px;  /* TODO: May want to calculate this later */
 	background-color: #444;
 }
 
@@ -74,4 +79,10 @@ html, body{
 
 #pulse{
 
+}
+
+/* Lightbox */
+
+#lightbox{
+	display: none;
 }

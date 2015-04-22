@@ -6,6 +6,7 @@
 #bar > div{
 	text-align: center;
 	padding: 10px 0;
+	cursor: pointer;
 }
 
 #bar i {
@@ -15,3 +16,5 @@
 /* Map */
 
 /* Timeline area */
+
+/* Lightbox */
