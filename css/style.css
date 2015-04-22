@@ -1,0 +1,17 @@
+/* General Styles */
+
+
+/* Sidebar */
+
+#bar > div{
+	text-align: center;
+	padding: 10px 0;
+}
+
+#bar i {
+	display: block;
+}
+
+/* Map */
+
+/* Timeline area */
