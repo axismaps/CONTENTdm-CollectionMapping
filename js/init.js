@@ -19,6 +19,7 @@ var ServerVars,
 	DataVars;
 
 function init() {
+	loadData();
 	initEvents();
 	initMap();
 }
@@ -26,5 +27,14 @@ function init() {
 function initEvents(){
 	$( '#reports-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).toggle();
+	});
+}
+
+function loadData(){
+	$.get( "loadData.php", {
+		field: 'value',
+		name: 'test name'
+	}).done( function( data ) {
+		console.log( data );
 	});
 }

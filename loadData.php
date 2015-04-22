@@ -1,25 +1,28 @@
 <?php
 
-// Check age of cache file
 if( checkCacheAge() ) {
-	//refresh cache
 	loadData();
-	//process data into json
-	processData();
 }
+
+//return cache data to the requesting page
 
 
 function checkCacheAge() {
-	
+	echo "Refreshing the cache";
 	return true;
 }
 
-function loadData( fields ){
+function loadData( ){
+	$data = '';
 	
+	//process data into json
+	processData( $data );
+	
+	//output data to cache file
 }
 
-function processData( data ){
-	
+function processData( $data ){
+	return $data;
 }
 
 ?>
