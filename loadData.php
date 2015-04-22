@@ -1,5 +1,6 @@
 <?php
 
+//TODO: if no cache file present on system, run loadData() (probably only needed for first run, but good to have it anyways
 if( checkCacheAge() OR $_REQUEST["force"] ) {
 	loadData();
 }
@@ -10,14 +11,18 @@ fclose( $data );
 
 
 function checkCacheAge() {
+	//TODO: return false if cache file less than a week old
 	return false;
 }
 
 function loadData( ){
+	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
+	
 	$ch = curl_init();
 	$temp = fopen( "temp.json", "w" );
 	
-	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false); //TODO: Trust actual certificate instead of all certificates. Do we need to do this or not?
+	 //TODO: Trust actual certificate instead of all certificates. Do we need to do this or not?
+	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false);
 	curl_setopt( $ch, CURLOPT_FILE, $temp );
 	
 	$url = "https://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmQuery/";
