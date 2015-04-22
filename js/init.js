@@ -35,6 +35,6 @@ function loadData(){
 		field: 'value',
 		name: 'test name'
 	}).done( function( data ) {
-		console.log( data );
+		$( '#timeline' ).html( data );
 	});
 }
