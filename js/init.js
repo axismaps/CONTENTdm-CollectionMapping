@@ -27,6 +27,7 @@ function init() {
 function initEvents(){
 	$( '#reports-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).toggle();
+		recenterTimeline();
 	});
 
 	$( "#timeline-next" ).click( advanceTimeline );
@@ -39,4 +40,5 @@ function initEvents(){
 
 function resize(){
 	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).outerHeight() );
+	recenterTimeline();
 }

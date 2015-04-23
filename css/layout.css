@@ -112,7 +112,6 @@ html, body{
 	height: 100%;
 	width: 300px;
 	background-color: #ccc;
-	border: 1px solid red;
 	display: inline-block;
 	opacity: .5;
 	transition: opacity 1s;

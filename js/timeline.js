@@ -15,14 +15,12 @@ function drawEvent( year ){
 
 function selectYear( year ){
 	if ( !$( "#year" + year).length ) return;
-	var left = -$( "#year" + year).index() * $( ".timeline-year" ).outerWidth()
-			+ ( $( "#timeline" ).width()  - $( ".timeline-year" ).outerWidth() ) / 2; // center
-	$( "#timeline-inner" ).css( "left", left + "px" )
-	$( ".timeline-year.active" ).removeClass( "active" );
+		$( ".timeline-year.active" ).removeClass( "active" );
 	$( "#year" + year).addClass( "active" );
 	$( "#year" ).html( year );
 
 	AppVars.selectedYear = year;
+	recenterTimeline();
 }
 
 function advanceTimeline(){
@@ -33,4 +31,12 @@ function advanceTimeline(){
 function rewindTimeline(){
 	if ( AppVars.selectedYear == undefined ) return;
 	selectYear( AppVars.selectedYear - 1 );
+}
+
+function recenterTimeline(){
+	if ( !$( ".timeline-year.active" ).length ) return;
+	var left = -$( ".timeline-year.active" ).index() * $( ".timeline-year" ).outerWidth()
+			+ ( $( "#timeline" ).width()  - $( ".timeline-year" ).outerWidth() ) / 2;
+	$( "#timeline-inner" ).css( "left", left + "px" )
+
 }
