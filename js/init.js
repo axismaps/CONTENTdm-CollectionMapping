@@ -21,6 +21,7 @@ var ServerVars,
 function init() {
 	initEvents();
 	initMap();
+	drawTimeline();
 }
 
 function initEvents(){

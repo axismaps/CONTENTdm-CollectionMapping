@@ -74,11 +74,32 @@ html, body{
 }
 
 #timeline{
-
+	height: 100%;
+	position: relative;
+	overflow: hidden;
 }
 
 #pulse{
 
+}
+
+#year{
+	margin: 0;
+}
+
+#timeline-inner{
+	height: 90%;
+	white-space: nowrap;
+	position: absolute;
+	transition: left 1s;
+}
+
+.timeline-year{
+	height: 100%;
+	width: 300px;
+	background-color: #ccc;
+	border: 1px solid red;
+	display: inline-block;
 }
 
 /* Lightbox */
