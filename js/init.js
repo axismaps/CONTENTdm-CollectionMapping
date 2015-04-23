@@ -28,4 +28,12 @@ function initEvents(){
 	$( '#reports-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).toggle();
 	});
+
+	$( window ).resize( resize );
+
+	resize();
+}
+
+function resize(){
+	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).height() );
 }
