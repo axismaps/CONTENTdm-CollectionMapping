@@ -29,11 +29,14 @@ function initEvents(){
 		$( '#bar-expanded' ).toggle();
 	});
 
+	$( "#timeline-next" ).click( advanceTimeline );
+	$( "#timeline-prev" ).click( rewindTimeline );
+
 	$( window ).resize( resize );
 
 	resize();
 }
 
 function resize(){
-	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).height() );
+	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).outerHeight() );
 }

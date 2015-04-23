@@ -84,9 +84,22 @@ html, body{
 }
 
 #year{
-	margin: 0;
+	margin: 10px 0;
 	color: white;
 	text-align: center;
+}
+
+.timeline-button{
+	padding: 10px;
+	background-color: #999;
+	color: #ccc;
+	cursor: pointer;
+}
+#timeline-prev{
+	float: left;
+}
+#timeline-next{
+	float: right;
 }
 
 #timeline-inner{
