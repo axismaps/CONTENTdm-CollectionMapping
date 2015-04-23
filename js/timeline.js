@@ -1,12 +1,12 @@
 function drawTimeline(){
 	// testing
 	for ( var i = 1900; i < 1970; i ++ ){
-		drawEvent( i );
+		drawYear( i );
 	}
 	selectYear( 1900 );
 }
 
-function drawEvent( year ){
+function drawYear( year ){
 	var $div = $( "<div>" )
 		.attr( "class", "timeline-year" )
 		.attr( "id", "year" + year )
