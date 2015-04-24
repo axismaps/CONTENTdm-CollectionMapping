@@ -4,7 +4,7 @@ $( document ).ready(function() {
 });
 
 /* Globals */
-var ServerVars,
+var ServerVars = {},
 	AppVars = {
 		collectionAlias: 'p15963coll18',
 		map: {},
@@ -17,7 +17,7 @@ var ServerVars,
 		maxZoom: 10,
 		minZoom: 4
 	},
-	DataVars;
+	DataVars = {};
 
 function init() {
 	loadData();
@@ -35,6 +35,6 @@ function loadData(){
 		collection: AppVars.collectionAlias,
 		fields: ['subjec', 'date', 'covera']
 	}).done( function( data ) {
-		$( '#timeline' ).html( data );
+		DataVars.data = $.parseJSON( data );
 	});
 }
