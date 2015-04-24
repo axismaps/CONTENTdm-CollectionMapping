@@ -48,11 +48,20 @@
 }
 
 /* Expanded Sidebar specific styles */
+#bar-expanded{
+	color: #999;
+}
+
 #bar-expanded > div > div{
 	padding: 20px;
 	border-left: 1px solid #000;
 	border-right: 1px solid #000;
 	border-bottom: 1px solid #000;
+}
+
+#bar-expanded h3{
+	text-transform: uppercase;
+	color: #fff;
 }
 
 .expanded-title{
@@ -63,9 +72,14 @@
 	
 }
 
+#filters-expanded .expanded-section p,
 #tags-expanded .expanded-section p{
 	padding-bottom: 5px;
 	border-bottom: 1px solid #333;
+}
+
+#filters-expanded #date-range span{
+	color: #fff;
 }
 
 /* Map */
