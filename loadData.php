@@ -23,7 +23,6 @@ function checkCacheAge() {
 
 function loadData( ){
 	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
-	echo 'loadData function called    ';
 	
 	$ch = curl_init();
 	$temp = fopen( "temp.json", "w" );
@@ -70,7 +69,7 @@ function processData(){
 		if ( ! in_array( $value -> filetype, $formats ) )
 			array_push( $formats, $value -> filetype );
 		if ( ! in_array( $value -> filetype, $tags ) )
-			array_push( $tags, $value -> filetype );
+			array_push( $tags, $value -> filetype ); //TODO: Change this to the tag field in the db once known
 		if ( $minYear > substr( $value -> {'date'}, 0, 4 ) )
 			$minYear = substr( $value -> {'date'}, 0, 4 );
 		if ( $maxYear < substr( $value -> {'date'}, 0, 4 ) )
