@@ -25,10 +25,11 @@ function sidebarEvents() {
 		$( '#secondary-buttons div' ).hide();
 		$( '#summary-button' ).show();
 		
-		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').find( '.selected' ).length == 0 ) $( '#bar-expanded' ).hide();
 		
-		if( $( '#secondary-buttons').find( '.selected' ).length > 0 ) {
-			$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
+		
+		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').children( '.selected' ).length == 0 ) $( '#bar-expanded' ).hide();
+		else if( $( '#secondary-buttons').children( '.selected' ).length > 0 ) {
+			$( '#secondary-buttons').children( '.selected' ).removeClass( 'selected' );
 			$( '#bar-expanded > div' ).hide();
 			initReports();
 		}
