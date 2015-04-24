@@ -63,6 +63,11 @@
 	
 }
 
+#tags-expanded .expanded-section p{
+	padding-bottom: 5px;
+	border-bottom: 1px solid #333;
+}
+
 /* Map */
 
 /* Timeline area */

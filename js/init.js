@@ -36,5 +36,6 @@ function loadData(){
 		fields: ['subjec', 'date', 'covera']
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
+		console.log( DataVars );
 	});
 }

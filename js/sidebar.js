@@ -98,10 +98,20 @@ function initReports(){
 
 function initFilters(){
 	$( '#filters-expanded' ).show();
+	
+	$( '#date-range' ).append( 
+		'<p>' + DataVars.data.minYear + '</p>', 
+		'<p>' + DataVars.data.maxYear + '</p>'
+	);
 }
 
 function initTags(){
 	$( '#tags-expanded' ).show();
+	
+	var sect = $( '#tags-expanded .expanded-section' );
+	$.map( DataVars.data.tags, function( v ){
+		sect.append( '<p>' + v + '</p>' );
+	});
 }
 
 function initSummary(){
