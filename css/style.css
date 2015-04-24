@@ -78,8 +78,23 @@
 	border-bottom: 1px solid #333;
 }
 
-#filters-expanded #date-range span{
+#filters-expanded #date-range > span{
 	color: #fff;
+	display: inline-block;
+}
+
+#date-range #date-slider{
+	width: 65%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#date-range #minYear {
+	margin-right: 10px;
+}
+
+#date-range #maxYear {
+	margin-left: 10px;
 }
 
 /* Map */

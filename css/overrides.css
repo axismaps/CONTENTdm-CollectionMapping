@@ -1,1 +1,25 @@
 /* Jquery-UI Overrides */
+
+.ui-slider-horizontal {
+	height: 1px;
+	background: #999;
+	border: none;
+	border-radius: 0;
+}
+
+.ui-slider-range{
+	height: 2px !important;
+	background: #fff;
+}
+
+.ui-slider-handle{
+	border-radius: 100px;
+	background: #999 !important;
+	border: none !important;
+	top: -.6em !important;
+}
+
+.ui-slider-handle:hover{
+	background: #fff !important;
+	cursor: pointer;
+}
