@@ -20,11 +20,10 @@ var ServerVars,
 
 function init() {
 	initEvents();
+	initSidebar();
 	initMap();
 }
 
 function initEvents(){
-	$( '#reports-button' ).on( 'click', function(){
-		$( '#bar-expanded' ).toggle();
-	});
+	sidebarEvents();
 }
