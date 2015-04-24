@@ -6,15 +6,12 @@ function initSidebar(){
 
 function sidebarEvents() {
 	$( '#all-docs-button' ).on( 'click', function(){
-		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') ) $( '#bar-expanded' ).hide();
-		else {
-			$( '#bar-expanded' ).show();
-			//initAllDocs();
-			$( '#bar-expanded' ).text( 'Initialize All Docs' );
-		}
+		$( '#bar-expanded' ).hide();
+		//initAllDocs();
 		
 		$( this ).addClass( 'selected' );
 		$( '#reports-button' ).removeClass( 'selected' );
+		$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
 		
 		$( '#secondary-buttons div' ).hide();
 		$( '#filters-button' ).show();
