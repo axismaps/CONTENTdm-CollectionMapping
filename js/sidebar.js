@@ -39,30 +39,48 @@ function sidebarEvents() {
 	});
 	
 	$( '#filters-button' ).on( 'click', function(){
-		$( this ).siblings( '.selected' ).removeClass( 'selected' );
-		$( this ).addClass( 'selected' );
-		
-		$( '#bar-expanded > div' ).hide();
-		$( '#bar-expanded' ).show();
-		initFilters();
+		if( $( this ).hasClass( 'selected' ) ){
+			$( '#bar-expanded' ).hide();
+			$( this ).removeClass( 'selected' );
+		}
+		else {
+			$( this ).siblings( '.selected' ).removeClass( 'selected' );
+			$( this ).addClass( 'selected' );
+			
+			$( '#bar-expanded > div' ).hide();
+			$( '#bar-expanded' ).show();
+			initFilters();
+		}
 	});
 	
 	$( '#tags-button' ).on( 'click', function(){
-		$( this ).siblings( '.selected' ).removeClass( 'selected' );
-		$( this ).addClass( 'selected' );
-		
-		$( '#bar-expanded > div' ).hide();
-		$( '#bar-expanded' ).show();
-		initTags();
+		if( $( this ).hasClass( 'selected' ) ){
+			$( '#bar-expanded' ).hide();
+			$( this ).removeClass( 'selected' );
+		}
+		else {
+			$( this ).siblings( '.selected' ).removeClass( 'selected' );
+			$( this ).addClass( 'selected' );
+			
+			$( '#bar-expanded > div' ).hide();
+			$( '#bar-expanded' ).show();
+			initTags();
+		}
 	});
 	
 	$( '#summary-button' ).on( 'click', function(){
-		$( this ).siblings( '.selected' ).removeClass( 'selected' );
-		$( this ).addClass( 'selected' );
-		
-		$( '#bar-expanded > div' ).hide();
-		$( '#bar-expanded' ).show();
-		initSummary();
+		if( $( this ).hasClass( 'selected' ) ){
+			$( '#bar-expanded' ).hide();
+			$( this ).removeClass( 'selected' );
+		}
+		else {
+			$( this ).siblings( '.selected' ).removeClass( 'selected' );
+			$( this ).addClass( 'selected' );
+			
+			$( '#bar-expanded > div' ).hide();
+			$( '#bar-expanded' ).show();
+			initSummary();
+		}
 	});
 	
 	$( '#about-button' ).on( 'click', function(){
