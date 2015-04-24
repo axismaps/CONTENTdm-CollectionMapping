@@ -52,7 +52,8 @@
 	color: #999;
 }
 
-#bar-expanded > div > div{
+#bar-expanded #filters-expanded > div,
+#bar-expanded #tags-expanded > div{
 	padding: 20px;
 	border-left: 1px solid #000;
 	border-right: 1px solid #000;
@@ -71,6 +72,24 @@
 .expanded-section{
 	
 }
+
+/* Reports section */
+
+#reports-expanded .expanded-title{
+	padding: 20px;
+}
+
+#reports-accordion p {
+	color: #000;
+	background: #fff;
+}
+
+#reports-accordion p:hover {
+	color: #000;
+	cursor: initial;
+}
+
+/* Filters and Tags section */
 
 #filters-expanded .expanded-section p,
 #tags-expanded .expanded-section p{

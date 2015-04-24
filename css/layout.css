@@ -50,6 +50,7 @@ html, body{
 	height: 100%;
 	width: 300px;  /* TODO: May want to calculate this later */
 	background-color: #444;
+	overflow: auto;
 }
 
 /* Map */

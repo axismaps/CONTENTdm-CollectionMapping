@@ -88,12 +88,25 @@ function sidebarEvents() {
 	});
 }
 
-function initAllDocs(){
+function allDocs(){
 	
 }
 
 function initReports(){
 	$( '#reports-expanded' ).show();
+	
+	$( '<div/>', {
+		id: "reports-accordion"
+	}).appendTo( '#reports-expanded .expanded-section' );
+	
+	$.map( DataVars.data.entries, function( v ) {
+		$( '#reports-accordion' ).append(
+			'<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>',
+			'<div><p>' + v.descri + '</p></div>'
+		);
+	});
+	
+	$( '#reports-accordion' ).accordion();
 }
 
 function initFilters(){
@@ -166,8 +179,6 @@ function initTags(){
 			}
 		});
 	});
-	
-	
 }
 
 function initSummary(){

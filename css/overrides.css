@@ -1,5 +1,7 @@
 /* Jquery-UI Overrides */
 
+/* Slider */
+
 .ui-slider-horizontal {
 	height: 1px;
 	background: #999;
@@ -22,4 +24,14 @@
 .ui-slider-handle:hover{
 	background: #fff !important;
 	cursor: pointer;
+}
+
+/* Accordion */
+
+.ui-accordion,
+.ui-accordion-header,
+.ui-accordion-content {
+	background: none;
+	border: none;
+	padding: 0 !important;
 }

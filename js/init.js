@@ -33,7 +33,7 @@ function initEvents(){
 function loadData(){
 	$.get( "loadData.php", {
 		collection: AppVars.collectionAlias,
-		fields: ['subjec', 'date', 'covera']
+		fields: ['subjec', 'date', 'covera', 'descri']
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
 		console.log( DataVars );
