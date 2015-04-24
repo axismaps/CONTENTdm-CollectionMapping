@@ -7,61 +7,90 @@ function initSidebar(){
 function sidebarEvents() {
 	$( '#all-docs-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).hide();
-		//initAllDocs();
-		
+				
 		$( this ).addClass( 'selected' );
 		$( '#reports-button' ).removeClass( 'selected' );
 		$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
-		
 		$( '#secondary-buttons div' ).hide();
 		$( '#filters-button' ).show();
 		$( '#tags-button' ).show();
+		
+		initAllDocs();
 	});
 	
 	$( '#reports-button' ).on( 'click', function(){
-		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') ) $( '#bar-expanded' ).hide();
-		else {
-			$( '#bar-expanded' ).show();
-			//initReports();
-		}
-		
 		$( this ).addClass( 'selected' );
 		$( '#all-docs-button' ).removeClass( 'selected' );
 		
 		$( '#secondary-buttons div' ).hide();
 		$( '#summary-button' ).show();
+		
+		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').find( '.selected' ).length == 0 ) $( '#bar-expanded' ).hide();
+		
+		if( $( '#secondary-buttons').find( '.selected' ).length > 0 ) {
+			$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
+			$( '#bar-expanded > div' ).hide();
+			initReports();
+		}
+		else {
+			$( '#bar-expanded > div' ).hide();
+			$( '#bar-expanded' ).show();
+			initReports();
+		}
 	});
 	
 	$( '#filters-button' ).on( 'click', function(){
 		$( this ).siblings( '.selected' ).removeClass( 'selected' );
 		$( this ).addClass( 'selected' );
 		
+		$( '#bar-expanded > div' ).hide();
 		$( '#bar-expanded' ).show();
-		$( '#bar-expanded' ).text( 'Initialize Filters' );
-		//initFilters();
+		initFilters();
 	});
 	
 	$( '#tags-button' ).on( 'click', function(){
 		$( this ).siblings( '.selected' ).removeClass( 'selected' );
 		$( this ).addClass( 'selected' );
 		
-		//initTags();
+		$( '#bar-expanded > div' ).hide();
 		$( '#bar-expanded' ).show();
-		$( '#bar-expanded' ).text( 'Initialize Tags' );
+		initTags();
 	});
 	
 	$( '#summary-button' ).on( 'click', function(){
 		$( this ).siblings( '.selected' ).removeClass( 'selected' );
 		$( this ).addClass( 'selected' );
 		
-		//initSummary();
+		$( '#bar-expanded > div' ).hide();
 		$( '#bar-expanded' ).show();
-		$( '#bar-expanded' ).text( 'Initialize Summary' );
+		initSummary();
 	});
 	
 	$( '#about-button' ).on( 'click', function(){
-		//initAbout();
-		$( '#bar-expanded' ).show();
-		$( '#bar-expanded' ).text( 'Initialize About' );
+		initAbout();
 	});
+}
+
+function initAllDocs(){
+	
+}
+
+function initReports(){
+	$( '#reports-expanded' ).show();
+}
+
+function initFilters(){
+	
+}
+
+function initTags(){
+	
+}
+
+function initSummary(){
+	
+}
+
+function initAbout(){
+	alert( 'About lightbox will show up here' );
 }
