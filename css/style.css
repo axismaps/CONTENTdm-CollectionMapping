@@ -10,13 +10,18 @@
 
 #bar .sidebar-button{
 	text-align: center;
-	padding: 10px 0;
+	padding: 20px 0;
 	cursor: pointer;
 	color: #111;
 }
 
 #bar .sidebar-button:hover{
 	color: #ddd;
+}
+
+#bar .sidebar-button.selected{
+	background-color: #B42933;
+	color: #fff;
 }
 
 #bar hr{
