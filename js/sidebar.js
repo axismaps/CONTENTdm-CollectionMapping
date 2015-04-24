@@ -103,10 +103,22 @@ function initFilters(){
 	
 	$( '#date-range' ).append( '<h3>Date Range</h3>' );
 	$( '#date-range' ).append( 
-		'<span>' + DataVars.data.minYear + '</span>', 
-		'<span>' + " SLIDER GOES HERE " + '</span>',
-		'<span>' + DataVars.data.maxYear + '</span>'
+		'<span id="minYear"></span>', 
+		'<div id="date-slider"></div>',
+		'<span id="maxYear"></span>'
 	);
+	$( '#date-slider' ).slider({
+		range: true,
+		min: DataVars.data.minYear,
+		max: DataVars.data.maxYear,
+		values: [ 1800, 1900 ],
+		slide: function( event, ui ){
+			$( '#minYear' ).text( ui.values[ 0 ] );
+			$( '#maxYear' ).text( ui.values[ 1 ] );
+		}
+	});
+	$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
+	$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 	
 	$( '#format' ).append( '<h3>Format</h3>' );
 	$.map( DataVars.data.formats, function( v ){
