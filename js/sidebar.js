@@ -101,6 +101,7 @@ function initFilters(){
 	
 	$( '.expanded-section' ).empty();
 	
+	//Date Slider
 	$( '#date-range' ).append( '<h3>Date Range</h3>' );
 	$( '#date-range' ).append( 
 		'<span id="minYear"></span>', 
@@ -111,7 +112,7 @@ function initFilters(){
 		range: true,
 		min: DataVars.data.minYear,
 		max: DataVars.data.maxYear,
-		values: [ 1800, 1900 ],
+		values: [ 1800, 1900 ], //TODO: Should this be dynamically set?
 		slide: function( event, ui ){
 			$( '#minYear' ).text( ui.values[ 0 ] );
 			$( '#maxYear' ).text( ui.values[ 1 ] );
@@ -120,9 +121,24 @@ function initFilters(){
 	$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
 	$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 	
+	//Formats
 	$( '#format' ).append( '<h3>Format</h3>' );
 	$.map( DataVars.data.formats, function( v ){
-		$( '#format' ).append( '<p>' + v + '</p>' );
+		$('<p/>' , {
+			text: v
+		})
+		.appendTo( $( '#format' ) )
+		.on( 'click', function() {
+			var text = $( this ).text();
+			$( this ).empty().text( text );
+			
+			if( $( this ).hasClass( 'selected' ) ){
+				$( this ).removeClass( 'selected' );
+			} else {
+				$( this ).append( "<i class='fa fa-check'></i>" );
+				$( this ).addClass( 'selected' );
+			}
+		});
 	});
 }
 
@@ -131,10 +147,27 @@ function initTags(){
 	
 	var sect = $( '#tags-expanded .expanded-section' );
 	sect.empty();
+	
 	sect.append( '<h3>Tags</h3>' );
 	$.map( DataVars.data.tags, function( v ){
-		sect.append( '<p>' + v + '</p>' );
+		$('<p/>' , {
+			text: v
+		})
+		.appendTo( sect )
+		.on( 'click', function() {
+			var text = $( this ).text();
+			$( this ).empty().text( text );
+			
+			if( $( this ).hasClass( 'selected' ) ){
+				$( this ).removeClass( 'selected' );
+			} else {
+				$( this ).append( "<i class='fa fa-check'></i>" );
+				$( this ).addClass( 'selected' );
+			}
+		});
 	});
+	
+	
 }
 
 function initSummary(){

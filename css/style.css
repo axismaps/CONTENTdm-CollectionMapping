@@ -74,8 +74,14 @@
 
 #filters-expanded .expanded-section p,
 #tags-expanded .expanded-section p{
-	padding-bottom: 5px;
+	padding: 20px 0;
 	border-bottom: 1px solid #333;
+	margin: 0;
+}
+
+#filters-expanded .expanded-section p:first-of-type,
+#tags-expanded .expanded-section p:first-of-type{
+	border-top: 1px solid #333;
 }
 
 #filters-expanded #date-range > span{
@@ -95,6 +101,19 @@
 
 #date-range #maxYear {
 	margin-left: 10px;
+}
+
+.expanded-section p:hover{
+	color: #fff;
+	cursor: pointer;
+}
+
+.expanded-section p.selected{
+	color: #fff;
+}
+
+.expanded-section p > i{
+	float: right;
 }
 
 /* Map */
