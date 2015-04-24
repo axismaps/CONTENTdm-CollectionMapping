@@ -99,16 +99,27 @@ function initReports(){
 function initFilters(){
 	$( '#filters-expanded' ).show();
 	
+	$( '.expanded-section' ).empty();
+	
+	$( '#date-range' ).append( '<h3>Date Range</h3>' );
 	$( '#date-range' ).append( 
-		'<p>' + DataVars.data.minYear + '</p>', 
-		'<p>' + DataVars.data.maxYear + '</p>'
+		'<span>' + DataVars.data.minYear + '</span>', 
+		'<span>' + " SLIDER GOES HERE " + '</span>',
+		'<span>' + DataVars.data.maxYear + '</span>'
 	);
+	
+	$( '#format' ).append( '<h3>Format</h3>' );
+	$.map( DataVars.data.formats, function( v ){
+		$( '#format' ).append( '<p>' + v + '</p>' );
+	});
 }
 
 function initTags(){
 	$( '#tags-expanded' ).show();
 	
 	var sect = $( '#tags-expanded .expanded-section' );
+	sect.empty();
+	sect.append( '<h3>Tags</h3>' );
 	$.map( DataVars.data.tags, function( v ){
 		sect.append( '<p>' + v + '</p>' );
 	});
