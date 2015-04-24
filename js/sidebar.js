@@ -26,7 +26,6 @@ function sidebarEvents() {
 		else {
 			$( '#bar-expanded' ).show();
 			//initReports();
-			$( '#bar-expanded' ).text( 'Initialize Reports' );
 		}
 		
 		$( this ).addClass( 'selected' );
@@ -37,18 +36,27 @@ function sidebarEvents() {
 	});
 	
 	$( '#filters-button' ).on( 'click', function(){
+		$( this ).siblings( '.selected' ).removeClass( 'selected' );
+		$( this ).addClass( 'selected' );
+		
 		$( '#bar-expanded' ).show();
 		$( '#bar-expanded' ).text( 'Initialize Filters' );
 		//initFilters();
 	});
 	
 	$( '#tags-button' ).on( 'click', function(){
+		$( this ).siblings( '.selected' ).removeClass( 'selected' );
+		$( this ).addClass( 'selected' );
+		
 		//initTags();
 		$( '#bar-expanded' ).show();
 		$( '#bar-expanded' ).text( 'Initialize Tags' );
 	});
 	
 	$( '#summary-button' ).on( 'click', function(){
+		$( this ).siblings( '.selected' ).removeClass( 'selected' );
+		$( this ).addClass( 'selected' );
+		
 		//initSummary();
 		$( '#bar-expanded' ).show();
 		$( '#bar-expanded' ).text( 'Initialize Summary' );

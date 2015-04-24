@@ -1,5 +1,9 @@
 /* General Styles */
 
+.italic {
+	font-style: italic;
+}
+
 
 /* Sidebar */
 
@@ -19,8 +23,12 @@
 	color: #ddd;
 }
 
-#bar .sidebar-button.selected{
+#bar .sidebar-button.primary.selected{
 	background-color: #B42933;
+	color: #fff;
+}
+
+#bar .sidebar-button.secondary.selected{
 	color: #fff;
 }
 
@@ -38,6 +46,12 @@
 	vertical-align: bottom;
 	height: 1px;
 }
+
+/* Expanded Sidebar specific styles */
+
+#reports-expanded span {
+	
+} 
 
 /* Map */
 
