@@ -48,10 +48,20 @@
 }
 
 /* Expanded Sidebar specific styles */
+#bar-expanded > div > div{
+	padding: 20px;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
 
-#reports-expanded span {
+.expanded-title{
 	
-} 
+}
+
+.expanded-section{
+	
+}
 
 /* Map */
 
