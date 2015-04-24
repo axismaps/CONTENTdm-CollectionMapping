@@ -34,8 +34,7 @@ function initEvents(){
 function loadData(){
 	$.get( "loadData.php", {
 		collection: AppVars.collectionAlias,
-		fields: ['subjec', 'date', 'covera'],
-		force: 'true'
+		fields: ['subjec', 'date', 'covera']
 	}).done( function( data ) {
 		$( '#timeline' ).html( data );
 	});

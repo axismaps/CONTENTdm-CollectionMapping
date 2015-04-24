@@ -1,7 +1,6 @@
 <?php
 
-//TODO: if no cache file present on system, run loadData() (probably only needed for first run, but good to have it anyways
-if( checkCacheAge() OR $_REQUEST["force"] ) {
+if( checkCacheAge() OR array_key_exists( 'force', $_REQUEST ) ) {
 	loadData();
 }
 
@@ -11,12 +10,20 @@ fclose( $data );
 
 
 function checkCacheAge() {
-	//TODO: return false if cache file less than a week old
-	return false;
+	if( ! file_exists( 'data.json' ) ) {
+		return true;
+	}
+	
+	if( time() - filemtime( 'data.json' ) > 7 * 24 * 3600) {
+		return true;
+	} else {
+		return false;
+	}
 }
 
 function loadData( ){
 	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
+	echo 'loadData function called    ';
 	
 	$ch = curl_init();
 	$temp = fopen( "temp.json", "w" );
