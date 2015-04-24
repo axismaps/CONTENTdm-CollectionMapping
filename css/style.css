@@ -12,6 +12,7 @@
 	text-align: center;
 	padding: 10px 0;
 	cursor: pointer;
+	color: #111;
 }
 
 #bar .sidebar-button:hover{
