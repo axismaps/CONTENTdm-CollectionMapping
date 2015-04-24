@@ -65,15 +65,18 @@ function processData(){
 	$entries = [];
 	
 	foreach( $temp_json -> records as $value ) {
+		//Convert date into exact format just in case
+		$value -> {'date'} = date_parse( $value -> {'date'} );
+		
 		array_push( $entries, $value );
 		if ( ! in_array( $value -> filetype, $formats ) )
 			array_push( $formats, $value -> filetype );
 		if ( ! in_array( $value -> filetype, $tags ) )
 			array_push( $tags, $value -> filetype ); //TODO: Change this to the tag field in the db once known
-		if ( $minYear > substr( $value -> {'date'}, 0, 4 ) )
-			$minYear = substr( $value -> {'date'}, 0, 4 );
-		if ( $maxYear < substr( $value -> {'date'}, 0, 4 ) )
-			$maxYear = substr( $value -> {'date'}, 0, 4 );
+		if ( $minYear > $value -> {'date'}['year'] )
+			$minYear = $value -> {'date'}['year'];
+		if ( $maxYear < $value -> {'date'}['year'] )
+			$maxYear = $value -> {'date'}['year'];
 	}
 	
 	$json = [ 
