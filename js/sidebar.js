@@ -37,22 +37,26 @@ function sidebarEvents() {
 	});
 	
 	$( '#filters-button' ).on( 'click', function(){
+		$( '#bar-expanded' ).show();
+		$( '#bar-expanded' ).text( 'Initialize Filters' );
 		//initFilters();
-		console.log( 'initFilters()' );
 	});
 	
 	$( '#tags-button' ).on( 'click', function(){
 		//initTags();
-		console.log( 'initTags()' );
+		$( '#bar-expanded' ).show();
+		$( '#bar-expanded' ).text( 'Initialize Tags' );
 	});
 	
 	$( '#summary-button' ).on( 'click', function(){
 		//initSummary();
-		console.log( 'initSummary()' );
+		$( '#bar-expanded' ).show();
+		$( '#bar-expanded' ).text( 'Initialize Summary' );
 	});
 	
 	$( '#about-button' ).on( 'click', function(){
 		//initAbout();
-		console.log( 'initAbout()' );
+		$( '#bar-expanded' ).show();
+		$( '#bar-expanded' ).text( 'Initialize About' );
 	});
 }
