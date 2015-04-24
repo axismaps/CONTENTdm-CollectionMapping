@@ -6,6 +6,7 @@ $( document ).ready(function() {
 /* Globals */
 var ServerVars,
 	AppVars = {
+		collectionAlias: 'p15963coll18',
 		map: {},
 		mapBounds: {
 			north: 27.5,
@@ -19,6 +20,7 @@ var ServerVars,
 	DataVars;
 
 function init() {
+	loadData();
 	initEvents();
 	initSidebar();
 	initMap();
@@ -26,4 +28,13 @@ function init() {
 
 function initEvents(){
 	sidebarEvents();
+}
+
+function loadData(){
+	$.get( "loadData.php", {
+		collection: AppVars.collectionAlias,
+		fields: ['subjec', 'date', 'covera']
+	}).done( function( data ) {
+		$( '#timeline' ).html( data );
+	});
 }
