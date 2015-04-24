@@ -3,14 +3,34 @@
 
 /* Sidebar */
 
-#bar > div{
+#bar {
+	border-collapse: collapse;
+	display: table;
+}
+
+#bar .sidebar-button{
 	text-align: center;
 	padding: 10px 0;
 	cursor: pointer;
 }
 
+#bar .sidebar-button:hover{
+	color: #ddd;
+}
+
+#bar hr{
+	width: 80%;
+	border: 1px solid #444;
+}
+
 #bar i {
 	display: block;
+}
+
+#bar .bottom {
+	display: table-row;
+	vertical-align: bottom;
+	height: 1px;
 }
 
 /* Map */
