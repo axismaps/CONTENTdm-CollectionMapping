@@ -80,15 +80,15 @@ function initReports(){
 }
 
 function initFilters(){
-	
+	$( '#filters-expanded' ).show();
 }
 
 function initTags(){
-	
+	$( '#tags-expanded' ).show();
 }
 
 function initSummary(){
-	
+	$( '#summary-expanded' ).show();
 }
 
 function initAbout(){
