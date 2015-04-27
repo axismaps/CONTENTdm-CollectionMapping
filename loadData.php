@@ -69,8 +69,8 @@ function processData(){
 		$value -> {'date'} = date_parse( $value -> {'date'} );
 		
 		array_push( $entries, $value );
-		if ( ! in_array( $value -> filetype, $formats ) )
-			array_push( $formats, $value -> filetype );
+		if ( ! in_array( $value -> format, $formats ) )
+			array_push( $formats, $value -> format);
 		if ( ! in_array( $value -> filetype, $tags ) )
 			array_push( $tags, $value -> filetype ); //TODO: Change this to the tag field in the db once known
 		if ( $minYear > $value -> {'date'}['year'] )

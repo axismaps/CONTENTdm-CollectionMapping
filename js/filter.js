@@ -16,13 +16,19 @@ function filter( type ){
 			entries: []
 		};
 		_.each( data.entries, function( v, k, l ){
-			if( v.date.year >= filters.minYear && 
-				v.date.year <= filters.maxYear &&
-				_.indexOf( filters.format, v.filetype ) >= 0 ) {
-					
+			if( v.date.year >= filters.minYear && v.date.year <= filters.maxYear ){
+				
+				if( filters.format.length > 0 ) {
+					if (_.indexOf( filters.format, v.filetype ) >= 0) {
+						if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
+						if( fD.maxYear <= v.date.year ) fD.maxYear = v.date.year;
+						fD.entries.push( v );
+					}
+				} else {
 					if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
 					if( fD.maxYear <= v.date.year ) fD.maxYear = v.date.year;
 					fD.entries.push( v );
+				}
 			}
 		});
 		

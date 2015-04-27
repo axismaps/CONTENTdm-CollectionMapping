@@ -40,7 +40,7 @@ function initEvents(){
 function loadData(){
 	$.get( "loadData.php", {
 		collection: AppVars.collectionAlias,
-		fields: ['subjec', 'date', 'covera', 'descri']
+		fields: ['subjec', 'date', 'covera', 'descri', 'format']
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
