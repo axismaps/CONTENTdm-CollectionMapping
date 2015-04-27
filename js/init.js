@@ -15,7 +15,10 @@ var ServerVars = {},
 			west: 90.5
 		},
 		maxZoom: 10,
-		minZoom: 4
+		minZoom: 4,
+		years: undefined,
+		selectedYear: undefined,
+		selectedYearIndex: undefined
 	},
 	DataVars = {};
 
@@ -23,7 +26,6 @@ function init() {
 	loadData();
 	initEvents();
 	initMap();
-	drawTimeline();
 }
 
 function initEvents(){
@@ -51,5 +53,6 @@ function loadData(){
 		fields: ['subjec', 'date', 'covera']
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
+		drawTimeline();
 	});
 }

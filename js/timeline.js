@@ -1,9 +1,15 @@
 function drawTimeline(){
-	// testing
-	for ( var i = 1900; i < 1970; i ++ ){
-		drawYear( i );
+	DataVars.data.entries = _.sortBy( DataVars.data.entries, function(d){
+		return parseInt(d.date.year || 0)*100 + parseInt(d.date.month || 0)*10 + parseInt(d.date.day || 0);
+	});
+	var allYears = _.map( DataVars.data.entries, function(d){ return d.date.year } );
+
+	AppVars.years = _.uniq( _.reject( allYears, function(d){ return !d } ) );
+
+	for( var i in AppVars.years ){
+		drawYear( AppVars.years[i] );
 	}
-	selectYear( 1900 );
+	selectYear( AppVars.years[0] );
 }
 
 function drawYear( year ){
@@ -14,8 +20,9 @@ function drawYear( year ){
 }
 
 function selectYear( year ){
-	if ( !$( "#year" + year).length ) return;
-		$( ".timeline-year.active" ).removeClass( "active" );
+	if ( year == undefined || !$( "#year" + year).length ) return;
+	AppVars.selectedYearIndex = AppVars.years.indexOf( year );
+	$( ".timeline-year.active" ).removeClass( "active" );
 	$( "#year" + year).addClass( "active" );
 	$( "#year" ).html( year );
 
@@ -25,12 +32,12 @@ function selectYear( year ){
 
 function advanceTimeline(){
 	if ( AppVars.selectedYear == undefined ) return;
-	selectYear( AppVars.selectedYear + 1 );
+	selectYear( AppVars.years[ AppVars.selectedYearIndex + 1 ] );
 }
 
 function rewindTimeline(){
 	if ( AppVars.selectedYear == undefined ) return;
-	selectYear( AppVars.selectedYear - 1 );
+	selectYear( AppVars.years[ AppVars.selectedYearIndex - 1 ] );
 }
 
 function recenterTimeline(){
