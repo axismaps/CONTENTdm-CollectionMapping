@@ -140,7 +140,8 @@ function initReports(){
 	});
 	
 	$( '#reports-accordion' ).accordion({
-		heightStyle: "content"
+		heightStyle: "content",
+		icons: false
 	});
 }
 
@@ -150,7 +151,7 @@ function initFilters(){
 	$( '.expanded-section' ).empty();
 	
 	//Date Slider
-	$( '#date-range' ).append( '<h3>Date Range</h3>' );
+	$( '#date-range' ).append( '<h4>Date Range</h4>' );
 	$( '#date-range' ).append( 
 		'<span id="minYear"></span>', 
 		'<div id="date-slider"></div>',
@@ -170,7 +171,7 @@ function initFilters(){
 	$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 	
 	//Formats
-	$( '#format' ).append( '<h3>Format</h3>' );
+	$( '#format' ).append( '<h4>Format</h4>' );
 	$.map( DataVars.data.formats, function( v ){
 		$('<p/>' , {
 			text: v
@@ -196,7 +197,7 @@ function initTags(){
 	var sect = $( '#tags-expanded .expanded-section' );
 	sect.empty();
 	
-	sect.append( '<h3>Tags</h3>' );
+	sect.append( '<h4>Tags</h4>' );
 	$.map( DataVars.data.tags, function( v ){
 		$('<p/>' , {
 			text: v

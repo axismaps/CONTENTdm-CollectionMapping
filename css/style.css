@@ -60,7 +60,7 @@
 	border-bottom: 1px solid #000;
 }
 
-#bar-expanded h3{
+#bar-expanded h4{
 	text-transform: uppercase;
 	color: #fff;
 }
@@ -80,10 +80,22 @@
 }
 
 #reports-accordion h3{
-	font-size: 12px;
+	color: #fff;
+	font-size: 14px;
 	text-overflow: ellipsis;
 	white-space: nowrap;
 	overflow: hidden;
+	border-radius: 0;
+}
+
+#reports-accordion h3 i{
+	margin: 0 10px;
+	font-size: 24px;
+	vertical-align: middle;
+}
+
+#reports-accordion h3:hover{
+	background-color: #999;
 }
 
 #reports-accordion > div{
