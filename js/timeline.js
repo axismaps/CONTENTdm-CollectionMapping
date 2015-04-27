@@ -39,6 +39,12 @@ function drawYear( year ){
 	});
 	_.each( entries, function(d,i){
 		var $entry = $( "<div class='timeline-entry e" + i + "'>" );
+
+		$( "<img>" )
+			.attr( "src", "img/test.jpg" )	// fake image source for testing, obvs
+			.appendTo( $entry );
+		$( "<div class='mask'>" ).appendTo( $entry );
+
 		$entry.append( "<p class='entry-title'>" + year + " | " + d.title + "</p>" )
 			.append( "<p>Subject: " + d.subjec + "</p>" );
 
