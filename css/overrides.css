@@ -38,5 +38,6 @@
 .ui-accordion-header {
 	background: none;
 	border: none;
-	padding: 5px !important;
+	border-bottom: 1px solid #666;
+	padding: 10px 5px !important;
 }

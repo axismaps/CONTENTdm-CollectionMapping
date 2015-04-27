@@ -96,6 +96,7 @@
 	white-space: nowrap;
 	overflow: hidden;
 	border-radius: 0;
+	margin: 0;
 }
 
 #reports-accordion h3 i{
