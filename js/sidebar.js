@@ -173,6 +173,9 @@ function initFilters(){
 		slide: function( event, ui ){
 			$( '#minYear' ).text( ui.values[ 0 ] );
 			$( '#maxYear' ).text( ui.values[ 1 ] );
+			DataVars.filters.minYear = ui.values[ 0 ];
+			DataVars.filters.maxYear = ui.values[ 1 ];
+			filter();
 		}
 	});
 	$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
@@ -198,9 +201,12 @@ function initFilters(){
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
+				DataVars.filters.format = _.without( DataVars.filters.format, $( this ).text() );
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
+				DataVars.filters.format.push( $( this ).text() );
+				filter();
 			}
 		});
 	});

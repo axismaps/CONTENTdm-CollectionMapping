@@ -17,7 +17,14 @@ var ServerVars = {},
 		maxZoom: 10,
 		minZoom: 4
 	},
-	DataVars = {};
+	DataVars = {
+		filters: {
+			minYear: 0,
+			maxYear: 9999,
+			format: [],
+			tags: []
+		}
+	};
 
 function init() {
 	loadData();
@@ -36,6 +43,7 @@ function loadData(){
 		fields: ['subjec', 'date', 'covera', 'descri']
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
+		DataVars.filteredData = $.parseJSON( data );
 		console.log( DataVars );
 	});
 }
