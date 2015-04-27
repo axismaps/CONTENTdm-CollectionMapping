@@ -158,7 +158,16 @@ html, body{
 	top: 0;
 }
 .timeline-entry p.entry-title{
+	width: 370px;
 	color: white;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+
+.timeline-entry.expanded p.entry-title{
+	white-space: normal;
 }
 
 .timeline-entry .mask{
