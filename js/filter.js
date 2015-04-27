@@ -15,21 +15,17 @@ function filter( type ){
 			maxYear: 0,
 			entries: []
 		};
-		_.each( data.entries, function( v, k, l ){
-			if( v.date.year >= filters.minYear && v.date.year <= filters.maxYear ){
-				
-				if( filters.format.length > 0 ) {
-					if (_.indexOf( filters.format, v.filetype ) >= 0) {
-						if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
-						if( fD.maxYear <= v.date.year ) fD.maxYear = v.date.year;
-						fD.entries.push( v );
-					}
-				} else {
-					if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
-					if( fD.maxYear <= v.date.year ) fD.maxYear = v.date.year;
-					fD.entries.push( v );
-				}
-			}
+		
+		_.each( data.entries, function( v ) {
+			//filters
+			if( v.date.year < filters.minYear ) return false;
+			if ( v.date.year > filters.maxYear ) return false;
+			if ( filters.format.length > 0 && _.indexOf( filters.format, v.filetype ) == -1 ) return false;
+			
+			//update minYear and maxYear and push onto array
+			if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
+			if( fD.maxYear <= v.date.year ) fD.maxYear = v.date.year;
+			fD.entries.push( v );
 		});
 		
 		DataVars.filteredData = fD;
