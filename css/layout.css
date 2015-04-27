@@ -84,9 +84,11 @@ html, body{
 }
 
 #year{
-	margin: 10px 0;
+	margin: 0;
 	color: white;
 	text-align: center;
+	height: 40px;
+	line-height: 40px;
 }
 
 .timeline-button{
@@ -133,8 +135,8 @@ html, body{
 	transition: height .5s;
 }
 
-.timeline-entry.expanded{
-	height: 300px;
+.timeline-entry p, .timeline-entry div{
+	margin: 15px;
 }
 
 /* Lightbox */

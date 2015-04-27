@@ -15,10 +15,17 @@ function drawTimeline(){
 		var $entry = $(this).parent(),
 			$year = $entry.parent();
 		if ( !$year.hasClass( "active" ) || $entry.hasClass( "expanded" ) ) return;
-		var totalHeight = $entry.parent().height();
-		$( ".timeline-entry.expanded", $entry.parent() ).removeClass( "expanded" );
-		$entry.addClass( "expanded" );
+		$( ".timeline-entry.expanded", $entry.parent() )
+			.removeClass( "expanded" )
+			.removeAttr( "style" );
+		expandEntry( $entry );
 	});
+}
+
+function expandEntry( $entry ){
+	var totalHeight = $("#timeline-inner").height();
+	$entry.addClass( "expanded" )
+		.css( "height", totalHeight - $entry.siblings().length * 51  + "px");
 }
 
 function drawYear( year ){
@@ -32,12 +39,12 @@ function drawYear( year ){
 	});
 	_.each( entries, function(d,i){
 		var $entry = $( "<div class='timeline-entry e" + i + "'>" );
-		$entry.append( "<p class='entry-title'>" + d.title + "</p>" )
-			.append( "<p>Subject: " + d.subjec + "<p>" );
-		if ( i == 0 ) $entry.addClass( "expanded" );
+		$entry.append( "<p class='entry-title'>" + year + " | " + d.title + "</p>" )
+			.append( "<p>Subject: " + d.subjec + "</p>" );
 
 		$div.append( $entry );
 	});
+	expandEntry( $(".timeline-entry.e0", $div) );
 }
 
 function selectYear( year ){
