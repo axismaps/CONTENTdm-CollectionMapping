@@ -87,15 +87,20 @@ html, body{
 	margin: 0;
 	color: white;
 	text-align: center;
-	height: 40px;
-	line-height: 40px;
+	height: 50px;
+	line-height: 50px;
 }
 
 .timeline-button{
-	padding: 10px;
-	background-color: #999;
+	height: 34px;
+	line-height: 34px;
+	margin: 8px;
+	width: 100px;
+	border-radius: 3px;
+	background-color: #333;
 	color: #ccc;
 	cursor: pointer;
+	text-align: center;
 }
 #timeline-prev{
 	float: left;
@@ -113,10 +118,10 @@ html, body{
 .timeline-year{
 	height: 100%;
 	width: 400px;
-	background-color: #ccc;
+	background-color: #333;
 	display: inline-block;
 	vertical-align: top;
-	opacity: .5;
+	opacity: .25;
 	transition: opacity 1s;
 }
 
