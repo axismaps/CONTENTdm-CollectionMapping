@@ -108,14 +108,16 @@ function initReports(){
 			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
 			var width = $( '#reports-accordion' ).width();
 			
-			$( '<div/>' ).appendTo( '#reports-accordion div:last-child' ).css({
+			$( '<div/>' ).appendTo( '#reports-accordion > div:last-child' ).css({
 				background:  'url(' + url + ')' + 'no-repeat 50% top',
 				width: width + 'px',
 				height: width + 'px'
 			});
 		}
 		
-		$( '#reports-accordion > div:last-child' ).append( '<p>' + v.descri + '</p>' );
+		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.descri ).succinct({
+			size: 300
+		});
 	});
 	
 	$( '#reports-accordion' ).accordion({
