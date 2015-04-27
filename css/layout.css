@@ -90,6 +90,7 @@ html, body{
 	text-align: center;
 	height: 50px;
 	line-height: 50px;
+	font-weight: normal;
 }
 
 .timeline-button{
@@ -102,6 +103,7 @@ html, body{
 	color: #ccc;
 	cursor: pointer;
 	text-align: center;
+	font-weight: lighter;
 }
 #timeline-prev{
 	float: left;
