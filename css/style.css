@@ -4,6 +4,9 @@
 	font-style: italic;
 }
 
+h1, h2, h3{
+	font-family: Oswald, sans-serif;
+}
 
 /* Sidebar */
 
