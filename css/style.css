@@ -90,11 +90,17 @@
 	color: #000;
 	background: #fff;
 	font-size: 12px;
+	margin-top: 0;
+	padding: 10px;
 }
 
 #reports-accordion p:hover {
 	color: #000;
 	cursor: initial;
+}
+
+#reports-accordion div img{
+	height: 200px;
 }
 
 /* Filters and Tags section */

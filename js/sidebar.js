@@ -100,19 +100,22 @@ function initReports(){
 	}).appendTo( '#reports-expanded .expanded-section' );
 	
 	$.map( DataVars.data.entries, function( v ) {
-		var html = '<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>';
+		$( '#reports-accordion' ).append( '<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>' );
 		
-		html += '<div><p>';
+		$( '#reports-accordion' ).append( '<div/>' );
 		
 		if( v.filetype == "jpg" ) {
-			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=10&DMWIDTH=1000&DMHEIGHT=800';
+			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
 			var width = $( '#reports-accordion' ).width();
-			html += '<img src="' + url + '" width="' + width + '">';
+			
+			$( '<div/>' ).appendTo( '#reports-accordion div:last-child' ).css({
+				background:  'url(' + url + ')' + 'no-repeat 50% top',
+				width: width + 'px',
+				height: width + 'px'
+			});
 		}
 		
-		html += v.descri;
-		html += '</p></div>';
-		 $( '#reports-accordion' ).append( html );
+		$( '#reports-accordion > div:last-child' ).append( '<p>' + v.descri + '</p>' );
 	});
 	
 	$( '#reports-accordion' ).accordion({
