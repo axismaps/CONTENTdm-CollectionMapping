@@ -25,6 +25,11 @@ html, body{
 	background-color: #eee;
 }
 
+.line{
+	display: block;
+	margin: 10px 0;
+}
+
 /* Sidebar */
 
 #sidebar{

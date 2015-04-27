@@ -15,7 +15,7 @@ function sidebarEvents() {
 		$( '#filters-button' ).show();
 		$( '#tags-button' ).show();
 		
-		initAllDocs();
+		allDocs();
 	});
 	
 	$( '#reports-button' ).on( 'click', function(){
@@ -89,7 +89,7 @@ function sidebarEvents() {
 }
 
 function allDocs(){
-	
+	$( '.clear-text' ).click();
 }
 
 function initReports(){
@@ -151,7 +151,15 @@ function initFilters(){
 	$( '.expanded-section' ).empty();
 	
 	//Date Slider
-	$( '#date-range' ).append( '<h4>Date Range</h4>' );
+	$( '#date-range' ).append( '<div class="line"><span class="h4-title">Date Range</span><span class="clear-text">Clear</span></div>' );
+	
+	$( '#date-range .clear-text' ).on( 'click', function(){
+		$( '#date-slider' ).slider( "values", [1800, 1900] );
+		//TODO: make sure this resets the actual filters
+		$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
+		$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
+	});
+	
 	$( '#date-range' ).append( 
 		'<span id="minYear"></span>', 
 		'<div id="date-slider"></div>',
@@ -171,7 +179,14 @@ function initFilters(){
 	$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 	
 	//Formats
-	$( '#format' ).append( '<h4>Format</h4>' );
+	$( '#format' ).append( '<div class="line"><span class="h4-title">Format</span><span class="clear-text">Clear</span></div>' );
+	
+	$( '#format .clear-text' ).on( 'click', function() {
+		$( '#format p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
+		//TODO: make sure this actually clears the filters
+	});
+	
+	
 	$.map( DataVars.data.formats, function( v ){
 		$('<p/>' , {
 			text: v
@@ -197,7 +212,12 @@ function initTags(){
 	var sect = $( '#tags-expanded .expanded-section' );
 	sect.empty();
 	
-	sect.append( '<h4>Tags</h4>' );
+	sect.append( '<div class="line"><span class="h4-title">Tags</span><span class="clear-text">Clear</span></div>' );
+	
+	$( '#tags-expanded .expanded-section .clear-text' ).on( 'click', function() {
+		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove(); //TODO: make sure this actually clears the filters on the tags
+	});
+	
 	$.map( DataVars.data.tags, function( v ){
 		$('<p/>' , {
 			text: v

@@ -60,8 +60,18 @@
 	border-bottom: 1px solid #000;
 }
 
-#bar-expanded h4{
+#bar-expanded .h4-title{
 	text-transform: uppercase;
+	color: #fff;
+}
+
+#bar-expanded .clear-text{
+	text-decoration: underline;
+	cursor: pointer;
+	float: right;
+}
+
+#bar-expanded .clear-text:hover{
 	color: #fff;
 }
 
