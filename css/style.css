@@ -99,10 +99,6 @@
 	cursor: initial;
 }
 
-#reports-accordion div img{
-	height: 200px;
-}
-
 /* Filters and Tags section */
 
 #filters-expanded .expanded-section p,
