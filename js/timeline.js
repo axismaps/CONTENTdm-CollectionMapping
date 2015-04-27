@@ -41,7 +41,7 @@ function drawYear( year ){
 		var $entry = $( "<div class='timeline-entry e" + i + "'>" );
 
 		$( "<img>" )
-			.attr( "src", "img/test.jpg" )	// fake image source for testing, obvs
+			.attr( "data-src", "img/test.jpg" )	// fake image source for testing, obvs
 			.appendTo( $entry );
 		$( "<div class='mask'>" ).appendTo( $entry );
 
@@ -62,6 +62,11 @@ function selectYear( year ){
 
 	AppVars.selectedYear = year;
 	recenterTimeline();
+
+	loadTimelineImages( year );	// load selected year images before surrounding years
+	for ( var i = AppVars.selectedYearIndex - 2; i <= AppVars.selectedYearIndex + 2; i++ ){
+		if ( i != AppVars.selectedYearIndex ) loadTimelineImages( AppVars.years[i] );
+	}
 }
 
 function advanceTimeline(){
@@ -79,5 +84,14 @@ function recenterTimeline(){
 	var left = -$( ".timeline-year.active" ).index() * $( ".timeline-year" ).outerWidth()
 			+ ( $( "#timeline" ).width()  - $( ".timeline-year" ).outerWidth() ) / 2;
 	$( "#timeline-inner" ).css( "left", left + "px" )
+}
 
+function loadTimelineImages(year){
+	if ( year == undefined || !$( "#year" + year).length ) return;
+	$( ".timeline-entry img", $( "#year" + year) ).each( function(){
+		if (typeof $(this).attr("src") !== typeof undefined && $(this).attr("src") !== false) {
+			return;
+		}
+		$(this).attr( "src", $(this).attr("data-src") );
+	});
 }

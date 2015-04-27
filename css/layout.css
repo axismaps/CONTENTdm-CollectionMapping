@@ -151,6 +151,7 @@ html, body{
 
 .timeline-entry p.entry-title, .timeline-entry .mask{
 	position: absolute;
+	width: 100%;
 	top: 0;
 }
 .timeline-entry p.entry-title{
@@ -160,7 +161,6 @@ html, body{
 .timeline-entry .mask{
 	margin: 0;
 	height: 100px;
-	width: 100%;
 	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
 	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
