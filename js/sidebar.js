@@ -108,10 +108,20 @@ function initReports(){
 			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
 			var width = $( '#reports-accordion' ).width();
 			
-			$( '<div/>' ).appendTo( '#reports-accordion > div:last-child' ).css({
+			$( '<div/>', {
+				'class' : 'accordion-image'
+			}).appendTo( '#reports-accordion > div:last-child' ).css({
 				background:  'url(' + url + ')' + 'no-repeat 50% top',
 				width: width + 'px',
 				height: width + 'px'
+			});
+			
+			$( '<div/>' )
+				.appendTo( '#reports-accordion > div:last-child > div' )
+				.html( '<i class="fa fa-expand fa-2x"></i>' )
+				.on( 'click', function(){
+					//TODO: Show lightbox of report summary
+					console.log( 'Show lightbox here' );
 			});
 		}
 		
@@ -119,7 +129,14 @@ function initReports(){
 			size: 300
 		});
 		
-		$( '#reports-accordion > div:last-child' ).append( '<div class="button">View Report <i class="fa fa-chevron-right"></i></div>');
+		$( '<div/>', {
+				'class': 'button',
+				html : 'View Report <i class="fa fa-chevron-right"></i>'
+		}).appendTo( '#reports-accordion > div:last-child' )
+		.on( 'click', function(){
+			//TODO: Show full report on click
+			console.log( v );
+		});
 	});
 	
 	$( '#reports-accordion' ).accordion({

@@ -94,6 +94,25 @@
 	padding-bottom: 10px !important;
 }
 
+#reports-accordion .accordion-image{
+	position: relative;
+}
+
+#reports-accordion .accordion-image > div {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: #fff;
+	padding: 10px;
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+#reports-accordion .accordion-image > div:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
 #reports-accordion p {
 	padding: 10px;
 }
