@@ -29,9 +29,14 @@
 /* Accordion */
 
 .ui-accordion,
-.ui-accordion-header,
 .ui-accordion-content {
 	background: none;
 	border: none;
 	padding: 0 !important;
+}
+
+.ui-accordion-header {
+	background: none;
+	border: none;
+	padding: 5px !important;
 }

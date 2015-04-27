@@ -79,9 +79,17 @@
 	padding: 20px;
 }
 
+#reports-accordion h3{
+	font-size: 12px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
 #reports-accordion p {
 	color: #000;
 	background: #fff;
+	font-size: 12px;
 }
 
 #reports-accordion p:hover {

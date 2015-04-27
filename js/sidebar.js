@@ -100,13 +100,24 @@ function initReports(){
 	}).appendTo( '#reports-expanded .expanded-section' );
 	
 	$.map( DataVars.data.entries, function( v ) {
-		$( '#reports-accordion' ).append(
-			'<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>',
-			'<div><p>' + v.descri + '</p></div>'
-		);
+		var html = '<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>';
+		
+		html += '<div><p>';
+		
+		if( v.filetype == "jpg" ) {
+			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=10&DMWIDTH=1000&DMHEIGHT=800';
+			var width = $( '#reports-accordion' ).width();
+			html += '<img src="' + url + '" width="' + width + '">';
+		}
+		
+		html += v.descri;
+		html += '</p></div>';
+		 $( '#reports-accordion' ).append( html );
 	});
 	
-	$( '#reports-accordion' ).accordion();
+	$( '#reports-accordion' ).accordion({
+		heightStyle: "content"
+	});
 }
 
 function initFilters(){
