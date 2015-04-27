@@ -155,9 +155,12 @@ function initFilters(){
 	
 	$( '#date-range .clear-text' ).on( 'click', function(){
 		$( '#date-slider' ).slider( "values", [1800, 1900] );
-		//TODO: make sure this resets the actual filters
 		$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
 		$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
+		
+		DataVars.filters.minYear = $( '#date-slider' ).slider( 'values', 0 );
+		DataVars.filters.maxYear = $( '#date-slider' ).slider( 'values', 1 );
+		filter();
 	});
 	
 	$( '#date-range' ).append( 
@@ -173,6 +176,8 @@ function initFilters(){
 		slide: function( event, ui ){
 			$( '#minYear' ).text( ui.values[ 0 ] );
 			$( '#maxYear' ).text( ui.values[ 1 ] );
+		},
+		stop: function( event, ui ){
 			DataVars.filters.minYear = ui.values[ 0 ];
 			DataVars.filters.maxYear = ui.values[ 1 ];
 			filter();
@@ -186,7 +191,8 @@ function initFilters(){
 	
 	$( '#format .clear-text' ).on( 'click', function() {
 		$( '#format p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
-		//TODO: make sure this actually clears the filters
+		DataVars.filters.format = [];
+		filter();
 	});
 	
 	
@@ -202,6 +208,7 @@ function initFilters(){
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
 				DataVars.filters.format = _.without( DataVars.filters.format, $( this ).text() );
+				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
@@ -221,7 +228,9 @@ function initTags(){
 	sect.append( '<div class="line"><span class="h4-title">Tags</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#tags-expanded .expanded-section .clear-text' ).on( 'click', function() {
-		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove(); //TODO: make sure this actually clears the filters on the tags
+		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
+		DataVars.filters.tags = [];
+		filter();
 	});
 	
 	$.map( DataVars.data.tags, function( v ){
@@ -235,9 +244,13 @@ function initTags(){
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
+				DataVars.filters.format = _.without( DataVars.filters.tags, $( this ).text() );
+				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
+				DataVars.filters.tags.push( $( this ).text() );
+				filter();
 			}
 		});
 	});
