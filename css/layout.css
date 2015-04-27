@@ -110,15 +110,31 @@ html, body{
 
 .timeline-year{
 	height: 100%;
-	width: 300px;
+	width: 400px;
 	background-color: #ccc;
 	display: inline-block;
+	vertical-align: top;
 	opacity: .5;
 	transition: opacity 1s;
 }
 
 .timeline-year.active{
 	opacity: 1;
+}
+
+.timeline-year p, .timeline-year div{
+	white-space: normal;
+}
+
+.timeline-entry{
+	height: 50px;
+	border-bottom: 1px solid #999;
+	overflow: hidden;
+	transition: height .5s;
+}
+
+.timeline-entry.expanded{
+	height: 300px;
 }
 
 /* Lightbox */
