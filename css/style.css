@@ -86,17 +86,35 @@
 	overflow: hidden;
 }
 
-#reports-accordion p {
+#reports-accordion > div{
 	color: #000;
 	background: #fff;
 	font-size: 12px;
 	margin-top: 0;
+	padding-bottom: 10px !important;
+}
+
+#reports-accordion p {
 	padding: 10px;
 }
 
 #reports-accordion p:hover {
 	color: #000;
 	cursor: initial;
+}
+
+#reports-accordion .button{
+	float: right;
+	color: #fff;
+	background-color: #aaa;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin-right: 10px;
+}
+
+#reports-accordion .button:hover{
+	color: #000;
 }
 
 /* Filters and Tags section */

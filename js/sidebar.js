@@ -118,6 +118,8 @@ function initReports(){
 		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.descri ).succinct({
 			size: 300
 		});
+		
+		$( '#reports-accordion > div:last-child' ).append( '<div class="button">View Report <i class="fa fa-chevron-right"></i></div>');
 	});
 	
 	$( '#reports-accordion' ).accordion({

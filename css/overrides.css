@@ -32,6 +32,7 @@
 .ui-accordion-content {
 	background: none;
 	border: none;
+	border-radius: 0 !important;
 	padding: 0 !important;
 }
 
