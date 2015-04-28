@@ -3,10 +3,7 @@ function filter( type ){
 	var filters = DataVars.filters,
 		data = DataVars.data;
 		
-	console.log( 'filtering' );
-	console.log( filters );
-		
-	//Default parameters, exit early for performance
+	//Default parameters, exit early
 	if( filters.minYear === 0 && filters.maxYear === 9999 && filters.tags.length === 0 && filters.format.length === 0 ) {
 		DataVars.filteredData = data;
 	} else {
@@ -32,16 +29,14 @@ function filter( type ){
 		DataVars.filteredData = fD;
 	}
 	
-	if( type == 'date' ) sort();
-	
-	console.log( DataVars.filteredData );
+	if( type == 'date' ) sortByDate();
 }
 
 function update(){
 	
 }
 
-function sort(){
+function sortByDate(){
 	var fD = DataVars.filteredData;
 	DataVars.filteredData = _.sortBy( fD.entries, function( entry ){
 		return entry.date.year;
