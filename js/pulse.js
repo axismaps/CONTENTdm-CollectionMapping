@@ -20,6 +20,10 @@ function drawPulse(){
 				"height": 10 * size + "px",
 				"margin-top": (-10 * size)/2 - 2 + "px",
 				"margin-left": (-10 * size)/2 - 2 + "px",
+				"z-index": 100-count
+			})
+			.click( function(){
+				selectYear( year );
 			})
 			.appendTo( $pulseLine );
 	});

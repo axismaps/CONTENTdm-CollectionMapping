@@ -10,6 +10,8 @@ function drawTimeline(){
 	for( var i in AppVars.years ){
 		drawYear( AppVars.years[i] );
 	}
+
+	drawPulse();
 	selectYear( AppVars.years[0] );
 
 	$( ".entry-title" ).click( function(){
@@ -22,8 +24,6 @@ function drawTimeline(){
 			.removeAttr( "style" );
 		expandEntry( $entry );
 	});
-
-	drawPulse();
 }
 
 function expandEntry( $entry ){
@@ -76,7 +76,9 @@ function selectYear( year ){
 	if ( year == undefined || !$( "#year" + year).length ) return;
 	AppVars.selectedYearIndex = AppVars.years.indexOf( year );
 	$( ".timeline-year.active" ).removeClass( "active" );
+	$( ".pulse-circle.active" ).removeClass( "active" );
 	$( "#year" + year).addClass( "active" );
+	$( "#p" + year).addClass( "active" );
 	$( "#year" ).html( year );
 
 	AppVars.selectedYear = year;
