@@ -196,7 +196,7 @@ function initFilters(){
 	});
 	
 	
-	$.map( DataVars.data.formats, function( v ){
+	$.map( DataVars.data.formats.sort(), function( v ){
 		$('<p/>' , {
 			text: v
 		})
