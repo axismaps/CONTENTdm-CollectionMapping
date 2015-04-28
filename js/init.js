@@ -15,7 +15,10 @@ var ServerVars = {},
 			west: 90.5
 		},
 		maxZoom: 10,
-		minZoom: 4
+		minZoom: 4,
+		years: undefined,
+		selectedYear: undefined,
+		selectedYearIndex: undefined
 	},
 	DataVars = {};
 
@@ -28,6 +31,23 @@ function init() {
 
 function initEvents(){
 	sidebarEvents();
+
+	$( '#reports-button' ).on( 'click', function(){
+		$( '#bar-expanded' ).toggle();
+		recenterTimeline();
+	});
+
+	$( "#timeline-next" ).click( advanceTimeline );
+	$( "#timeline-prev" ).click( rewindTimeline );
+
+	$( window ).resize( resize );
+
+	resize();
+}
+
+function resize(){
+	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).outerHeight() );
+	recenterTimeline();
 }
 
 function loadData(){
@@ -37,5 +57,6 @@ function loadData(){
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
 		console.log( DataVars );
+		drawTimeline();
 	});
 }
