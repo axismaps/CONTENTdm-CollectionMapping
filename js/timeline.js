@@ -46,7 +46,7 @@ function drawYear( year ){
 		$( "<div class='mask'>" ).appendTo( $entry );
 
 		$entry.append( "<p class='entry-title'>" + year + " | " + d.title + "</p>" )
-			.append( "<p>Subject: " + d.subjec + "</p>" );
+			.append( "<p><strong>Subject:</strong> " + getSubjectLinks(d.subjec) + "</p>" );
 
 		$div.append( $entry );
 	});
@@ -94,4 +94,12 @@ function loadTimelineImages(year){
 		}
 		$(this).attr( "src", $(this).attr("data-src") );
 	});
+}
+
+function getSubjectLinks( subject ){
+	var subjects = subject.replace(/; /g,";").split(";");
+	subjects.forEach( function(s){
+		subject = subject.replace( s, "<a href='#'>" + s + "</a>" );	// TO DO: make link actually do something
+	});
+	return subject;
 }
