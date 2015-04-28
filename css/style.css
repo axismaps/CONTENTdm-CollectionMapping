@@ -37,7 +37,8 @@ a:hover{
 	text-align: center;
 	padding: 20px 0;
 	cursor: pointer;
-	color: #111;
+	color: #999;
+	font-size: 12px;
 }
 
 #bar .sidebar-button:hover{
@@ -60,6 +61,7 @@ a:hover{
 
 #bar i {
 	display: block;
+	margin-bottom: 10px;
 }
 
 #bar .bottom {
@@ -234,6 +236,11 @@ a:hover{
 
 #timeline{
 	color: #fff;
+	background-color: #333;
+}
+
+#timeline-top{
+	background-color: black;
 }
 
 #year{
