@@ -8,22 +8,28 @@ function initMap(){
 	
 	/*placeholder tiles for now */
 	/* TODO: Do we want these? If not, restrict bounds so you can't see anything beyond historicTiles */
-	modernTiles = L.tileLayer( "http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png" , { maxNativeZoom : 18, maxZoom : 21 }).addTo(AppVars.map);
+	AppVars.modernTiles = L.tileLayer( "http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png" , { maxNativeZoom : 18, maxZoom : 21 }).addTo(AppVars.map);
 	
 	AppVars.mapBounds.bounds = L.latLngBounds([ 
 		[AppVars.mapBounds.south, AppVars.mapBounds.west],
 		[AppVars.mapBounds.north, AppVars.mapBounds.east]
 	]);
 	
-	historicTiles = L.tileLayer( "tiles/{z}/{x}/{y}.png", {
+	AppVars.historicTiles = L.tileLayer( "tiles/{z}/{x}/{y}.png", {
 		tms : true,
 		bounds: AppVars.mapBounds.bounds
 	}).addTo(AppVars.map);
 	
+	AppVars.points = new L.MarkerClusterGroup({
+		showCoverageOnHover: false,
+		singleMarkerMode: true
+	});
+	AppVars.map.addLayer( AppVars.points );
+	
 	drawPoints();
 }
 
-function drawPoints(){
+function drawPoints(){	
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
 		if( v.covera == "" ) return;
 		
@@ -63,7 +69,7 @@ function drawPoints(){
 							// });
 							
 							L.marker( [ latlng.lat, latlng.lng ] )
-								.addTo( AppVars.map );
+								.addTo( AppVars.points );
 						
 						} else {
 							console.log( 'Location is off the map' );
