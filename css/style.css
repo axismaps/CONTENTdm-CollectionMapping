@@ -187,7 +187,7 @@ a:hover{
 }
 
 #date-range #date-slider{
-	width: 65%;
+	width: 60%;
 	display: inline-block;
 	vertical-align: middle;
 }
@@ -199,6 +199,7 @@ a:hover{
 
 #date-range #maxYear {
 	margin-left: 10px;
+	float: right;
 }
 
 .expanded-section p:hover{
