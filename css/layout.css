@@ -10,7 +10,7 @@ html, body{
 }
 
 #topbar{
-	background-color: brown;
+	background-color: cornsilk;
 	height: 100px;
 	width: 100%;
 	display: block;
@@ -24,6 +24,11 @@ html, body{
     height: calc(100% - 100px);
 	display: block;
 	background-color: #eee;
+}
+
+.line{
+	display: block;
+	margin: 10px 0;
 }
 
 /* Sidebar */
@@ -51,6 +56,7 @@ html, body{
 	height: 100%;
 	width: 300px;  /* TODO: May want to calculate this later */
 	background-color: #444;
+	overflow: auto;
 }
 
 /* Map */

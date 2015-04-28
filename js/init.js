@@ -22,20 +22,20 @@ var ServerVars = {},
 function init() {
 	loadData();
 	initEvents();
+	initSidebar();
 	initMap();
 }
 
 function initEvents(){
-	$( '#reports-button' ).on( 'click', function(){
-		$( '#bar-expanded' ).toggle();
-	});
+	sidebarEvents();
 }
 
 function loadData(){
 	$.get( "loadData.php", {
 		collection: AppVars.collectionAlias,
-		fields: ['subjec', 'date', 'covera']
+		fields: ['subjec', 'date', 'covera', 'descri']
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
+		console.log( DataVars );
 	});
 }
