@@ -24,13 +24,21 @@ function initMap(){
 		showCoverageOnHover: false,
 		singleMarkerMode: true,
 		iconCreateFunction: function( cluster ){
-			var size = 30;
-			
-			return L.divIcon({
-				className: 'marker-cluster',
-				iconSize: [size, size],
-				html: '<div><span style="line-height: ' + size + 'px">' + cluster.getChildCount() + '</span></div>'
-			});
+			if( cluster.getChildCount() >= 5 ){
+				var size = 30;
+				
+				return L.divIcon({
+					className: 'marker-cluster',
+					iconSize: [size, size],
+					html: '<div><span style="line-height: ' + size + 'px">' + cluster.getChildCount() + '</span></div>'
+				});
+			} else {
+					var size = 10;
+				return L.divIcon({
+					className: 'marker-cluster',
+					iconSize: [size, size]
+				});
+			}
 		}
 	});
 	AppVars.map.addLayer( AppVars.points );
