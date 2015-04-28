@@ -6,6 +6,7 @@ function drawTimeline(){
 
 	AppVars.years = _.uniq( _.reject( allYears, function(d){ return !d } ) );
 
+	$("#timeline-inner").empty();
 	for( var i in AppVars.years ){
 		drawYear( AppVars.years[i] );
 	}
