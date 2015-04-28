@@ -30,6 +30,7 @@ var ServerVars = {},
 	};
 
 function init() {
+	geocodePoints();
 	initEvents();
 	initSidebar();
 	drawTimeline();

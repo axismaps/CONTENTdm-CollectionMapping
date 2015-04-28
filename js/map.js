@@ -1,6 +1,4 @@
 function initMap(){
-	geocodePoints();
-	
 	AppVars.map = L.map( "map", { 
 		zoomControl: false, 
 		attributionControl: false,
