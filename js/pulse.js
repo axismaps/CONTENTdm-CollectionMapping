@@ -14,6 +14,7 @@ function drawPulse(){
 		var circle = $( "<div>" )
 			.attr( "id", "p" + year )
 			.attr( "class", "pulse-circle" )
+			.attr( "title", year + ": " + count + " item" + (count > 1 ? "s" : "") )
 			.css( {
 				"left": 100*(year-AppVars.years[0])/range + "%",
 				"width": 10 * size + "px",

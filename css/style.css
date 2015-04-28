@@ -408,8 +408,13 @@ a:hover{
 	margin-top: -7px;
 	background-color: rgba(102,102,102,.5);
 	border: 2px solid #666;
+	cursor: pointer;
 }
-.pulse-circle.active{
+.pulse-circle:hover{
+	border: 2px solid #ccc;
+	z-index: 100 !important;
+}
+.pulse-circle.active, .pulse-circle.active:hover{
 	background-color: rgba(178,38,46,.5);
 	border: 2px solid #fff;
 	z-index: 100 !important;
