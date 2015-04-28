@@ -54,6 +54,7 @@ function drawYear( year ){
 		else
 			title.html( year + " | " + d.title );
 		$entry.append( title )
+			.append( "<p class='entry-description'>" + d.descri + "</p>" )
 			.append( "<p><strong>SUBJECT:</strong> " + getSubjectLinks(d.subjec) + "</p>" );
 
 		$div.append( $entry );
