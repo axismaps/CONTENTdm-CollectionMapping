@@ -219,14 +219,17 @@ a:hover{
 
 .marker-cluster {
 	background-clip: padding-box;
-	border-radius: 20px;
+	border-radius: 50px;
 	background-color: #fff;
 	border: 1px solid #000;
 }
 
+.marker-cluster:hover {
+	background-color: #aaa;
+}
+
 .marker-cluster div {
 	text-align: center;
-	border-radius: 15px;
 	font-size: 12px;
 }
 
