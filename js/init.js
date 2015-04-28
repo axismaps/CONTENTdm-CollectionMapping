@@ -1,6 +1,6 @@
 //placeholder until data loading functions are ready
 $( document ).ready(function() {
-    init();
+    loadData();
 });
 
 /* Globals */
@@ -30,9 +30,9 @@ var ServerVars = {},
 	};
 
 function init() {
-	loadData();
 	initEvents();
 	initSidebar();
+	drawTimeline();
 	initMap();
 }
 
@@ -60,7 +60,6 @@ function loadData(){
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		console.log( DataVars );
-		filter();
-		drawTimeline();
+		init();
 	});
 }
