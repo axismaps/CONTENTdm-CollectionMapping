@@ -24,10 +24,12 @@ function initMap(){
 		showCoverageOnHover: false,
 		singleMarkerMode: true,
 		iconCreateFunction: function( cluster ){
+			var size = 30;
+			
 			return L.divIcon({
 				className: 'marker-cluster',
-				iconSize: [30, 30],
-				html: '<div><span style="line-height: 30px">' + cluster.getChildCount() + '</span></div>'
+				iconSize: [size, size],
+				html: '<div><span style="line-height: ' + size + 'px">' + cluster.getChildCount() + '</span></div>'
 			});
 		}
 	});
