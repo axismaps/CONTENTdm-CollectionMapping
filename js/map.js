@@ -25,6 +25,17 @@ function initMap(){
 
 function drawPoints(){
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
+		if( v.typeOf == 'Array' ){
+			_.each( v, function( w ){
+				geocode( w );
+			});
+		} else {
+			geocode( v );
+		}
 		
+		function geocode( location ){
+			console.log( location );
+			// MQ.geocode().search( location )
+		}
 	});
 }
