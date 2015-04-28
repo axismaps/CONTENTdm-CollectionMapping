@@ -180,7 +180,7 @@ function initFilters(){
 		stop: function( event, ui ){
 			DataVars.filters.minYear = ui.values[ 0 ];
 			DataVars.filters.maxYear = ui.values[ 1 ];
-			filter( 'date' );
+			filter();
 		}
 	});
 	$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
