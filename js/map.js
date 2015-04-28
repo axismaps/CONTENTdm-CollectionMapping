@@ -19,4 +19,12 @@ function initMap(){
 		tms : true,
 		bounds: bounds
 	}).addTo(AppVars.map);
+	
+	drawPoints();
+}
+
+function drawPoints(){
+	_.each( DataVars.filteredData.entries, function( v, k, l ){
+		
+	});
 }
