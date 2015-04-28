@@ -105,6 +105,9 @@ html, body{
 	text-align: center;
 	font-weight: lighter;
 }
+.timeline-button:hover{
+	background-color: #666;
+}
 #timeline-prev{
 	float: left;
 }
@@ -164,6 +167,13 @@ html, body{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: pointer;
+}
+.timeline-entry p.entry-title:hover{
+	text-decoration: underline;
+}
+
+.timeline-entry.expanded p.entry-title:hover{
+	text-decoration: none;
 }
 
 .timeline-entry.expanded p.entry-title{
