@@ -1,6 +1,6 @@
 function drawTimeline(){
 	DataVars.filteredData.entries = _.sortBy( DataVars.filteredData.entries, function(d){
-		return parseInt(d.date.year || 0)*100 + parseInt(d.date.month || 0)*10 + parseInt(d.date.day || 0);
+		return parseInt(d.date.year || 0)*1000 + parseInt(d.date.month || 0)*10 + parseInt(d.date.day || 0);
 	});
 	var allYears = _.map( DataVars.filteredData.entries, function(d){ return d.date.year } );
 
@@ -49,7 +49,7 @@ function drawYear( year ){
 
 		var title = $( "<p>" ).attr( "class", "entry-title" );
 		if ( d.date.day )
-			title.html( (d.date.month + 1) + "/" + d.date.day + "/" + year + " | " + d.title )
+			title.html( d.date.month + "/" + d.date.day + "/" + year + " | " + d.title )
 		else
 			title.html( year + " | " + d.title );
 		$entry.append( title )
