@@ -4,8 +4,9 @@ $( document ).ready(function() {
 });
 
 /* Globals */
-var ServerVars,
+var ServerVars = {},
 	AppVars = {
+		collectionAlias: 'p15963coll18',
 		map: {},
 		mapBounds: {
 			north: 27.5,
@@ -16,9 +17,10 @@ var ServerVars,
 		maxZoom: 10,
 		minZoom: 4
 	},
-	DataVars;
+	DataVars = {};
 
 function init() {
+	loadData();
 	initEvents();
 	initMap();
 }
@@ -26,5 +28,14 @@ function init() {
 function initEvents(){
 	$( '#reports-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).toggle();
+	});
+}
+
+function loadData(){
+	$.get( "loadData.php", {
+		collection: AppVars.collectionAlias,
+		fields: ['subjec', 'date', 'covera']
+	}).done( function( data ) {
+		DataVars.data = $.parseJSON( data );
 	});
 }
