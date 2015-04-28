@@ -148,6 +148,7 @@ function initReports(){
 function initFilters(){
 	$( '#filters-expanded' ).show();
 	
+	if ( $('#filters-expanded .expanded-section').children().length ) return;
 	$( '.expanded-section' ).empty();
 	
 	//Date Slider
@@ -223,6 +224,7 @@ function initTags(){
 	$( '#tags-expanded' ).show();
 	
 	var sect = $( '#tags-expanded .expanded-section' );
+	if ( sect.children().length ) return;
 	sect.empty();
 	
 	sect.append( '<div class="line"><span class="h4-title">Tags</span><span class="clear-text">Clear</span></div>' );
@@ -244,7 +246,7 @@ function initTags(){
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
-				DataVars.filters.format = _.without( DataVars.filters.tags, $( this ).text() );
+				DataVars.filters.tags = _.without( DataVars.filters.tags, $( this ).text() );
 				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
