@@ -347,6 +347,7 @@ a:hover{
 	text-overflow: ellipsis;
 	cursor: pointer;
 	text-shadow: 1px 1px rgba(0,0,0,.5);
+	font-weight: bold;
 }
 .timeline-entry p.entry-title:hover{
 	text-decoration: underline;
