@@ -22,7 +22,14 @@ function initMap(){
 	
 	AppVars.points = new L.MarkerClusterGroup({
 		showCoverageOnHover: false,
-		singleMarkerMode: true
+		singleMarkerMode: true,
+		iconCreateFunction: function( cluster ){
+			return L.divIcon({
+				className: 'marker-cluster',
+				iconSize: [30, 30],
+				html: '<div><span style="line-height: 30px">' + cluster.getChildCount() + '</span></div>'
+			});
+		}
 	});
 	AppVars.map.addLayer( AppVars.points );
 	
@@ -61,12 +68,6 @@ function drawPoints(){
 						
 						if( result ) {
 							var latlng = result.latlng;
-
-							// var geocodeIcon = L.icon({
-								// iconUrl: 'img/' + selectedCategory + '-marker.png',
-								// iconSize: [62, 82],
-								// iconAnchor: [31, 82]
-							// });
 							
 							L.marker( [ latlng.lat, latlng.lng ] )
 								.addTo( AppVars.points );

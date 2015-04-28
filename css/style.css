@@ -217,6 +217,20 @@ a:hover{
 
 /* Map */
 
+.marker-cluster {
+	background-clip: padding-box;
+	border-radius: 20px;
+	background-color: red;
+}
+
+.marker-cluster div {
+	text-align: center;
+	border-radius: 15px;
+	font-size: 12px;
+	background-color: #fff;
+	border: 1px solid #000;
+}
+
 /* Timeline area */
 
 #timeline{
