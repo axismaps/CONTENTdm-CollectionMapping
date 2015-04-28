@@ -1,22 +1,219 @@
 /* General Styles */
+
+.italic {
+	font-style: italic;
+}
+
 h1, h2, h3{
 	font-family: Oswald, sans-serif;
 }
 
 /* Sidebar */
 
-#bar > div{
+#bar {
+	border-collapse: collapse;
+	display: table;
+}
+
+#bar .sidebar-button{
 	text-align: center;
-	padding: 10px 0;
+	padding: 20px 0;
 	cursor: pointer;
+	color: #111;
+}
+
+#bar .sidebar-button:hover{
+	color: #ddd;
+}
+
+#bar .sidebar-button.primary.selected{
+	background-color: #B42933;
+	color: #fff;
+}
+
+#bar .sidebar-button.secondary.selected{
+	color: #fff;
+}
+
+#bar hr{
+	width: 80%;
+	border: 1px solid #444;
 }
 
 #bar i {
 	display: block;
 }
 
+#bar .bottom {
+	display: table-row;
+	vertical-align: bottom;
+	height: 1px;
+}
+
+/* Expanded Sidebar specific styles */
+#bar-expanded{
+	color: #999;
+}
+
+#bar-expanded #filters-expanded > div,
+#bar-expanded #tags-expanded > div{
+	padding: 20px;
+	border-left: 1px solid #000;
+	border-right: 1px solid #000;
+	border-bottom: 1px solid #000;
+}
+
+#bar-expanded .h4-title{
+	text-transform: uppercase;
+	color: #fff;
+}
+
+#bar-expanded .clear-text{
+	text-decoration: underline;
+	cursor: pointer;
+	float: right;
+}
+
+#bar-expanded .clear-text:hover{
+	color: #fff;
+}
+
+.expanded-title{
+	
+}
+
+.expanded-section{
+	
+}
+
+/* Reports section */
+
+#reports-expanded .expanded-title{
+	padding: 20px;
+}
+
+#reports-accordion h3{
+	color: #fff;
+	font-size: 14px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	border-radius: 0;
+	margin: 0;
+}
+
+#reports-accordion h3 i{
+	margin: 0 10px;
+	font-size: 24px;
+	vertical-align: middle;
+}
+
+#reports-accordion h3:hover{
+	background-color: #999;
+}
+
+#reports-accordion > div{
+	color: #000;
+	background: #fff;
+	font-size: 12px;
+	margin-top: 0;
+	padding-bottom: 10px !important;
+}
+
+#reports-accordion .accordion-image{
+	position: relative;
+}
+
+#reports-accordion .accordion-image > div {
+	position: absolute;
+	right: 20px;
+	bottom: 20px;
+	background-color: rgba(0, 0, 0, 0.75);
+	color: #fff;
+	padding: 10px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+#reports-accordion .accordion-image > div:hover {
+	background-color: rgba(0, 0, 0, 0.5);
+}
+
+#reports-accordion p {
+	padding: 10px;
+}
+
+#reports-accordion p:hover {
+	color: #000;
+	cursor: initial;
+}
+
+#reports-accordion .button{
+	float: right;
+	color: #fff;
+	background-color: #aaa;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin-right: 10px;
+}
+
+#reports-accordion .button:hover{
+	color: #000;
+}
+
+/* Filters and Tags section */
+
+#filters-expanded .expanded-section p,
+#tags-expanded .expanded-section p{
+	padding: 20px 0;
+	border-bottom: 1px solid #333;
+	margin: 0;
+}
+
+#filters-expanded .expanded-section p:first-of-type,
+#tags-expanded .expanded-section p:first-of-type{
+	border-top: 1px solid #333;
+}
+
+#filters-expanded #date-range > span{
+	color: #fff;
+	display: inline-block;
+}
+
+#date-range #date-slider{
+	width: 65%;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#date-range #minYear {
+	margin-right: 10px;
+}
+
+#date-range #maxYear {
+	margin-left: 10px;
+}
+
+.expanded-section p:hover{
+	color: #fff;
+	cursor: pointer;
+}
+
+.expanded-section p.selected{
+	color: #fff;
+}
+
+.expanded-section p > i{
+	float: right;
+}
+
 /* Map */
 
 /* Timeline area */
+
+#timeline{
+	color: #fff;
+}
 
 /* Lightbox */

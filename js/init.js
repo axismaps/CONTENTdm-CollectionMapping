@@ -4,8 +4,9 @@ $( document ).ready(function() {
 });
 
 /* Globals */
-var ServerVars,
+var ServerVars = {},
 	AppVars = {
+		collectionAlias: 'p15963coll18',
 		map: {},
 		mapBounds: {
 			north: 27.5,
@@ -16,15 +17,33 @@ var ServerVars,
 		maxZoom: 10,
 		minZoom: 4
 	},
-	DataVars;
+	DataVars = {
+		filters: {
+			minYear: 0,
+			maxYear: 9999,
+			format: [],
+			tags: []
+		}
+	};
 
 function init() {
+	loadData();
 	initEvents();
+	initSidebar();
 	initMap();
 }
 
 function initEvents(){
-	$( '#reports-button' ).on( 'click', function(){
-		$( '#bar-expanded' ).toggle();
+	sidebarEvents();
+}
+
+function loadData(){
+	$.get( "loadData.php", {
+		collection: AppVars.collectionAlias,
+		fields: ['subjec', 'date', 'covera', 'descri', 'format']
+	}).done( function( data ) {
+		DataVars.data = $.parseJSON( data );
+		DataVars.filteredData = $.parseJSON( data );
+		console.log( DataVars );
 	});
 }

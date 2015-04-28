@@ -28,12 +28,65 @@
 		<div id="interactive-area">
 			<div id="sidebar">
 				<div id="bar">
-					<div id="reports-button">
-						<i class="fa fa-folder fa-3x"></i>
+					<div id="all-docs-button" class="sidebar-button primary selected">
+						<i class="fa fa-files-o fa-2x"></i>
+						<span>All Docs</span>
+					</div>
+					<div id="reports-button" class="sidebar-button primary">
+						<i class="fa fa-folder fa-2x"></i>
 						<span>Reports</span>
 					</div>
+					<hr />
+					<div id="secondary-buttons">
+						<div id="filters-button" class="sidebar-button secondary">
+							<i class="fa fa-filter fa-2x"></i>
+							<span>Filters</span>
+						</div>
+						<div id="tags-button" class="sidebar-button secondary">
+							<i class="fa fa-tags fa-2x"></i>
+							<span>Tags</span>
+						</div>
+						<div id="summary-button" class="sidebar-button secondary">
+							<i class="fa fa-question-circle fa-2x"></i>
+							<span>Summary</span>
+						</div>
+					</div>
+					<div class="bottom">
+						<hr />
+						<div id="about-button" class="sidebar-button secondary">
+							<i class="fa fa-info fa-2x"></i>
+							<span>About</span>
+						</div>
+					</div>
 				</div>
-				<div id="bar-expanded"></div>
+				<div id="bar-expanded">
+					<div id="reports-expanded">
+						<div class="expanded-title">
+							<span class="italic">Select a report to view its documents:</span>
+						</div>
+						<div class="expanded-section">
+						
+						</div>
+					</div>
+					<div id="filters-expanded">
+						<div class="expanded-title">
+							<span class="italic">Select filters to refine documents:</span>
+						</div>
+						<div class="expanded-section" id="date-range"></div>
+						<div class="expanded-section" id="format"></div>
+					</div>
+					<div id="tags-expanded">
+						<div class="expanded-title">
+							<span class="italic">Select tags to refine documents:</span>
+						</div>
+						<div class="expanded-section"></div>
+					</div>
+					<div id="summary-expanded">
+						<div class="expanded-title">
+							<span class="italic">A summary of the current report:</span>
+						</div>
+					</div>
+				</div>
 			</div>
 			<div id="map"></div>
 			<div id="details">
@@ -52,7 +105,9 @@
 		<script src="bower_components/succinct/jQuery.succinct.min.js"></script>
 		<script src="bower_components/underscore/underscore-min.js"></script>
 		
+		<script src="js/sidebar.js"></script>
 		<script src="js/map.js"></script>
+		<script src="js/filter.js"></script>
 		<script src="js/init.js"></script>
 		<!-- endbuild -->
 		

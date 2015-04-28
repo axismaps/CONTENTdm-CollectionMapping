@@ -1,1 +1,43 @@
 /* Jquery-UI Overrides */
+
+/* Slider */
+
+.ui-slider-horizontal {
+	height: 1px;
+	background: #999;
+	border: none;
+	border-radius: 0;
+}
+
+.ui-slider-range{
+	height: 2px !important;
+	background: #fff;
+}
+
+.ui-slider-handle{
+	border-radius: 100px;
+	background: #999 !important;
+	top: -.6em !important;
+}
+
+.ui-slider-handle:hover{
+	background: #fff !important;
+	cursor: pointer;
+}
+
+/* Accordion */
+
+.ui-accordion,
+.ui-accordion-content {
+	background: none;
+	border: none;
+	border-radius: 0 !important;
+	padding: 0 !important;
+}
+
+.ui-accordion-header {
+	background: none;
+	border: none;
+	border-bottom: 1px solid #666;
+	padding: 10px 5px !important;
+}
