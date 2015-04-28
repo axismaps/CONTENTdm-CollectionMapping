@@ -52,12 +52,11 @@ function drawPoints(){
 		}
 		
 		function geocode( location ){
-			console.log( location );
 			MQ.geocode().search( location )
 				.on( 'success', function( e ){
 					
 					if( e.result.matches.length === 0 ){
-						console.log( 'Couldn\'t find one' );
+						console.log( 'Couldn\'t find: ' + e.result.search );
 					} else {
 						var result;
 						
@@ -75,7 +74,7 @@ function drawPoints(){
 								.addTo( AppVars.points );
 						
 						} else {
-							console.log( 'Location is off the map' );
+							console.log( 'Location is off the map: ' + e.result.search );
 						}
 					}
 				});
