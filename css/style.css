@@ -144,7 +144,7 @@ a:hover{
 	position: relative;
 }
 
-#reports-accordion .accordion-image > div {
+#reports-accordion .accordion-image > div, .timeline-entry .image-expand {
 	position: absolute;
 	right: 20px;
 	bottom: 20px;
@@ -326,6 +326,12 @@ a:hover{
 .timeline-entry p, .timeline-entry div{
 	margin: 15px;
 	position: relative;
+}
+
+.timeline-entry .image-expand{
+	top: 202px;
+	bottom: auto;
+	margin: 0;
 }
 
 .timeline-entry p.entry-title, .timeline-entry .mask{

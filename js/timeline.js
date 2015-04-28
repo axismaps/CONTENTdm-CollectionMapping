@@ -58,6 +58,13 @@ function drawYear( year ){
 			.append( "<p class='entry-description'>" + d.descri + "</p>" )
 			.append( "<p><strong>SUBJECT:</strong> " + getSubjectLinks(d.subjec) + "</p>" );
 
+		$( '<div class="image-expand"><i class="fa fa-expand fa-2x"></i></div>' )
+			.appendTo( $entry )
+			.on( 'click', function(){
+				//TODO: Show lightbox of full image
+				console.log( 'Show lightbox here' );
+			});
+
 		$div.append( $entry );
 	});
 	expandEntry( $(".timeline-entry.e0", $div) );
