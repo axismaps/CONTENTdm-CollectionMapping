@@ -30,4 +30,120 @@ a:hover{
 	color: #fff;
 }
 
+#year{
+	margin: 0;
+	color: white;
+	text-align: center;
+	height: 50px;
+	line-height: 50px;
+	font-weight: normal;
+}
+
+.timeline-button{
+	height: 34px;
+	line-height: 34px;
+	margin: 8px;
+	width: 100px;
+	border-radius: 3px;
+	background-color: #333;
+	color: #ccc;
+	cursor: pointer;
+	text-align: center;
+	font-weight: lighter;
+}
+.timeline-button:hover{
+	background-color: #666;
+}
+#timeline-prev{
+	float: left;
+}
+#timeline-next{
+	float: right;
+}
+
+#timeline-inner{
+	white-space: nowrap;
+	position: absolute;
+	transition: left 1s;
+}
+
+.timeline-year{
+	position: relative;
+	height: 100%;
+	width: 400px;
+	background-color: #333;
+	display: inline-block;
+	vertical-align: top;
+	opacity: .25;
+	transition: opacity 1s;
+}
+
+.timeline-year.active{
+	opacity: 1;
+	overflow: auto;
+}
+
+.timeline-year p, .timeline-year div{
+	white-space: normal;
+}
+
+.timeline-entry{
+	position: relative;
+	height: 50px;
+	border-bottom: 1px solid white;
+	background-color: white;
+	color: black;
+	overflow: hidden;
+	transition: height .5s;
+}
+
+.timeline-entry img{
+	height: 270px;
+}
+
+.timeline-entry p, .timeline-entry div{
+	margin: 15px;
+	position: relative;
+}
+
+.timeline-entry p.entry-title, .timeline-entry .mask{
+	position: absolute;
+	width: 100%;
+	top: 0;
+}
+.timeline-entry p.entry-title{
+	width: 370px;
+	color: white;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
+}
+.timeline-entry p.entry-title:hover{
+	text-decoration: underline;
+}
+
+.timeline-entry.expanded p.entry-title:hover{
+	text-decoration: none;
+}
+
+.timeline-entry.expanded p.entry-title{
+	white-space: normal;
+}
+
+.timeline-entry .mask{
+	margin: 0;
+	height: 100px;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* W3C */
+}
+
+.timeline-entry a{
+	color: #0061b3;
+}
+
 /* Lightbox */
