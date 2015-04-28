@@ -250,6 +250,7 @@ a:hover{
 	height: 50px;
 	line-height: 50px;
 	font-weight: normal;
+	font-size: 24px;
 }
 
 .timeline-button{
@@ -270,10 +271,15 @@ a:hover{
 #timeline-prev{
 	float: left;
 }
+#timeline-prev i{
+	margin: 0 5px 0 -5px; 
+}
 #timeline-next{
 	float: right;
 }
-
+#timeline-next i{
+	margin: 0 -5px 0 5px; 
+}
 #timeline-inner{
 	white-space: nowrap;
 	position: absolute;
@@ -331,6 +337,7 @@ a:hover{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: pointer;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
 }
 .timeline-entry p.entry-title:hover{
 	text-decoration: underline;
