@@ -45,7 +45,12 @@ function drawYear( year ){
 			.appendTo( $entry );
 		$( "<div class='mask'>" ).appendTo( $entry );
 
-		$entry.append( "<p class='entry-title'>" + year + " | " + d.title + "</p>" )
+		var title = $( "<p>" ).attr( "class", "entry-title" );
+		if ( d.date.day )
+			title.html( (d.date.month + 1) + "/" + d.date.day + "/" + year + " | " + d.title )
+		else
+			title.html( year + " | " + d.title );
+		$entry.append( title )
 			.append( "<p><strong>Subject:</strong> " + getSubjectLinks(d.subjec) + "</p>" );
 
 		$div.append( $entry );
