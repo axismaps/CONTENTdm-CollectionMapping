@@ -10,10 +10,14 @@ html, body{
 }
 
 #topbar{
-	background-color: cornsilk;
-	height: 100px;
+	background: url(../img/header.jpg);
+	height: 75px;
 	width: 100%;
 	display: block;
+}
+
+h1{
+	margin: 0 25px;
 }
 
 #interactive-area{

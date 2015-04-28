@@ -3,6 +3,19 @@ h1, h2, h3{
 	font-family: Oswald, sans-serif;
 }
 
+h1{
+	color: #b6272f;
+	font-weight: normal;
+	line-height: 75px;
+	font-size: 30px;
+}
+h1 span.title{
+	font-weight: bold;
+}
+h1 span.subtitle{
+	font-weight: lighter;
+}
+
 .italic {
 	font-style: italic;
 }
