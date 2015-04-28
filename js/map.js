@@ -25,12 +25,15 @@ function initMap(){
 
 function drawPoints(){
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
-		if( v.typeOf == 'Array' ){
-			_.each( v, function( w ){
+		if( v.covera == "" ) return;
+		
+		if( v.covera.indexOf( ';' ) > -1 ){
+			coveraArray = v.covera.split( ";" );
+			_.each( coveraArray, function( w ){
 				geocode( w );
 			});
 		} else {
-			geocode( v );
+			geocode( v.covera );
 		}
 		
 		function geocode( location ){
