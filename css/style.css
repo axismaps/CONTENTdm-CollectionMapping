@@ -315,6 +315,9 @@ a:hover{
 	overflow: hidden;
 	transition: height .5s;
 }
+.timeline-entry.expanded{
+	overflow: auto;
+}
 
 .timeline-entry img{
 	height: 270px;

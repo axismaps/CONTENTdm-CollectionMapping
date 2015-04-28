@@ -18,6 +18,7 @@ function drawTimeline(){
 		if ( !$year.hasClass( "active" ) || $entry.hasClass( "expanded" ) ) return;
 		$( ".timeline-entry.expanded", $entry.parent() )
 			.removeClass( "expanded" )
+			.scrollTop( 0 )
 			.removeAttr( "style" );
 		expandEntry( $entry );
 	});
