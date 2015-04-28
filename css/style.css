@@ -376,4 +376,38 @@ a:hover{
 	color: #0061b3;
 }
 
+#pulse p, #pulse > div{
+	display: inline-block;
+	vertical-align: middle;
+}
+#pulse p{
+	width: 35px;
+	height: 50px;
+	line-height: 50px;
+	margin: 0 0 0 15px;
+	color: #ccc;
+}
+#pulse p:first-child{
+	margin-right: 15px;
+}
+#pulse-line{
+	width: -moz-calc(100% - 125px);
+    width: -webkit-calc(100% - 125px);
+    width: -o-calc(100% - 125px);
+    width: calc(100% - 125px);
+    height: 1px;
+    background-color: #666;
+    position: relative;
+}
+.pulse-circle{
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-left: -7px;
+	margin-top: -7px;
+	background-color: rgba(102,102,102,.5);
+	border: 2px solid #666;
+}
+
 /* Lightbox */

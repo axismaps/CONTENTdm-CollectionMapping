@@ -22,6 +22,8 @@ function drawTimeline(){
 			.removeAttr( "style" );
 		expandEntry( $entry );
 	});
+
+	drawPulse();
 }
 
 function expandEntry( $entry ){
