@@ -10,7 +10,7 @@ function drawPulse(){
 
 	AppVars.years.forEach( function(year){
 		var count = $( "#year"+year ).children().length,
-			size = Math.sqrt( count );
+			size = Math.min( 4, Math.sqrt( count ) );
 		var circle = $( "<div>" )
 			.attr( "id", "p" + year )
 			.attr( "class", "pulse-circle" )
