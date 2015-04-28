@@ -94,6 +94,7 @@ function allDocs(){
 
 function initReports(){
 	$( '#reports-expanded' ).show();
+	if ( $( "#reports-accordion" ).length ) return;
 	
 	$( '<div/>', {
 		id: "reports-accordion"
