@@ -25,7 +25,7 @@ function drawTimeline(){
 function expandEntry( $entry ){
 	var totalHeight = $("#timeline-inner").height();
 	$entry.addClass( "expanded" )
-		.css( "height", totalHeight - $entry.siblings().length * 51  + "px");
+		.css( "height", Math.max( 500, totalHeight - $entry.siblings().length * 51 )  + "px");
 }
 
 function drawYear( year ){
@@ -42,9 +42,8 @@ function drawYear( year ){
 	});
 	_.each( entries, function(d,i){
 		var $entry = $( "<div class='timeline-entry e" + i + "'>" );
-
 		$( "<img>" )
-			.attr( "data-src", "img/test.jpg" )	// fake image source for testing, obvs
+			.attr( "data-src", "http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=" + AppVars.collectionAlias + "&CISOPTR=" + d.pointer +"&action=2&DMSCALE=20&DMWIDTH=400&DMHEIGHT=270" )	// fake image source for testing, obvs
 			.appendTo( $entry );
 		$( "<div class='mask'>" ).appendTo( $entry );
 

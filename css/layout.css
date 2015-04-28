@@ -134,6 +134,7 @@ html, body{
 
 .timeline-year.active{
 	opacity: 1;
+	overflow: auto;
 }
 
 .timeline-year p, .timeline-year div{
@@ -148,6 +149,10 @@ html, body{
 	color: black;
 	overflow: hidden;
 	transition: height .5s;
+}
+
+.timeline-entry img{
+	height: 270px;
 }
 
 .timeline-entry p, .timeline-entry div{
