@@ -36,10 +36,7 @@ function filter( type ){
 	}
 	
 	if( type == 'date' ) sortByDate();
-}
-
-function update(){
-	
+	update();
 }
 
 function sortByDate(){

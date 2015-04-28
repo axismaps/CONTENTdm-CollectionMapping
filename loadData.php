@@ -68,6 +68,7 @@ function processData(){
 		//Convert date into exact format just in case
 		$value -> {'date'} = date_parse( $value -> {'date'} );
 		
+		$value -> {'location'} = [0, 0];
 		array_push( $entries, $value );
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);

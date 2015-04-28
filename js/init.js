@@ -52,6 +52,10 @@ function resize(){
 	recenterTimeline();
 }
 
+function update(){
+	drawPoints();
+}
+
 function loadData(){
 	$.get( "loadData.php", {
 		collection: AppVars.collectionAlias,

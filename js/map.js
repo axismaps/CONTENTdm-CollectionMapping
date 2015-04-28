@@ -1,4 +1,6 @@
 function initMap(){
+	geocodePoints();
+	
 	AppVars.map = L.map( "map", { 
 		zoomControl: false, 
 		attributionControl: false,
@@ -45,50 +47,51 @@ function initMap(){
 		}
 	});
 	AppVars.map.addLayer( AppVars.points );
-	
-	drawPoints();
 }
 
-function drawPoints(){	
-	_.each( DataVars.filteredData.entries, function( v, k, l ){
+function geocodePoints(){
+	_.each( DataVars.data.entries, function( v, k, l ){
 		if( v.covera == "" ) return;
 		
 		if( v.covera.indexOf( ';' ) > -1 ){
-			coveraArray = v.covera.split( ";" );
+			coveraArray = v.covera.split( ';' );
 			_.each( coveraArray, function( w ){
-				geocode( w );
+				geocode( w, v );
 			});
 		} else {
-			geocode( v.covera );
+			geocode( v.covera, v );
 		}
+	});
 		
-		function geocode( location ){
-			MQ.geocode().search( location )
-				.on( 'success', function( e ){
+	function geocode( location, entry ){
+		MQ.geocode().search( location )
+			.on( 'success', function( e ){
+				
+				if( e.result.matches.length === 0 ){
+					console.log( 'Couldn\'t find: ' + e.result.search );
+				} else {
+					var result;
 					
-					if( e.result.matches.length === 0 ){
-						console.log( 'Couldn\'t find: ' + e.result.search );
-					} else {
-						var result;
-						
-						$.map( e.result.matches.reverse(), function( v, i ){
-							if( AppVars.mapBounds.bounds.contains( v.latlng ) ) {
-								result = v;
-								return;
-							}
-						});
-						
-						if( result ) {
-							var latlng = result.latlng;
-							
-							L.marker( [ latlng.lat, latlng.lng ] )
-								.addTo( AppVars.points );
-						
-						} else {
-							console.log( 'Location is off the map: ' + e.result.search );
+					$.map( e.result.matches.reverse(), function( v, i ){
+						if( AppVars.mapBounds.bounds.contains( v.latlng ) ) {
+							result = v;
+							return;
 						}
+					});
+					
+					if( result ) {
+						var latlng = result.latlng;
+						entry.location = [ latlng.lat, latlng.lng ];
+					} else {
+						console.log( 'Location is off the map: ' + e.result.search );
 					}
-				});
-		}
+				}
+			});
+	}
+}
+
+function drawPoints(){
+	_.each( DataVars.filteredData.entries, function( v, k, l ){
+		L.marker( v.location ).addTo( AppVars.points );
 	});
 }
