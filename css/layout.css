@@ -85,16 +85,17 @@ h1{
 }
 
 #timeline{
-	height: -moz-calc(100% - 50px);
-    height: -webkit-calc(100% - 50px);
-    height: -o-calc(100% - 50px);
-    height: calc(100% - 50px);
+	height: -moz-calc(100% - 51px);
+    height: -webkit-calc(100% - 51px);
+    height: -o-calc(100% - 51px);
+    height: calc(100% - 51px);
 	position: relative;
 	overflow: hidden;
 }
 
 #pulse{
 	height: 50px;
+	border-top: 1px solid #ccc;
 }
 
 /* Lightbox */
