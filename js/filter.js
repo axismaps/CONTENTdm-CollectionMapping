@@ -4,6 +4,7 @@ function filter( type ){
 		data = DataVars.data;
 		
 	console.log( 'filtering' );
+	console.log( filters );
 		
 	//Default parameters, exit early for performance
 	if( filters.minYear === 0 && filters.maxYear === 9999 && filters.tags.length === 0 && filters.format.length === 0 ) {
@@ -20,7 +21,7 @@ function filter( type ){
 			//filters
 			if( v.date.year < filters.minYear ) return false;
 			if ( v.date.year > filters.maxYear ) return false;
-			if ( filters.format.length > 0 && _.indexOf( filters.format, v.filetype ) == -1 ) return false;
+			if ( filters.format.length > 0 && _.indexOf( filters.format, v.format ) == -1 ) return false;
 			
 			//update minYear and maxYear and push onto array
 			if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
