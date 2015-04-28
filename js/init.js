@@ -60,6 +60,7 @@ function loadData(){
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		console.log( DataVars );
+		filter();
 		drawTimeline();
 	});
 }
