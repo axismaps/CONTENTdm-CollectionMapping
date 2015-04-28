@@ -91,6 +91,7 @@ function geocodePoints(){
 }
 
 function drawPoints(){
+	AppVars.points.clearLayers();
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
 		L.marker( v.location ).addTo( AppVars.points );
 	});
