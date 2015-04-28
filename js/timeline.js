@@ -32,7 +32,10 @@ function drawYear( year ){
 	var $div = $( "<div>" )
 		.attr( "class", "timeline-year" )
 		.attr( "id", "year" + year )
-		.appendTo( "#timeline-inner" );
+		.appendTo( "#timeline-inner" )
+		.click( function(){
+			if ( !$(this).hasClass( "active" ) ) selectYear( year );
+		})
 
 	var entries = _.filter( DataVars.data.entries, function(d){
 		return d.date.year == year;
