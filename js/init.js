@@ -20,7 +20,14 @@ var ServerVars = {},
 		selectedYear: undefined,
 		selectedYearIndex: undefined
 	},
-	DataVars = {};
+	DataVars = {
+		filters: {
+			minYear: 0,
+			maxYear: 9999,
+			format: [],
+			tags: []
+		}
+	};
 
 function init() {
 	loadData();
@@ -31,11 +38,6 @@ function init() {
 
 function initEvents(){
 	sidebarEvents();
-
-	$( '#reports-button' ).on( 'click', function(){
-		$( '#bar-expanded' ).toggle();
-		recenterTimeline();
-	});
 
 	$( "#timeline-next" ).click( advanceTimeline );
 	$( "#timeline-prev" ).click( rewindTimeline );
@@ -53,9 +55,10 @@ function resize(){
 function loadData(){
 	$.get( "loadData.php", {
 		collection: AppVars.collectionAlias,
-		fields: ['subjec', 'date', 'covera', 'descri']
+		fields: ['subjec', 'date', 'covera', 'descri', 'format']
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
+		DataVars.filteredData = $.parseJSON( data );
 		console.log( DataVars );
 		drawTimeline();
 	});

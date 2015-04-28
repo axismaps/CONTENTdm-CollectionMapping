@@ -3,7 +3,6 @@ h1, h2, h3{
 	font-family: Oswald, sans-serif;
 }
 
-
 .italic {
 	font-style: italic;
 }
@@ -14,7 +13,6 @@ a{
 a:hover{
 	text-decoration: underline;
 }
-
 /* Sidebar */
 
 #bar {
@@ -195,6 +193,7 @@ a:hover{
 }
 
 #date-range #minYear {
+	width: 35px;
 	margin-right: 10px;
 }
 

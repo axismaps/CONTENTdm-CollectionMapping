@@ -7,7 +7,6 @@ function initSidebar(){
 function sidebarEvents() {
 	$( '#all-docs-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).hide();
-				
 		$( this ).addClass( 'selected' );
 		$( '#reports-button' ).removeClass( 'selected' );
 		$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
@@ -25,7 +24,9 @@ function sidebarEvents() {
 		$( '#secondary-buttons div' ).hide();
 		$( '#summary-button' ).show();
 		
-		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').children( '.selected' ).length == 0 ) $( '#bar-expanded' ).hide();
+		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').children( '.selected' ).length == 0 ){
+			$( '#bar-expanded' ).hide();
+		} 
 		else if( $( '#secondary-buttons').children( '.selected' ).length > 0 ) {
 			$( '#secondary-buttons').children( '.selected' ).removeClass( 'selected' );
 			$( '#bar-expanded > div' ).hide();
@@ -149,6 +150,7 @@ function initReports(){
 function initFilters(){
 	$( '#filters-expanded' ).show();
 	
+	if ( $('#filters-expanded .expanded-section').children().length ) return;
 	$( '.expanded-section' ).empty();
 	
 	//Date Slider
@@ -156,9 +158,12 @@ function initFilters(){
 	
 	$( '#date-range .clear-text' ).on( 'click', function(){
 		$( '#date-slider' ).slider( "values", [1800, 1900] );
-		//TODO: make sure this resets the actual filters
 		$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
 		$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
+		
+		DataVars.filters.minYear = $( '#date-slider' ).slider( 'values', 0 );
+		DataVars.filters.maxYear = $( '#date-slider' ).slider( 'values', 1 );
+		filter();
 	});
 	
 	$( '#date-range' ).append( 
@@ -174,6 +179,11 @@ function initFilters(){
 		slide: function( event, ui ){
 			$( '#minYear' ).text( ui.values[ 0 ] );
 			$( '#maxYear' ).text( ui.values[ 1 ] );
+		},
+		stop: function( event, ui ){
+			DataVars.filters.minYear = ui.values[ 0 ];
+			DataVars.filters.maxYear = ui.values[ 1 ];
+			filter();
 		}
 	});
 	$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
@@ -184,11 +194,12 @@ function initFilters(){
 	
 	$( '#format .clear-text' ).on( 'click', function() {
 		$( '#format p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
-		//TODO: make sure this actually clears the filters
+		DataVars.filters.format = [];
+		filter();
 	});
 	
 	
-	$.map( DataVars.data.formats, function( v ){
+	$.map( DataVars.data.formats.sort(), function( v ){
 		$('<p/>' , {
 			text: v
 		})
@@ -199,9 +210,13 @@ function initFilters(){
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
+				DataVars.filters.format = _.without( DataVars.filters.format, $( this ).text() );
+				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
+				DataVars.filters.format.push( $( this ).text() );
+				filter();
 			}
 		});
 	});
@@ -211,12 +226,15 @@ function initTags(){
 	$( '#tags-expanded' ).show();
 	
 	var sect = $( '#tags-expanded .expanded-section' );
+	if ( sect.children().length ) return;
 	sect.empty();
 	
 	sect.append( '<div class="line"><span class="h4-title">Tags</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#tags-expanded .expanded-section .clear-text' ).on( 'click', function() {
-		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove(); //TODO: make sure this actually clears the filters on the tags
+		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
+		DataVars.filters.tags = [];
+		filter();
 	});
 	
 	$.map( DataVars.data.tags, function( v ){
@@ -230,9 +248,13 @@ function initTags(){
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
+				DataVars.filters.tags = _.without( DataVars.filters.tags, $( this ).text() );
+				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
+				DataVars.filters.tags.push( $( this ).text() );
+				filter();
 			}
 		});
 	});
