@@ -1,8 +1,8 @@
 function drawTimeline(){
-	DataVars.data.entries = _.sortBy( DataVars.data.entries, function(d){
+	DataVars.filteredData.entries = _.sortBy( DataVars.filteredData.entries, function(d){
 		return parseInt(d.date.year || 0)*100 + parseInt(d.date.month || 0)*10 + parseInt(d.date.day || 0);
 	});
-	var allYears = _.map( DataVars.data.entries, function(d){ return d.date.year } );
+	var allYears = _.map( DataVars.filteredData.entries, function(d){ return d.date.year } );
 
 	AppVars.years = _.uniq( _.reject( allYears, function(d){ return !d } ) );
 
@@ -37,7 +37,7 @@ function drawYear( year ){
 			if ( !$(this).hasClass( "active" ) ) selectYear( year );
 		})
 
-	var entries = _.filter( DataVars.data.entries, function(d){
+	var entries = _.filter( DataVars.filteredData.entries, function(d){
 		return d.date.year == year;
 	});
 	_.each( entries, function(d,i){
