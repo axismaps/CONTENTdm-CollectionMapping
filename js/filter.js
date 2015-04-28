@@ -32,5 +32,18 @@ function filter( type ){
 		DataVars.filteredData = fD;
 	}
 	
+	if( type == 'date' ) sort();
+	
 	console.log( DataVars.filteredData );
+}
+
+function update(){
+	
+}
+
+function sort(){
+	var fD = DataVars.filteredData;
+	DataVars.filteredData = _.sortBy( fD.entries, function( entry ){
+		return entry.date.year;
+	});
 }
