@@ -282,8 +282,10 @@ a:hover{
 }
 #timeline-inner{
 	white-space: nowrap;
-	position: absolute;
-	transition: left 1s;
+	width: 100%;
+	overflow: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
 }
 
 .timeline-year{

@@ -18,7 +18,8 @@ var ServerVars = {},
 		minZoom: 4,
 		years: undefined,
 		selectedYear: undefined,
-		selectedYearIndex: undefined
+		selectedYearIndex: undefined,
+		scrollTimeout: 1
 	},
 	DataVars = {
 		filters: {
@@ -41,6 +42,7 @@ function initEvents(){
 
 	$( "#timeline-next" ).click( advanceTimeline );
 	$( "#timeline-prev" ).click( rewindTimeline );
+	$( "#timeline-inner" ).on( "scroll", timelineScroll );
 
 	$( window ).resize( resize );
 
