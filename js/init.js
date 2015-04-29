@@ -50,6 +50,7 @@ function initEvents(){
 function resize(){
 	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).outerHeight() );
 	recenterTimeline();
+	drawPulse();
 }
 
 function loadData(){

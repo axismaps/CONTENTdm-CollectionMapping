@@ -1,4 +1,5 @@
 function drawPulse(){
+	if ( !AppVars.years || !AppVars.years.length ) return;
 	var $pulse = $( "#pulse" ).empty();
 	var $pulseLine = $( "<div>" )
 		.attr( "id", "pulse-line" )
@@ -7,7 +8,8 @@ function drawPulse(){
 		.append( "<p>" + AppVars.years[ AppVars.years.length-1 ] + "</p>" );
 
 	var range = AppVars.years[ AppVars.years.length-1 ] - AppVars.years[0],
-		interval = parseInt( range/20 );
+		maxCircles = Math.max( 10, parseInt( $( "#pulse-line" ).width() / 25 ) );
+		interval = parseInt( range/maxCircles );
 
 	for( var year = AppVars.years[0]; year <= AppVars.years[ AppVars.years.length-1 ]; year += interval ){
 		var i = 0,
@@ -41,6 +43,7 @@ function drawPulse(){
 		actualYears.forEach( function(y){
 			circle.addClass("p"+y);
 		});
+		if ( AppVars.selectedYear ) $( ".p" + AppVars.selectedYear ).addClass( "active" );
 	}
 
 }
