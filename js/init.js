@@ -53,7 +53,7 @@ function resize(){
 }
 
 function loadData(){
-	$.get( "loadData.php", {
+	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias,
 		fields: ['subjec', 'date', 'covera', 'descri', 'format']
 	}).done( function( data ) {
