@@ -19,7 +19,8 @@ var ServerVars = {},
 		years: undefined,
 		selectedYear: undefined,
 		selectedYearIndex: undefined,
-		scrollTimeout: 1
+		scrollTimeout: 1,
+		timelineRecenterFlag: false
 	},
 	DataVars = {
 		filters: {

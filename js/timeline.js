@@ -106,6 +106,7 @@ function recenterTimeline(){
 		.animate( { scrollLeft: left }, function(){
 			$( "#timeline-inner" ).on( "scroll", timelineScroll );
 		});
+	AppVars.timelineRecenterFlag = false;
 }
 
 function timelineScroll(){
@@ -115,12 +116,15 @@ function timelineScroll(){
 	if ( left == 0 ) year = AppVars.years[0];
 	else if ( Math.abs( left - (AppVars.years.length - $( this ).parent().width()) ) < 10 ) year = AppVars.years[ AppVars.years.length - 1 ];
 	else year = AppVars.years[ index ];
-
-	if ( year != AppVars.selectedYear ) selectYear( year, true, true );
 	clearTimeout( AppVars.scrollTimeout );
 	AppVars.scrollTimeout = setTimeout( timelineScrollStop, 100 );
+	if ( year != AppVars.selectedYear ){
+		selectYear( year, true, true );
+		AppVars.timelineRecenterFlag = true;
+	}
 }
 function timelineScrollStop(){
+	if ( !AppVars.timelineRecenterFlag ) return;
 	loadTimelineImages( AppVars.selectedYear );
 	recenterTimeline();
 }
