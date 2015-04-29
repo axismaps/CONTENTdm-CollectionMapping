@@ -436,6 +436,9 @@ a:hover{
 }
 
 /* Lightbox */
+.lightbox{
+	z-index: 200;
+}
 .lightbox-mask{
 	position: absolute;
 	width: 100%;
@@ -450,7 +453,8 @@ a:hover{
 	left:20px;
 	color: white;
 	margin: 0;
-	text-shadow: 0 0 5px black ;
+	text-shadow: 1px 1px 5px black,
+		-1px -1px 5px black
 }
 .timeline-entry > div div.image-loader i{
 	font-size: 60px;

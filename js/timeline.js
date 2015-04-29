@@ -182,56 +182,58 @@ function lightboxEntry( $entry ){
 			width: 600,
 			height: 270,
 			padding: 20
-		});
-	$( ".image-expand", $div ).hide();
+		},loadFullImage);
 	$( ".text-container", $div ).css( {
 		"margin-left": 410,
 		"margin-top": 0 
-	});
-	var $image = $( "img", $div );
-	$( "<div>" )
-		.attr( "class", "image-loader" )
-		.css({
-			width: $image.width(),
-			height: $image.height()
-		})
-		.append( '<i class="fa fa-spinner fa-spin"></i>' )
-		.append( '<p>Loading full image...</p>' )
-		.insertAfter( $image );
-	var src = $image.attr( "src" );
-	src = src.replace( "=400", "=4000" )
-		.replace( "=270", "=4000" )
-		.replace( "=20", "=100" );
-	$image.attr( "src", src )
-		.load( function(){
-			$( ".image-loader", $div ).remove();
-			var $this = $(this).css( "height", "auto" ),
-				w,
-				h;
-			if ( $this.width()> $this.height() ){
-				w = Math.min( $this.width(), .8 * $(window).width() - 400 );
-				h = w * $this.height() / $this.width();
-			} else {
-				h = Math.min( $this.height(), .8 * $(window).height() - 200 );
-				w = h * $this.width() / $this.height();
-			}
-			$this.css("height",270).animate( {width:w,height:h} );
-			$( ".text-container", $div ).animate( {
-				"margin-left": w + 10
-			});
-			$( ".mask", $div ).animate({
-				width: w
-			})
-			$div.animate({
-				height: h,
-				width: w + 400,
-				"margin-top": -h/2 - 20,
-				"margin-left": -(w+400)/2 - 20
-			});
-		})
-		
+	});		
 	$( ".entry-title, .mask", $div ).animate({
 		top: 20,
 		left: 20
-	})
+	});
+	$( ".image-expand", $div ).remove();
+	function loadFullImage(){
+		var $image = $( "img", $div );
+		$( "<div>" )
+			.attr( "class", "image-loader" )
+			.css({
+				width: $image.width(),
+				height: $image.height()
+			})
+			.append( '<i class="fa fa-spinner fa-spin"></i>' )
+			.append( '<p>Loading full image...</p>' )
+			.insertAfter( $image );
+		var src = $image.attr( "src" );
+		src = src.replace( "=400", "=6000" )
+			.replace( "=270", "=6000" )
+			.replace( "=20", "=100" );
+		$image.attr( "src", src )
+			.load( function(){
+				$( ".image-loader", $div ).remove();
+				var $this = $(this).css( "height", "auto" ),
+					w,
+					h;
+				$this.parent().css("width","auto");
+				if ( $this.width()> $this.height() ){
+					w = Math.min( $this.width(), .9 * $(window).width() - 400 );
+					h = w * $this.height() / $this.width();
+				} else {
+					h = Math.min( $this.height(), .9 * $(window).height() );
+					w = h * $this.width() / $this.height();
+				}
+				$this.css("height",270).animate( {width:w,height:h} );
+				$( ".text-container", $div ).animate( {
+					"margin-left": w + 10
+				});
+				$( ".mask", $div ).animate({
+					width: w
+				})
+				$div.animate({
+					height: h,
+					width: w + 400,
+					"margin-top": -h/2 - 20,
+					"margin-left": -(w+400)/2 - 20
+				});
+			})
+	}
 }
