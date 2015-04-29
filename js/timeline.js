@@ -78,7 +78,7 @@ function selectYear( year ){
 	$( ".timeline-year.active" ).removeClass( "active" );
 	$( ".pulse-circle.active" ).removeClass( "active" );
 	$( "#year" + year).addClass( "active" );
-	$( "#p" + year).addClass( "active" );
+	$( ".p" + year).addClass( "active" );
 	$( "#year" ).html( year );
 
 	AppVars.selectedYear = year;
