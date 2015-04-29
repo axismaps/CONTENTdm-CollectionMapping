@@ -15,7 +15,7 @@ function drawTimeline(){
 	selectYear( AppVars.years[0] );
 
 	$( ".entry-title" ).click( function(){
-		var $entry = $(this).parent(),
+		var $entry = $(this).parent().parent(),
 			$year = $entry.parent();
 		if ( !$year.hasClass( "active" ) || $entry.hasClass( "expanded" ) ) return;
 		$( ".timeline-entry.expanded", $entry.parent() )
@@ -46,25 +46,29 @@ function drawYear( year ){
 	});
 	_.each( entries, function(d,i){
 		var $entry = $( "<div class='timeline-entry e" + i + "'>" );
+		var $imageContainer = $( "<div class='image-container'>" )
+			.appendTo( $entry );
 		$( "<img>" )
 			.attr( "data-src", "http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=" + AppVars.collectionAlias + "&CISOPTR=" + d.pointer +"&action=2&DMSCALE=20&DMWIDTH=400&DMHEIGHT=270" )	// fake image source for testing, obvs
-			.appendTo( $entry );
-		$( "<div class='mask'>" ).appendTo( $entry );
+			.appendTo( $imageContainer );
+		$( "<div class='mask'>" ).appendTo( $imageContainer );
 
 		var title = $( "<p>" ).attr( "class", "entry-title" );
 		if ( d.date.day )
 			title.html( d.date.month + "/" + d.date.day + "/" + year + " | " + d.title )
 		else
 			title.html( year + " | " + d.title );
-		$entry.append( title )
+		$imageContainer.append( title );
+
+		var $textContainer = $( "<div class='text-container'>" )
 			.append( "<p class='entry-description'>" + d.descri + "</p>" )
-			.append( "<p><strong>SUBJECT:</strong> " + getSubjectLinks(d.subjec) + "</p>" );
+			.append( "<p><strong>SUBJECT:</strong> " + getSubjectLinks(d.subjec) + "</p>" )
+			.appendTo( $entry );
 
 		$( '<div class="image-expand"><i class="fa fa-expand fa-2x"></i></div>' )
-			.appendTo( $entry )
+			.appendTo( $imageContainer )
 			.on( 'click', function(){
-				//TODO: Show lightbox of full image
-				console.log( 'Show lightbox here' );
+				lightboxEntry( $entry );
 			});
 
 		$div.append( $entry );
@@ -149,4 +153,85 @@ function getSubjectLinks( subject ){
 		subject = subject.replace( s, "<a href='#'>" + s + "</a>" );	// TO DO: make link actually do something
 	});
 	return subject;
+}
+function lightboxEntry( $entry ){
+	var mask = $( "<div class='lightbox-mask lightbox'>" )
+		.appendTo( "body" )
+		.click( function(){
+			$( ".lightbox" ).remove();
+		});
+	var $div = $entry.clone()
+		.addClass( "lightbox" )
+		.css({
+			position: "absolute",
+			left: $entry.offset().left,
+			top: $entry.offset().top,
+			"margin-top": 0,
+			"margin-left": 0,
+			width: 400,
+			height: $entry.height(),
+			transition: "none",
+			padding: 0
+		})
+		.appendTo("body")
+		.animate({
+			left: "50%",
+			top: "50%",
+			"margin-left": -300,
+			"margin-top": -135,
+			width: 600,
+			height: 270,
+			padding: 20
+		});
+	$( ".image-expand", $div ).hide();
+	$( ".text-container", $div ).css( {
+		"margin-left": 410,
+		"margin-top": 0 
+	});
+	var $image = $( "img", $div );
+	$( "<div>" )
+		.attr( "class", "image-loader" )
+		.css({
+			width: $image.width(),
+			height: $image.height()
+		})
+		.append( '<i class="fa fa-spinner fa-spin"></i>' )
+		.append( '<p>Loading full image...</p>' )
+		.insertAfter( $image );
+	var src = $image.attr( "src" );
+	src = src.replace( "=400", "=4000" )
+		.replace( "=270", "=4000" )
+		.replace( "=20", "=100" );
+	$image.attr( "src", src )
+		.load( function(){
+			$( ".image-loader", $div ).remove();
+			var $this = $(this).css( "height", "auto" ),
+				w,
+				h;
+			if ( $this.width()> $this.height() ){
+				w = Math.min( $this.width(), .8 * $(window).width() - 400 );
+				h = w * $this.height() / $this.width();
+			} else {
+				h = Math.min( $this.height(), .8 * $(window).height() - 200 );
+				w = h * $this.width() / $this.height();
+			}
+			$this.css("height",270).animate( {width:w,height:h} );
+			$( ".text-container", $div ).animate( {
+				"margin-left": w + 10
+			});
+			$( ".mask", $div ).animate({
+				width: w
+			})
+			$div.animate({
+				height: h,
+				width: w + 400,
+				"margin-top": -h/2 - 20,
+				"margin-left": -(w+400)/2 - 20
+			});
+		})
+		
+	$( ".entry-title, .mask", $div ).animate({
+		top: 20,
+		left: 20
+	})
 }
