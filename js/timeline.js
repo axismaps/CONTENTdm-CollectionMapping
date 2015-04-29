@@ -72,7 +72,7 @@ function drawYear( year ){
 	expandEntry( $(".timeline-entry.e0", $div) );
 }
 
-function selectYear( year ){
+function selectYear( year, noAutoScroll, noImages ){
 	if ( year == undefined || !$( "#year" + year).length ) return;
 	AppVars.selectedYearIndex = AppVars.years.indexOf( year );
 	$( ".timeline-year.active" ).removeClass( "active" );
@@ -82,12 +82,10 @@ function selectYear( year ){
 	$( "#year" ).html( year );
 
 	AppVars.selectedYear = year;
-	recenterTimeline();
+	if ( !noAutoScroll ) recenterTimeline();
 
+	if ( noImages ) return;
 	loadTimelineImages( year );	// load selected year images before surrounding years
-	for ( var i = AppVars.selectedYearIndex - 2; i <= AppVars.selectedYearIndex + 2; i++ ){
-		if ( i != AppVars.selectedYearIndex ) loadTimelineImages( AppVars.years[i] );
-	}
 }
 
 function advanceTimeline(){
@@ -102,21 +100,49 @@ function rewindTimeline(){
 
 function recenterTimeline(){
 	if ( !$( ".timeline-year.active" ).length ) return;
-	var left = -$( ".timeline-year.active" ).index() * $( ".timeline-year" ).outerWidth()
-			+ ( $( "#timeline" ).width()  - $( ".timeline-year" ).outerWidth() ) / 2;
-	$( "#timeline-inner" ).css( "left", left + "px" )
+	var left = $( ".timeline-year.active" ).index() * $( ".timeline-year" ).outerWidth()
+			- ( $( "#timeline" ).width()  - $( ".timeline-year" ).outerWidth() ) / 2;
+	$( "#timeline-inner" ).off( "scroll" )
+		.animate( { scrollLeft: left }, function(){
+			$( "#timeline-inner" ).on( "scroll", timelineScroll );
+		});
+	AppVars.timelineRecenterFlag = false;
+}
+
+function timelineScroll(){
+	var left = $( this ).scrollLeft() + $("#timeline").width() / 2,
+		index = parseInt( left / 400 );
+	var year;
+	if ( left == 0 ) year = AppVars.years[0];
+	else if ( Math.abs( left - (AppVars.years.length - $( this ).parent().width()) ) < 10 ) year = AppVars.years[ AppVars.years.length - 1 ];
+	else year = AppVars.years[ index ];
+	clearTimeout( AppVars.scrollTimeout );
+	AppVars.scrollTimeout = setTimeout( timelineScrollStop, 100 );
+	if ( year != AppVars.selectedYear ){
+		selectYear( year, true, true );
+		AppVars.timelineRecenterFlag = true;
+	}
+}
+function timelineScrollStop(){
+	if ( !AppVars.timelineRecenterFlag ) return;
+	loadTimelineImages( AppVars.selectedYear );
+	recenterTimeline();
 }
 
 function loadTimelineImages(year){
+	year = year || AppVars.selectedYear;
 	if ( year == undefined || !$( "#year" + year).length ) return;
-	$( ".timeline-entry img", $( "#year" + year) ).each( function(){
-		if (typeof $(this).attr("src") !== typeof undefined && $(this).attr("src") !== false) {
-			return;
-		}
-		$(this).attr( "src", $(this).attr("data-src") );
-	});
+	var index = AppVars.years.indexOf( year );
+	for ( var i = index - 2; i <= index + 2; i++ ){
+		var y = AppVars.years[i];
+		$( ".timeline-entry img", $( "#year" + y) ).each( function(){
+			if (typeof $(this).attr("src") !== typeof undefined && $(this).attr("src") !== false) {
+				return;
+			}
+			$(this).attr( "src", $(this).attr("data-src") );
+		});
+	}	
 }
-
 function getSubjectLinks( subject ){
 	var subjects = subject.replace(/; /g,";").split(";");
 	subjects.forEach( function(s){
