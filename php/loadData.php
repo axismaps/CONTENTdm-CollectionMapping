@@ -60,6 +60,7 @@ function processData(){
 	
 	$formats = [];
 	$tags = [];
+	$all_tags = [];
 	$minYear = 9999;
 	$maxYear = 0;
 	$entries = [];
@@ -69,16 +70,41 @@ function processData(){
 		$value -> {'date'} = date_parse( $value -> {'date'} );
 		
 		$value -> {'location'} = [0, 0];
-		array_push( $entries, $value );
+
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
-		if ( ! in_array( $value -> filetype, $tags ) )
-			array_push( $tags, $value -> filetype ); //TODO: Change this to the tag field in the db once known
+		
+		$entry_tags = [];
+		$subjects = explode( ';', $value -> subjec);
+		foreach( $subjects as $tag ){
+			if( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
+				array_push( $entry_tags, trim( $tag ) );
+			if( trim( $tag ) != '' )
+				array_push( $all_tags, trim( $tag ) );
+		}
+		$locations = explode( ';', $value -> covera );
+		foreach( $locations as $tag ){
+			if ( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
+				array_push( $entry_tags, trim( $tag ) );
+			if( trim( $tag ) != '' )
+				array_push( $all_tags, trim( $tag ) );
+		}
+				
+		$value -> {'tags'} = $entry_tags;
+		array_push( $entries, $value );
+		
 		if ( $minYear > $value -> {'date'}['year'] )
 			$minYear = $value -> {'date'}['year'];
 		if ( $maxYear < $value -> {'date'}['year'] )
 			$maxYear = $value -> {'date'}['year'];
 	}
+	
+	foreach( array_count_values( $all_tags ) as $k => $v ){
+		if( $v >= 5 ){
+			array_push( $tags, $k );
+		}
+	};
+	sort( $tags );
 	
 	$json = [ 
 		'formats' => $formats,
