@@ -72,17 +72,17 @@ function processData(){
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
 		
-		//TODO split subject, covera into multiple values based on ';'
 		$array = explode( ';', $value -> subjec);
 		foreach( $array as $tag ){
-			if ( ! in_array( $tag, $tags ) )
-				array_push( $tags, $tag );
+			if ( ! in_array( trim( $tag ), $tags ) && trim( $tag ) != '' )
+				array_push( $tags, trim( $tag ) );
 		}
 		$array = explode( ';', $value -> covera );
 		foreach( $array as $tag ){
-			if ( ! in_array( $value -> covera, $tags ) )
-				array_push( $tags, $value -> covera);
+			if ( ! in_array( trim( $tag ), $tags ) && trim( $tag ) != '' )
+				array_push( $tags, trim( $tag ) );
 		}
+		sort( $tags );
 		
 		if ( $minYear > $value -> {'date'}['year'] )
 			$minYear = $value -> {'date'}['year'];
