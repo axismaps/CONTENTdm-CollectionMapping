@@ -58,10 +58,10 @@ function loadData( $fields ){
 	curl_close( $ch );
 	fclose( $temp );
 	
-	processData();
+	processData( $fields );
 }
 
-function processData(){
+function processData( $fields ){
 	$temp_file = fopen( "temp.json", "r" );
 	$temp_json = json_decode( fgets ( $temp_file ) );
 	
@@ -73,6 +73,11 @@ function processData(){
 	$minYear = 9999;
 	$maxYear = 0;
 	$entries = [];
+	$headers = [];
+	
+	foreach( $fields as $field ){
+		$headers[ $field[0] ] = $field[1];
+	}
 	
 	foreach( $temp_json -> records as $value ) {
 		//Convert date into exact format just in case
@@ -119,6 +124,7 @@ function processData(){
 		'minYear' => $minYear,
 		'maxYear' => $maxYear,
 		'entries' => $entries,
+		'headers' => $headers
 	];
 	
 	fwrite( $json_file, json_encode( $json, JSON_NUMERIC_CHECK ) );
