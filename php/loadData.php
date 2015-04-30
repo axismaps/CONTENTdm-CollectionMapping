@@ -60,6 +60,7 @@ function processData(){
 	
 	$formats = [];
 	$tags = [];
+	$all_tags = [];
 	$minYear = 9999;
 	$maxYear = 0;
 	$entries = [];
@@ -72,20 +73,21 @@ function processData(){
 			array_push( $formats, $value -> format);
 		
 		$entry_tags = [];
-		$array = explode( ';', $value -> subjec);
-		foreach( $array as $tag ){
-			if ( ! in_array( trim( $tag ), $tags ) && trim( $tag ) != '' )
-				array_push( $tags, trim( $tag ) );
+		$subjects = explode( ';', $value -> subjec);
+		foreach( $subjects as $tag ){
+			if( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
 				array_push( $entry_tags, trim( $tag ) );
+			if( trim( $tag ) != '' )
+				array_push( $all_tags, trim( $tag ) );
 		}
-		$array = explode( ';', $value -> covera );
-		foreach( $array as $tag ){
-			if ( ! in_array( trim( $tag ), $tags ) && trim( $tag ) != '' )
-				array_push( $tags, trim( $tag ) );
+		$locations = explode( ';', $value -> covera );
+		foreach( $locations as $tag ){
+			if ( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
 				array_push( $entry_tags, trim( $tag ) );
+			if( trim( $tag ) != '' )
+				array_push( $all_tags, trim( $tag ) );
 		}
-		sort( $tags );
-		
+				
 		$value -> {'tags'} = $entry_tags;
 		array_push( $entries, $value );
 		
@@ -94,6 +96,13 @@ function processData(){
 		if ( $maxYear < $value -> {'date'}['year'] )
 			$maxYear = $value -> {'date'}['year'];
 	}
+	
+	foreach( array_count_values( $all_tags ) as $k => $v ){
+		if( $v >= 5 ){
+			array_push( $tags, $k );
+		}
+	};
+	sort( $tags );
 	
 	$json = [ 
 		'formats' => $formats,
