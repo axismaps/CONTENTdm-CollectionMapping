@@ -447,6 +447,12 @@ a:hover{
 	left: 0;
 	background-color: rgba(0,0,0,.75);
 }
+.timeline-entry.lightbox > div p.entry-description{
+	margin-top: 0;
+}
+.timeline-entry.lightbox > div.text-container{
+	overflow: auto;
+}
 .timeline-entry > div div.image-loader{
 	position: absolute;
 	top:20px;

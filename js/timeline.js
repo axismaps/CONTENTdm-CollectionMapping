@@ -234,6 +234,7 @@ function lightboxEntry( $entry ){
 					"margin-top": -h/2 - 20,
 					"margin-left": -(w+400)/2 - 20
 				});
+				$( ".text-container", $div ).css( "max-height", h );
 			})
 	}
 }
