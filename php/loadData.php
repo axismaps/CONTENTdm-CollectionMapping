@@ -69,7 +69,7 @@ function processData(){
 		//Convert date into exact format just in case
 		$value -> {'date'} = date_parse( $value -> {'date'} );
 		
-		$value -> {'location'} = [0, 0];
+		// $value -> {'location'} = checkLocation( $value -> covera );
 
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
@@ -83,11 +83,14 @@ function processData(){
 				array_push( $all_tags, trim( $tag ) );
 		}
 		$locations = explode( ';', $value -> covera );
-		foreach( $locations as $tag ){
-			if ( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
-				array_push( $entry_tags, trim( $tag ) );
-			if( trim( $tag ) != '' )
-				array_push( $all_tags, trim( $tag ) );
+		foreach( $locations as $location ){
+			$location = trim( $location );
+			$value -> {'location'} = checkLocation( $location );
+			
+			if ( ! in_array( $location, $entry_tags ) && $location != '' )
+				array_push( $entry_tags, $location );
+			if( $location != '' )
+				array_push( $all_tags, $location );
 		}
 				
 		$value -> {'tags'} = $entry_tags;
@@ -119,6 +122,27 @@ function processData(){
 	
 	fclose( $temp_file );
 	unlink( "temp.json" );
+}
+
+function checkLocation( $name ){
+	
+	$location_file = fopen( "locations.csv", "r+" );
+	while ( !feof( $location_file ) ){
+		$line = fgetcsv( $location_file, 1024 );
+		if( $line[0] == $name ) {
+			$location = array( 'name' => $line[0], 'lat' => $line[1], 'lng' => $line[2] );
+			fclose( $location_file );
+			return $location;
+		}
+	}
+	
+	
+	fputcsv( $location_file, [ $name, 0, 0 ] );
+	$location = array( 'name' => $name, 'lat' => 0, 'lng' => 0 );
+	
+	fclose( $location_file );
+	
+	return $location;
 }
 
 ?>
