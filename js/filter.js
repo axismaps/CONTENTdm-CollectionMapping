@@ -28,7 +28,7 @@ function filter( type ){
 
 			var tag_value = false;
 			_.each( v.tags, function( tag ) {
-				if( filters.tags.length > 0 && _.indexOf( filters.tags, tag ) >= 0 ) tag_value = true;
+				if( filters.tags.length > 0 && _.indexOf( filters.tags, String( tag ) ) >= 0 ) tag_value = true;
 			});
 			if( tag_value == false ) return false;
 
