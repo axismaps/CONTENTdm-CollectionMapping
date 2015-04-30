@@ -3,6 +3,19 @@ h1, h2, h3{
 	font-family: Oswald, sans-serif;
 }
 
+h1{
+	color: #b6272f;
+	font-weight: normal;
+	line-height: 75px;
+	font-size: 30px;
+}
+h1 span.title{
+	font-weight: bold;
+}
+h1 span.subtitle{
+	font-weight: lighter;
+}
+
 .italic {
 	font-style: italic;
 }
@@ -24,7 +37,8 @@ a:hover{
 	text-align: center;
 	padding: 20px 0;
 	cursor: pointer;
-	color: #111;
+	color: #999;
+	font-size: 12px;
 }
 
 #bar .sidebar-button:hover{
@@ -47,6 +61,7 @@ a:hover{
 
 #bar i {
 	display: block;
+	margin-bottom: 10px;
 }
 
 #bar .bottom {
@@ -129,7 +144,7 @@ a:hover{
 	position: relative;
 }
 
-#reports-accordion .accordion-image > div {
+#reports-accordion .accordion-image > div, .timeline-entry .image-expand {
 	position: absolute;
 	right: 20px;
 	bottom: 20px;
@@ -237,6 +252,11 @@ a:hover{
 
 #timeline{
 	color: #fff;
+	background-color: #333;
+}
+
+#timeline-top{
+	background-color: black;
 }
 
 #year{
@@ -246,6 +266,7 @@ a:hover{
 	height: 50px;
 	line-height: 50px;
 	font-weight: normal;
+	font-size: 24px;
 }
 
 .timeline-button{
@@ -266,14 +287,21 @@ a:hover{
 #timeline-prev{
 	float: left;
 }
+#timeline-prev i{
+	margin: 0 5px 0 -5px; 
+}
 #timeline-next{
 	float: right;
 }
-
+#timeline-next i{
+	margin: 0 -5px 0 5px; 
+}
 #timeline-inner{
 	white-space: nowrap;
-	position: absolute;
-	transition: left 1s;
+	width: 100%;
+	overflow: auto;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
 }
 
 .timeline-year{
@@ -305,6 +333,9 @@ a:hover{
 	overflow: hidden;
 	transition: height .5s;
 }
+.timeline-entry.expanded{
+	overflow: auto;
+}
 
 .timeline-entry img{
 	height: 270px;
@@ -313,6 +344,12 @@ a:hover{
 .timeline-entry p, .timeline-entry div{
 	margin: 15px;
 	position: relative;
+}
+
+.timeline-entry .image-expand{
+	top: 202px;
+	bottom: auto;
+	margin: 0;
 }
 
 .timeline-entry p.entry-title, .timeline-entry .mask{
@@ -327,6 +364,8 @@ a:hover{
 	overflow: hidden;
 	text-overflow: ellipsis;
 	cursor: pointer;
+	text-shadow: 1px 1px rgba(0,0,0,.5);
+	font-weight: bold;
 }
 .timeline-entry p.entry-title:hover{
 	text-decoration: underline;
@@ -353,6 +392,50 @@ a:hover{
 
 .timeline-entry a{
 	color: #0061b3;
+}
+
+#pulse p, #pulse > div{
+	display: inline-block;
+	vertical-align: middle;
+}
+#pulse p{
+	width: 35px;
+	height: 50px;
+	line-height: 50px;
+	margin: 0 0 0 15px;
+	color: #ccc;
+}
+#pulse p:first-child{
+	margin-right: 15px;
+}
+#pulse-line{
+	width: -moz-calc(100% - 125px);
+    width: -webkit-calc(100% - 125px);
+    width: -o-calc(100% - 125px);
+    width: calc(100% - 125px);
+    height: 1px;
+    background-color: #666;
+    position: relative;
+}
+.pulse-circle{
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin-left: -7px;
+	margin-top: -7px;
+	background-color: rgba(102,102,102,.5);
+	border: 2px solid #666;
+	cursor: pointer;
+}
+.pulse-circle:hover{
+	border: 2px solid #ccc;
+	z-index: 100 !important;
+}
+.pulse-circle.active, .pulse-circle.active:hover{
+	background-color: rgba(178,38,46,.5);
+	border: 2px solid #fff;
+	z-index: 100 !important;
 }
 
 /* Lightbox */

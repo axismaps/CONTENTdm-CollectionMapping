@@ -36,7 +36,12 @@ function filter( type ){
 	}
 	
 	if( type == 'date' ) sortByDate();
+
 	update();
+}
+
+function update(){
+	drawTimeline();
 }
 
 function sortByDate(){

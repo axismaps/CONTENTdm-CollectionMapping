@@ -6,22 +6,26 @@ html, body{
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: 'PT Sans', sans-serif;
+	font: 14px/16px 'PT Sans', sans-serif;
 }
 
 #topbar{
-	background-color: cornsilk;
-	height: 100px;
+	background: url(../img/header.jpg);
+	height: 75px;
 	width: 100%;
 	display: block;
 }
 
+h1{
+	margin: 0 25px;
+}
+
 #interactive-area{
 	width: 100%;
-    height: -moz-calc(100% - 100px);
-    height: -webkit-calc(100% - 100px);
-    height: -o-calc(100% - 100px);
-    height: calc(100% - 100px);
+    height: -moz-calc(100% - 75px);
+    height: -webkit-calc(100% - 75px);
+    height: -o-calc(100% - 75px);
+    height: calc(100% - 75px);
 	display: block;
 	background-color: #eee;
 }
@@ -40,8 +44,8 @@ html, body{
 }
 
 #bar{
-	background-color: #666;
-	width: 100px;
+	background-color: #333;
+	width: 75px;
 	height: 100%;
 	float: left;
 }
@@ -81,13 +85,17 @@ html, body{
 }
 
 #timeline{
-	height: 100%;
+	height: -moz-calc(100% - 51px);
+    height: -webkit-calc(100% - 51px);
+    height: -o-calc(100% - 51px);
+    height: calc(100% - 51px);
 	position: relative;
 	overflow: hidden;
 }
 
 #pulse{
-
+	height: 50px;
+	border-top: 1px solid #ccc;
 }
 
 /* Lightbox */

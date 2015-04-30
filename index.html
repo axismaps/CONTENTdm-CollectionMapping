@@ -23,7 +23,9 @@
 	
 	<body>
 		<div id="topbar">
-			<span class="title">Baptists in Burma: </span><span class="subtitle">Midwestern Missionaries at Home and Abroad</span>
+			<h1>
+				<span class="title">Baptists in Burma: </span><span class="subtitle">Midwestern Missionaries at Home and Abroad</span>
+			</h1>
 			<div id="search"></div>
 		</div>
 		
@@ -93,9 +95,11 @@
 			<div id="map"></div>
 			<div id="details">
 				<div id="timeline">
-					<div class="timeline-button" id="timeline-prev"><i class="fa fa-arrow-left"></i> Prev</div>
-					<div class="timeline-button" id="timeline-next">Next <i class="fa fa-arrow-right"></i></div>
-					<h2 id="year"></h2>
+					<div id="timeline-top">
+						<div class="timeline-button" id="timeline-prev"><i class="fa fa-arrow-left"></i> Prev</div>
+						<div class="timeline-button" id="timeline-next">Next <i class="fa fa-arrow-right"></i></div>
+						<h2 id="year"></h2>
+					</div>
 					<div id="timeline-inner"></div>
 				</div>
 				<div id="pulse"></div>
@@ -117,6 +121,7 @@
 		<script src="js/sidebar.js"></script>
 		<script src="js/map.js"></script>
 		<script src="js/timeline.js"></script>
+		<script src="js/pulse.js"></script>
 		<script src="js/filter.js"></script>
 		<script src="js/init.js"></script>
 		<!-- endbuild -->

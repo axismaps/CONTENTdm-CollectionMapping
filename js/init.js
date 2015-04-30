@@ -18,7 +18,9 @@ var ServerVars = {},
 		minZoom: 4,
 		years: undefined,
 		selectedYear: undefined,
-		selectedYearIndex: undefined
+		selectedYearIndex: undefined,
+		scrollTimeout: 1,
+		timelineRecenterFlag: false
 	},
 	DataVars = {
 		filters: {
@@ -42,6 +44,7 @@ function initEvents(){
 
 	$( "#timeline-next" ).click( advanceTimeline );
 	$( "#timeline-prev" ).click( rewindTimeline );
+	$( "#timeline-inner" ).on( "scroll", timelineScroll );
 
 	$( window ).resize( resize );
 
@@ -51,6 +54,7 @@ function initEvents(){
 function resize(){
 	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).outerHeight() );
 	recenterTimeline();
+	drawPulse();
 }
 
 function update(){
@@ -58,7 +62,7 @@ function update(){
 }
 
 function loadData(){
-	$.get( "loadData.php", {
+	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias,
 		fields: ['subjec', 'date', 'covera', 'descri', 'format']
 	}).done( function( data ) {
