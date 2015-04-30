@@ -144,6 +144,10 @@ a:hover{
 	position: relative;
 }
 
+#reports-accordion .text-container{
+	margin-top: 310px;
+}
+
 #reports-accordion .accordion-image > div, .timeline-entry .image-expand {
 	position: absolute;
 	right: 20px;
@@ -168,7 +172,7 @@ a:hover{
 	cursor: initial;
 }
 
-#reports-accordion .button{
+.reports-accordion-content .button{
 	float: right;
 	color: #fff;
 	background-color: #aaa;
@@ -327,7 +331,6 @@ a:hover{
 .timeline-entry .image-container{
 	width: 400px;
 	height: 270px;
-	float: left;
 }
 
 .timeline-entry .text-container{
@@ -436,8 +439,12 @@ a:hover{
 }
 
 /* Lightbox */
+.image-container{
+	float: left;
+}
 .lightbox{
 	z-index: 200;
+	background-color: white;
 }
 .lightbox-mask{
 	position: absolute;
@@ -445,12 +452,12 @@ a:hover{
 	height: 100%;
 	top: 0;
 	left: 0;
-	background-color: rgba(0,0,0,.75);
+	background-color: rgba(0,0,0,.75) !important;
 }
-.timeline-entry.lightbox > div p.entry-description{
+.lightbox > div.text-container p:first-child{
 	margin-top: 0;
 }
-.timeline-entry.lightbox > div.text-container{
+.lightbox > div.text-container{
 	overflow: auto;
 }
 .timeline-entry > div div.image-loader{

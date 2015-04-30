@@ -104,14 +104,14 @@ function initReports(){
 	$.map( DataVars.data.entries, function( v ) {
 		$( '#reports-accordion' ).append( '<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>' );
 		
-		$( '#reports-accordion' ).append( '<div/>' );
+		$( '#reports-accordion' ).append( '<div class="reports-accordion-content"/>' );
 		
 		if( v.filetype == "jpg" ) {
 			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
 			var width = $( '#reports-accordion' ).width();
 			
 			$( '<div/>', {
-				'class' : 'accordion-image'
+				'class' : 'accordion-image image-container'
 			}).appendTo( '#reports-accordion > div:last-child' ).css({
 				background:  'url(' + url + ')' + 'no-repeat 50% top',
 				width: width + 'px',
@@ -120,24 +120,29 @@ function initReports(){
 			
 			$( '<div/>' )
 				.appendTo( '#reports-accordion > div:last-child > div' )
+				.attr( 'class', 'image-expand' )
 				.html( '<i class="fa fa-expand fa-2x"></i>' )
 				.on( 'click', function(){
 					//TODO: Show lightbox of report summary
 					console.log( 'Show lightbox here' );
 			});
 		}
+
+		var $textContainer = $( '<div class="text-container">' )
+			.appendTo( '#reports-accordion > div:last-child' );
 		
-		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.descri ).succinct({
+		$( '<p/>' ).appendTo( $textContainer  ).text( v.descri ).succinct({
 			size: 300
 		});
 		
 		$( '<div/>', {
 				'class': 'button',
 				html : 'View Report <i class="fa fa-chevron-right"></i>'
-		}).appendTo( '#reports-accordion > div:last-child' )
+		}).appendTo( $textContainer  )
 		.on( 'click', function(){
 			//TODO: Show full report on click
 			console.log( v );
+			lightboxReport( $(this).parent().parent() );
 		});
 	});
 	
@@ -266,4 +271,91 @@ function initSummary(){
 
 function initAbout(){
 	alert( 'About lightbox will show up here' );
+}
+
+function lightboxReport( $report ){
+	var mask = $( "<div class='lightbox-mask lightbox'>" )
+		.appendTo( "body" )
+		.click( function(){
+			$( ".lightbox" ).remove();
+		});
+	var $div = $report.clone()
+		.removeClass( "ui-accordion" )
+		.removeClass( "ui-accordion-content" )
+		.addClass( "lightbox" )
+		.css({
+			position: "absolute",
+			left: $report.offset().left,
+			top: $report.offset().top,
+			"margin-top": 0,
+			"margin-left": 0,
+			width: 300,
+			height: $report.height(),
+			transition: "none",
+			padding: 0
+		})
+		.appendTo("body")
+		.animate({
+			left: "50%",
+			top: "50%",
+			"margin-left": -300,
+			"margin-top": -135,
+			width: 600,
+			height: 300,
+			padding: 20
+		});
+	$( ".text-container", $div ).css( {
+		"margin-left": 310,
+		"margin-top": 0 
+	});		
+	// $( ".entry-title, .mask", $div ).animate({
+	// 	top: 20,
+	// 	left: 20
+	// });
+	$( ".image-expand", $div ).remove();
+	function loadFullImage(){
+		var $image = $( "img", $div );
+		$( "<div>" )
+			.attr( "class", "image-loader" )
+			.css({
+				width: $image.width(),
+				height: $image.height()
+			})
+			.append( '<i class="fa fa-spinner fa-spin"></i>' )
+			.append( '<p>Loading full image...</p>' )
+			.insertAfter( $image );
+		var src = $image.attr( "src" );
+		src = src.replace( "=400", "=6000" )
+			.replace( "=270", "=6000" )
+			.replace( "=20", "=100" );
+		$image.attr( "src", src )
+			.load( function(){
+				$( ".image-loader", $div ).remove();
+				var $this = $(this).css( "height", "auto" ),
+					w,
+					h;
+				$this.parent().css("width","auto");
+				if ( $this.width()> $this.height() ){
+					w = Math.min( $this.width(), .9 * $(window).width() - 400 );
+					h = w * $this.height() / $this.width();
+				} else {
+					h = Math.min( $this.height(), .9 * $(window).height() );
+					w = h * $this.width() / $this.height();
+				}
+				$this.css("height",270).animate( {width:w,height:h} );
+				$( ".text-container", $div ).animate( {
+					"margin-left": w + 10
+				});
+				$( ".mask", $div ).animate({
+					width: w
+				})
+				$div.animate({
+					height: h,
+					width: w + 400,
+					"margin-top": -h/2 - 20,
+					"margin-left": -(w+400)/2 - 20
+				});
+				$( ".text-container", $div ).css( "max-height", h );
+			})
+	}
 }
