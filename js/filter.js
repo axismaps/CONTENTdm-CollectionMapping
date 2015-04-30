@@ -4,6 +4,7 @@ function filter( type ){
 		data = DataVars.data;
 
 	$( "#filters-button span" ).html( "Filters" );
+	$( "#tags-button span" ).html( "Tags" );
 		
 	//Default parameters, exit early
 	if( filters.minYear === 0 && filters.maxYear === 9999 && filters.tags.length === 0 && filters.format.length === 0 ) {
@@ -19,6 +20,10 @@ function filter( type ){
 		var filterCount = filters.format.length;
 		if ( filters.minYear !== 0 || filters.maxYear !== 9999 ) filterCount ++;
 		$( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
+		
+		var tagCount = filters.tags.length;
+		if ( filters.minYear !== 0 || filters.maxYear !== 9999 ) filterCount ++;
+		$( "#tags-button span" ).html( "Tags (" + tagCount + ")" );
 
 		_.each( data.entries, function( v ) {
 			//filters
