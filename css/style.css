@@ -460,20 +460,20 @@ a:hover{
 .lightbox > div.text-container{
 	overflow: auto;
 }
-.timeline-entry > div div.image-loader{
-	position: absolute;
+.image-loader{
+	position: absolute !important;
 	top:20px;
 	left:20px;
 	color: white;
-	margin: 0;
+	margin: 0 !important;
 	text-shadow: 1px 1px 5px black,
-		-1px -1px 5px black
-}
-.timeline-entry > div div.image-loader i{
-	font-size: 60px;
-	margin: 105px 0 0 170px;
-}
-.timeline-entry > div div.image-loader p{
-	font-size: 16px;
+		-1px -1px 5px black;
 	text-align: center;
+}
+.image-loader i{
+	font-size: 60px;
+	margin-top: 105px;
+}
+.image-loader p{
+	font-size: 16px;
 }

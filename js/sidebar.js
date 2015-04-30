@@ -303,7 +303,7 @@ function lightboxReport( $report ){
 			width: 600,
 			height: 300,
 			padding: 20
-		});
+		},loadFullImage);
 	$( ".text-container", $div ).css( {
 		"margin-left": 310,
 		"margin-top": 0 
@@ -314,27 +314,40 @@ function lightboxReport( $report ){
 	// });
 	$( ".image-expand", $div ).remove();
 	function loadFullImage(){
-		var $image = $( "img", $div );
+		var $imageDiv = $( ".image-container", $div );
+		var $image = $( "<img>" )
+			.css({
+				height: $imageDiv.height(),
+				visibility: "hidden"
+			})
+			.appendTo( $imageDiv );
 		$( "<div>" )
 			.attr( "class", "image-loader" )
 			.css({
-				width: $image.width(),
-				height: $image.height()
+				width: $imageDiv.width(),
+				height: $imageDiv.height()
 			})
 			.append( '<i class="fa fa-spinner fa-spin"></i>' )
 			.append( '<p>Loading full image...</p>' )
-			.insertAfter( $image );
-		var src = $image.attr( "src" );
-		src = src.replace( "=400", "=6000" )
-			.replace( "=270", "=6000" )
+			.appendTo( $imageDiv );
+		var src = $imageDiv.css( "background" ).match(/url\((.*)\)/)[1];
+		src = src.replace( "=1000", "=6000" )
+			.replace( "=800", "=6000" )
 			.replace( "=20", "=100" );
 		$image.attr( "src", src )
 			.load( function(){
 				$( ".image-loader", $div ).remove();
-				var $this = $(this).css( "height", "auto" ),
+				var $this = $(this).css( {
+						"height": "auto",
+						"visibility": "visible"
+					}),
 					w,
 					h;
-				$this.parent().css("width","auto");
+				$this.parent().css({
+					"width": "auto",
+					"height": "auto",
+					"overflow": "hidden"
+				});
 				if ( $this.width()> $this.height() ){
 					w = Math.min( $this.width(), .9 * $(window).width() - 400 );
 					h = w * $this.height() / $this.width();
@@ -342,13 +355,13 @@ function lightboxReport( $report ){
 					h = Math.min( $this.height(), .9 * $(window).height() );
 					w = h * $this.width() / $this.height();
 				}
-				$this.css("height",270).animate( {width:w,height:h} );
+				$this.css("height",300).animate( {width:w,height:h} );
 				$( ".text-container", $div ).animate( {
 					"margin-left": w + 10
 				});
-				$( ".mask", $div ).animate({
-					width: w
-				})
+				// $( ".mask", $div ).animate({
+				// 	width: w
+				// })
 				$div.animate({
 					height: h,
 					width: w + 400,
