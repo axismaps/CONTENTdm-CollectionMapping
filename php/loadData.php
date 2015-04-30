@@ -136,9 +136,17 @@ function checkLocation( $name ){
 		}
 	}
 	
-	
-	fputcsv( $location_file, [ $name, 0, 0 ] );
-	$location = array( 'name' => $name, 'lat' => 0, 'lng' => 0 );
+	$escaped_params = urlencode( '"' . $name . '"' );
+	$url = 'http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82l0r2h%2Cbw%3Do5-94zxuf&location=' . $escaped_params;
+	echo $url . ' ';
+	$json = file_get_contents( $url );
+	$jsonArr = json_decode($json);
+
+	$lat1 = $jsonArr->results[0]->locations[0]->latLng->lat;
+	$lon1 = $jsonArr->results[0]->locations[0]->latLng->lng;
+
+	fputcsv( $location_file, [ $name, $lat1, $lon1 ] );
+	$location = array( 'name' => $name, 'lat' => $lat1, 'lng' => $lon1 );
 	
 	fclose( $location_file );
 	
