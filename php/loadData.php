@@ -68,21 +68,26 @@ function processData(){
 		//Convert date into exact format just in case
 		$value -> {'date'} = date_parse( $value -> {'date'} );
 		
-		array_push( $entries, $value );
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
 		
+		$entry_tags = [];
 		$array = explode( ';', $value -> subjec);
 		foreach( $array as $tag ){
 			if ( ! in_array( trim( $tag ), $tags ) && trim( $tag ) != '' )
 				array_push( $tags, trim( $tag ) );
+				array_push( $entry_tags, trim( $tag ) );
 		}
 		$array = explode( ';', $value -> covera );
 		foreach( $array as $tag ){
 			if ( ! in_array( trim( $tag ), $tags ) && trim( $tag ) != '' )
 				array_push( $tags, trim( $tag ) );
+				array_push( $entry_tags, trim( $tag ) );
 		}
 		sort( $tags );
+		
+		$value -> {'tags'} = $entry_tags;
+		array_push( $entries, $value );
 		
 		if ( $minYear > $value -> {'date'}['year'] )
 			$minYear = $value -> {'date'}['year'];

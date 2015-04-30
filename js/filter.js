@@ -23,8 +23,14 @@ function filter( type ){
 		_.each( data.entries, function( v ) {
 			//filters
 			if( v.date.year < filters.minYear ) return false;
-			if ( v.date.year > filters.maxYear ) return false;
-			if ( filters.format.length > 0 && _.indexOf( filters.format, v.format ) == -1 ) return false;
+			if( v.date.year > filters.maxYear ) return false;
+			if( filters.format.length > 0 && _.indexOf( filters.format, v.format ) == -1 ) return false;
+
+			var tag_value = false;
+			_.each( v.tags, function( tag ) {
+				if( filters.tags.length > 0 && _.indexOf( filters.tags, tag ) >= 0 ) tag_value = true;
+			});
+			if( tag_value == false ) return false;
 
 			//update minYear and maxYear and push onto array
 			if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
