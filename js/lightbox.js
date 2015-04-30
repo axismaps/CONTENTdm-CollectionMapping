@@ -1,41 +1,9 @@
 function lightboxEntry( $entry ){
-	var mask = $( "<div class='lightbox-mask lightbox'>" )
-		.appendTo( "body" )
-		.click( function(){
-			$( ".lightbox" ).remove();
-		});
-	var $div = $entry.clone()
-		.addClass( "lightbox" )
-		.css({
-			position: "absolute",
-			left: $entry.offset().left,
-			top: $entry.offset().top,
-			"margin-top": 0,
-			"margin-left": 0,
-			width: 400,
-			height: $entry.height(),
-			transition: "none",
-			padding: 0
-		})
-		.appendTo("body")
-		.animate({
-			left: "50%",
-			top: "50%",
-			"margin-left": -300,
-			"margin-top": -135,
-			width: 600,
-			height: 270,
-			padding: 20
-		},loadFullImage);
-	$( ".text-container", $div ).css( {
-		"margin-left": 410,
-		"margin-top": 0 
-	});		
+	var $div = startLightbox( $entry, loadFullImage );
 	$( ".entry-title, .mask", $div ).animate({
 		top: 20,
 		left: 20
 	});
-	$( ".image-expand", $div ).remove();
 	function loadFullImage(){
 		var $image = $( "img", $div );
 		$( "<div>" )
@@ -53,76 +21,16 @@ function lightboxEntry( $entry ){
 			.replace( "=20", "=100" );
 		$image.attr( "src", src )
 			.load( function(){
-				$( ".image-loader", $div ).remove();
-				var $this = $(this).css( "height", "auto" ),
-					w,
-					h;
-				$this.parent().css("width","auto");
-				if ( $this.width()> $this.height() ){
-					w = Math.min( $this.width(), .9 * $(window).width() - 400 );
-					h = w * $this.height() / $this.width();
-				} else {
-					h = Math.min( $this.height(), .9 * $(window).height() );
-					w = h * $this.width() / $this.height();
-				}
-				$this.css("height",270).animate( {width:w,height:h} );
-				$( ".text-container", $div ).animate( {
-					"margin-left": w + 10
-				});
+				var size = onFullImageLoad( $(this), $div );
 				$( ".mask", $div ).animate({
-					width: w
-				})
-				$div.animate({
-					height: h,
-					width: w + 400,
-					"margin-top": -h/2 - 20,
-					"margin-left": -(w+400)/2 - 20
+					width: size.width
 				});
-				$( ".text-container", $div ).css( "max-height", h );
 			})
 	}
 }
 
 function lightboxReport( $report ){
-	var mask = $( "<div class='lightbox-mask lightbox'>" )
-		.appendTo( "body" )
-		.click( function(){
-			$( ".lightbox" ).remove();
-		});
-	var $div = $report.clone()
-		.removeClass( "ui-accordion" )
-		.removeClass( "ui-accordion-content" )
-		.addClass( "lightbox" )
-		.css({
-			position: "absolute",
-			left: $report.offset().left,
-			top: $report.offset().top,
-			"margin-top": 0,
-			"margin-left": 0,
-			width: 300,
-			height: $report.height(),
-			transition: "none",
-			padding: 0
-		})
-		.appendTo("body")
-		.animate({
-			left: "50%",
-			top: "50%",
-			"margin-left": -300,
-			"margin-top": -135,
-			width: 600,
-			height: 300,
-			padding: 20
-		},loadFullImage);
-	$( ".text-container", $div ).css( {
-		"margin-left": 310,
-		"margin-top": 0 
-	});		
-	// $( ".entry-title, .mask", $div ).animate({
-	// 	top: 20,
-	// 	left: 20
-	// });
-	$( ".image-expand", $div ).remove();
+	var $div = startLightbox( $report, loadFullImage );
 	function loadFullImage(){
 		var $imageDiv = $( ".image-container", $div );
 		var $image = $( "<img>" )
@@ -146,36 +54,80 @@ function lightboxReport( $report ){
 			.replace( "=20", "=100" );
 		$image.attr( "src", src )
 			.load( function(){
-				$( ".image-loader", $div ).remove();
-				var $this = $(this).css( {
-						"height": "auto",
-						"visibility": "visible"
-					}),
-					w,
-					h;
-				$this.parent().css({
-					"width": "auto",
-					"height": "auto",
-					"overflow": "hidden"
-				});
-				if ( $this.width()> $this.height() ){
-					w = Math.min( $this.width(), .9 * $(window).width() - 400 );
-					h = w * $this.height() / $this.width();
-				} else {
-					h = Math.min( $this.height(), .9 * $(window).height() );
-					w = h * $this.width() / $this.height();
-				}
-				$this.css("height",300).animate( {width:w,height:h} );
-				$( ".text-container", $div ).animate( {
-					"margin-left": w + 10
-				});
-				$div.animate({
-					height: h,
-					width: w + 400,
-					"margin-top": -h/2 - 20,
-					"margin-left": -(w+400)/2 - 20
-				});
-				$( ".text-container", $div ).css( "max-height", h );
-			})
+				onFullImageLoad( $(this), $div );
+			});
 	}
+}
+
+function startLightbox( $content, callback ){
+	var mask = $( "<div class='lightbox-mask lightbox'>" )
+		.appendTo( "body" )
+		.click( function(){
+			$( ".lightbox" ).remove();
+		});
+	var $div = $content.clone()
+		.removeClass( "ui-accordion" )
+		.removeClass( "ui-accordion-content" )
+		.addClass( "lightbox" )
+		.css({
+			position: "absolute",
+			left: $content.offset().left,
+			top: $content.offset().top,
+			"margin-top": 0,
+			"margin-left": 0,
+			width: 300,
+			height: $content.height(),
+			transition: "none",
+			padding: 0
+		})
+		.appendTo("body")
+		.animate({
+			left: "50%",
+			top: "50%",
+			"margin-left": -300,
+			"margin-top": -135,
+			width: 600,
+			height: $( ".image-container", $div ).height(),
+			padding: 20
+		},callback);
+	$( ".text-container", $div ).css( {
+		"margin-left": 310,
+		"margin-top": 0 
+	});		
+	$( ".image-expand", $div ).remove();
+	return $div;
+}
+
+function onFullImageLoad( image, container ){
+	$( ".image-loader", container ).remove();
+	image.css({
+			"height": "auto",
+			"visibility": "visible"
+		});
+	var	w,
+		h;
+	image.parent().css({
+		"width": "auto",
+		"height": "auto",
+		"overflow": "hidden"
+	});
+	if ( image.width()> image.height() ){
+		w = Math.min( image.width(), .9 * $(window).width() - 400 );
+		h = w * image.height() / image.width();
+	} else {
+		h = Math.min( image.height(), .9 * $(window).height() );
+		w = h * image.width() / image.height();
+	}
+	image.css("height",300).animate( {width:w,height:h} );
+	$( ".text-container", container ).animate( {
+		"margin-left": w + 10
+	});
+	container.animate({
+		height: h,
+		width: w + 400,
+		"margin-top": -h/2 - 20,
+		"margin-left": -(w+400)/2 - 20
+	});
+	$( ".text-container", container ).css( "max-height", h );
+	return { width: w, height: h };
 }
