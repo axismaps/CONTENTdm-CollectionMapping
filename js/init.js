@@ -58,8 +58,7 @@ function resize(){
 
 function loadData(){
 	$.get( "php/loadData.php", {
-		collection: AppVars.collectionAlias,
-		fields: ['subjec', 'date', 'covera', 'descri', 'format']
+		collection: AppVars.collectionAlias
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );

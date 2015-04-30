@@ -1,7 +1,16 @@
 <?php
 
+$fields = array();
+$fields_file = fopen( "fields.csv", "r" );
+while ( !feof( $fields_file ) ){
+	$field = fgetcsv( $fields_file, 1024 );
+	array_push($fields, $field);
+}
+fclose( $fields_file );
+	
+
 if( checkCacheAge() OR array_key_exists( 'force', $_REQUEST ) ) {
-	loadData();
+	loadData( $fields );
 }
 
 $data = fopen( 'data.json', 'r' );
@@ -21,7 +30,7 @@ function checkCacheAge() {
 	}
 }
 
-function loadData( ){
+function loadData( $fields ){
 	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
 	
 	$ch = curl_init();
@@ -33,9 +42,9 @@ function loadData( ){
 	
 	$url = "https://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmQuery/";
 	$url = $url . $_REQUEST["collection"] . '/0/title';
-	if( ! empty ( $_REQUEST["fields"] ) ) {
-		foreach( $_REQUEST["fields"] as $field ) {
-			$url = $url . '!' . $field;
+	if( ! empty ( $fields ) ) {
+		foreach( $fields as $field ) {
+			$url = $url . '!' . $field[0];
 		}
 	}
 	$url = $url . "/title/1024/1/0/0/0/0/0/0/json";
