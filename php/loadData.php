@@ -71,8 +71,19 @@ function processData(){
 		array_push( $entries, $value );
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
-		if ( ! in_array( $value -> filetype, $tags ) )
-			array_push( $tags, $value -> filetype ); //TODO: Change this to the tag field in the db once known
+		
+		//TODO split subject, covera into multiple values based on ';'
+		$array = explode( ';', $value -> subjec);
+		foreach( $array as $tag ){
+			if ( ! in_array( $tag, $tags ) )
+				array_push( $tags, $tag );
+		}
+		$array = explode( ';', $value -> covera );
+		foreach( $array as $tag ){
+			if ( ! in_array( $value -> covera, $tags ) )
+				array_push( $tags, $value -> covera);
+		}
+		
 		if ( $minYear > $value -> {'date'}['year'] )
 			$minYear = $value -> {'date'}['year'];
 		if ( $maxYear < $value -> {'date'}['year'] )
