@@ -48,8 +48,8 @@ function initMap(){
 }
 
 function drawPoints(){
-	AppVars.points.clearLayers();
+	if( AppVars.points )	AppVars.points.clearLayers();
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
-		L.marker( [ v.location.lat, v.location.lng ] ).addTo( AppVars.points );
+		if( v.location.lat !== null) L.marker( [ v.location.lat, v.location.lng ] ).addTo( AppVars.points );
 	});
 }

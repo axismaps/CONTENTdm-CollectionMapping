@@ -36,6 +36,7 @@ function init() {
 	initSidebar();
 	drawTimeline();
 	initMap();
+	drawPoints();
 }
 
 function initEvents(){
@@ -59,15 +60,14 @@ function resize(){
 function update(){
 	drawPoints();
 	drawTimeline();
+	drawPulse();
 }
 
 function loadData(){
 	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias,
-		force: true,
 		fields: ['subjec', 'date', 'covera', 'descri', 'format']
 	}).done( function( data ) {
-		console.log( data );
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		console.log( DataVars );
