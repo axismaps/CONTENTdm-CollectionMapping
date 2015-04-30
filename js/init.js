@@ -32,7 +32,6 @@ var ServerVars = {},
 	};
 
 function init() {
-	geocodePoints();
 	initEvents();
 	initSidebar();
 	drawTimeline();
@@ -59,13 +58,16 @@ function resize(){
 
 function update(){
 	drawPoints();
+	drawTimeline();
 }
 
 function loadData(){
 	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias,
+		force: true,
 		fields: ['subjec', 'date', 'covera', 'descri', 'format']
 	}).done( function( data ) {
+		console.log( data );
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		console.log( DataVars );

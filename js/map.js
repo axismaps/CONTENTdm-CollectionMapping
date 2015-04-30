@@ -47,50 +47,9 @@ function initMap(){
 	AppVars.map.addLayer( AppVars.points );
 }
 
-function geocodePoints(){
-	_.each( DataVars.data.entries, function( v, k, l ){
-		if( v.covera == "" ) return;
-		
-		if( v.covera.indexOf( ';' ) > -1 ){
-			coveraArray = v.covera.split( ';' );
-			_.each( coveraArray, function( w ){
-				geocode( w, v );
-			});
-		} else {
-			geocode( v.covera, v );
-		}
-	});
-		
-	function geocode( location, entry ){
-		MQ.geocode().search( location )
-			.on( 'success', function( e ){
-				
-				if( e.result.matches.length === 0 ){
-					console.log( 'Couldn\'t find: ' + e.result.search );
-				} else {
-					var result;
-					
-					$.map( e.result.matches.reverse(), function( v, i ){
-						if( AppVars.mapBounds.bounds.contains( v.latlng ) ) {
-							result = v;
-							return;
-						}
-					});
-					
-					if( result ) {
-						var latlng = result.latlng;
-						entry.location = [ latlng.lat, latlng.lng ];
-					} else {
-						console.log( 'Location is off the map: ' + e.result.search );
-					}
-				}
-			});
-	}
-}
-
 function drawPoints(){
 	AppVars.points.clearLayers();
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
-		L.marker( v.location ).addTo( AppVars.points );
+		L.marker( [ v.location.lat, v.location.lng ] ).addTo( AppVars.points );
 	});
 }

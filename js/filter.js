@@ -51,10 +51,6 @@ function filter( type ){
 	update();
 }
 
-function update(){
-	drawTimeline();
-}
-
 function sortByDate(){
 	var fD = DataVars.filteredData;
 	DataVars.filteredData = _.sortBy( fD.entries, function( entry ){
