@@ -124,7 +124,7 @@ function initReports(){
 				.html( '<i class="fa fa-expand fa-2x"></i>' )
 				.on( 'click', function(){
 					//TODO: Show lightbox of report summary
-					console.log( 'Show lightbox here' );
+					lightboxReport( $(this).parent().parent() );
 			});
 		}
 
@@ -142,7 +142,6 @@ function initReports(){
 		.on( 'click', function(){
 			//TODO: Show full report on click
 			console.log( v );
-			lightboxReport( $(this).parent().parent() );
 		});
 	});
 	
