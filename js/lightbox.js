@@ -32,6 +32,13 @@ function lightboxEntry( $entry ){
 function lightboxReport( $report ){
 	var $div = startLightbox( $report, loadFullImage );
 	var title = $report.prev().clone().removeAttr("class").appendTo( $div );
+	var button = $( ".button", $div );
+	button.clone()
+		.prependTo($(".text-container", $div) )
+		.click( function(){
+			// TO DO: load report
+		});
+	button.remove();
 	function loadFullImage(){
 		var $imageDiv = $( ".image-container", $div );
 		var $image = $( "<img>" )

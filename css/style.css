@@ -486,3 +486,10 @@ a:hover{
 	text-shadow: 1px 1px 5px black,
 		-1px -1px 5px black;
 }
+.lightbox .button{
+	float: left !important;
+	margin-bottom: 10px;
+}
+.lightbox .text-container p{
+	clear: left;
+}
