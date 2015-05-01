@@ -248,6 +248,10 @@ a:hover{
 	font-size: 12px;
 }
 
+.activeMarker{
+	background-color: red;
+}
+
 /* Timeline area */
 
 #timeline{

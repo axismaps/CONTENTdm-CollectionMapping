@@ -46,7 +46,9 @@ function initMap(){
 	});
 	
 	AppVars.points.on( 'click', function( e ) {
-		console.log( e.layer.pointer );
+		$( '.activeMarker' ).removeClass( 'activeMarker' );
+		$( e.layer._icon ).addClass( 'activeMarker' );
+		selectYear( e.layer.year );
 	});
 	
 	AppVars.map.addLayer( AppVars.points );
@@ -56,8 +58,10 @@ function drawPoints(){
 	if( AppVars.points )	AppVars.points.clearLayers();
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
 		if( v.location.lat !== null){
+			console.log( v );
 			var marker = L.marker( [ v.location.lat, v.location.lng ] );
-			marker.pointer = 150;
+			marker.year = v.date.year;
+			
 			marker.addTo( AppVars.points );
 		}
 	});
