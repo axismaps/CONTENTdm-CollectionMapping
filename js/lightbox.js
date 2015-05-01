@@ -119,13 +119,22 @@ function onFullImageLoad( image, container ){
 		"height": "auto",
 		"overflow": "hidden"
 	});
-	if ( image.width()> image.height() ){
-		w = Math.min( image.width(), .9 * $(window).width() - 400 );
-		h = w * image.height() / image.width();
-	} else {
+	console.log(image.width(),image.height())
+	var w = Math.min( image.width(), .9 * $(window).width() - 400 ),
+		h;
+	if ( w * image.height() / image.width() > .9 * $(window).height() ){
 		h = Math.min( image.height(), .9 * $(window).height() );
 		w = h * image.width() / image.height();
+	} else {
+		h = w * image.height() / image.width();
 	}
+	// if ( image.width()> image.height() ){
+	// 	w = Math.min( image.width(), .9 * $(window).width() - 400 );
+	// 	h = w * image.height() / image.width();
+	// } else {
+	// 	h = Math.min( image.height(), .9 * $(window).height() );
+	// 	w = h * image.width() / image.height();
+	// }
 	image.css("height",300).animate( {width:w,height:h} );
 	$( ".text-container", container ).animate( {
 		"margin-left": w + 10
