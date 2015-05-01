@@ -49,6 +49,7 @@ function initMap(){
 		$( '.activeMarker' ).removeClass( 'activeMarker' );
 		$( e.layer._icon ).addClass( 'activeMarker' );
 		selectYear( e.layer.year );
+		$( '#entry' + e.layer.pointer + ' .entry-title' ).click();
 	});
 	
 	AppVars.map.addLayer( AppVars.points );
@@ -61,7 +62,7 @@ function drawPoints(){
 			console.log( v );
 			var marker = L.marker( [ v.location.lat, v.location.lng ] );
 			marker.year = v.date.year;
-			
+			marker.pointer = v.pointer;
 			marker.addTo( AppVars.points );
 		}
 	});
