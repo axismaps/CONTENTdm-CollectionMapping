@@ -1,5 +1,5 @@
-subjec,Subject
-date,Date
-covera,Location
-descri,Description
-format,Format
+subjec,Subject,true
+date,Date,false
+covera,Location,true
+descri,Description,false
+format,Format,false

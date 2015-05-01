@@ -76,7 +76,10 @@ function processData( $fields ){
 	$headers = [];
 	
 	foreach( $fields as $field ){
-		$headers[ $field[0] ] = $field[1];
+		$headers[ $field[0] ] = array(
+			"name" => $field[1],
+			"tag" => $field[2]
+		);
 	}
 	
 	foreach( $temp_json -> records as $value ) {
