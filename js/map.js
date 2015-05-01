@@ -41,7 +41,7 @@ function initMap(){
 			options.className = 'marker-cluster';
 			options.iconSize = [size, size];
 			
-			return L.divIcon(options);
+			return L.divIcon( options );
 		}
 	});
 	
@@ -59,11 +59,24 @@ function drawPoints(){
 	if( AppVars.points )	AppVars.points.clearLayers();
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
 		if( v.location.lat !== null){
-			console.log( v );
 			var marker = L.marker( [ v.location.lat, v.location.lng ] );
 			marker.year = v.date.year;
 			marker.pointer = v.pointer;
 			marker.addTo( AppVars.points );
 		}
 	});
+}
+
+function selectPoint( point ){
+	if( AppVars.points ){
+		$( '.activeMarker' ).removeClass( 'activeMarker' );
+		$( '.activeCluster' ).removeClass( 'activeCluster' );
+		
+		AppVars.points.eachLayer(function( e ) {
+			if( e.pointer  == point ){
+				$( this ).addClass( 'activeMarker' );
+				$( AppVars.points.getVisibleParent( e )._icon ).addClass( 'activeCluster' );
+			}
+		});
+	}
 }

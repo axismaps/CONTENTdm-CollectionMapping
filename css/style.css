@@ -243,6 +243,10 @@ a:hover{
 	background-color: #aaa;
 }
 
+.marker-cluster.activeCluster{
+	background-color: red;
+}
+
 .marker-cluster div {
 	text-align: center;
 	font-size: 12px;

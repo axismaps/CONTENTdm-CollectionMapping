@@ -23,6 +23,7 @@ function drawTimeline(){
 			.scrollTop( 0 )
 			.removeAttr( "style" );
 		expandEntry( $entry );
+		selectPoint( $entry.attr( 'id' ).replace( 'entry', '' ) );
 	});
 }
 
@@ -86,6 +87,8 @@ function selectYear( year, noAutoScroll, noImages ){
 
 	if ( noImages ) return;
 	loadTimelineImages( year );	// load selected year images before surrounding years
+	
+	selectPoint( $( '.timeline-year.active .timeline-entry:first-child' ).attr( 'id' ).replace( 'entry', '' ) );
 }
 
 function advanceTimeline(){
