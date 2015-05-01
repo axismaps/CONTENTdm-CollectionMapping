@@ -46,10 +46,20 @@ function initMap(){
 	});
 	
 	AppVars.points.on( 'click', function( e ) {
-		$( '.activeMarker' ).removeClass( 'activeMarker' );
-		$( e.layer._icon ).addClass( 'activeMarker' );
+		$( '.activeCluster' ).removeClass( 'activeCluster' );
+		$( e.layer._icon ).addClass( 'activeCluster' );
+		AppVars.selectedMapMarker = e.layer;
+		
+		console.log( AppVars.points.hasLayer( e.layer ) );
+		
 		selectYear( e.layer.year );
 		$( '#entry' + e.layer.pointer + ' .entry-title' ).click();
+	});
+	
+	AppVars.points.on( 'animationend spiderfied', function(){
+		if( AppVars.selectedMapMarker && AppVars.selectedMapMarker._icon ){
+			$( AppVars.points.getVisibleParent( AppVars.selectedMapMarker )._icon ).addClass( 'activeCluster' );
+		}
 	});
 	
 	AppVars.map.addLayer( AppVars.points );
@@ -69,12 +79,11 @@ function drawPoints(){
 
 function selectPoint( point ){
 	if( AppVars.points ){
-		$( '.activeMarker' ).removeClass( 'activeMarker' );
 		$( '.activeCluster' ).removeClass( 'activeCluster' );
 		
 		AppVars.points.eachLayer(function( e ) {
-			if( e.pointer  == point ){
-				$( this ).addClass( 'activeMarker' );
+			if( e.pointer  == point){
+				console.log( e );
 				$( AppVars.points.getVisibleParent( e )._icon ).addClass( 'activeCluster' );
 			}
 		});

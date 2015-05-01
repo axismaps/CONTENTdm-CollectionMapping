@@ -20,7 +20,8 @@ var ServerVars = {},
 		selectedYear: undefined,
 		selectedYearIndex: undefined,
 		scrollTimeout: 1,
-		timelineRecenterFlag: false
+		timelineRecenterFlag: false,
+		selectedMapMarker: undefined
 	},
 	DataVars = {
 		filters: {
