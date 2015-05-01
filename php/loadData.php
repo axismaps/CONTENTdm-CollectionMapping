@@ -77,8 +77,8 @@ function processData( $fields ){
 	
 	foreach( $fields as $field ){
 		$headers[ $field[0] ] = array(
-			"name" => $field[1],
-			"tag" => $field[2]
+			'name' => $field[1],
+			'tag' => strtolower($field[2]) === 'true' ? true : false
 		);
 	}
 	
@@ -90,19 +90,15 @@ function processData( $fields ){
 			array_push( $formats, $value -> format);
 		
 		$entry_tags = [];
-		$subjects = explode( ';', $value -> subjec);
-		foreach( $subjects as $tag ){
-			if( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
-				array_push( $entry_tags, trim( $tag ) );
-			if( trim( $tag ) != '' )
-				array_push( $all_tags, trim( $tag ) );
-		}
-		$locations = explode( ';', $value -> covera );
-		foreach( $locations as $tag ){
-			if ( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
-				array_push( $entry_tags, trim( $tag ) );
-			if( trim( $tag ) != '' )
-				array_push( $all_tags, trim( $tag ) );
+		foreach ( $headers as $key => $header_value ){
+		 	if ( $header_value['tag'] != true ) continue;
+			$tags_split = explode( ';', $value -> $key );
+			foreach( $tags_split as $tag ){
+				if( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
+					array_push( $entry_tags, trim( $tag ) );
+				if( trim( $tag ) != '' )
+					array_push( $all_tags, trim( $tag ) );
+			}
 		}
 				
 		$value -> {'tags'} = $entry_tags;
