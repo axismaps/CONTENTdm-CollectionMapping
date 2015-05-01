@@ -245,15 +245,19 @@ a:hover{
 
 .marker-cluster.activeCluster{
 	background-color: red;
+	margin-left: -25px !important;
+	margin-top: -25px !important;
+	height: 50px !important;
+	width: 50px !important;
+}
+
+.marker-cluster.activeCluster span{
+	line-height: 50px !important;
 }
 
 .marker-cluster div {
 	text-align: center;
 	font-size: 12px;
-}
-
-.activeMarker{
-	background-color: red;
 }
 
 /* Timeline area */
