@@ -244,7 +244,7 @@ a:hover{
 }
 
 .marker-cluster.activeCluster{
-	background-color: red;
+	background-color: #B42933;
 	margin-left: -25px !important;
 	margin-top: -25px !important;
 	height: 50px !important;
