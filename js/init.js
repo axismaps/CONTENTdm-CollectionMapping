@@ -21,6 +21,7 @@ var ServerVars = {},
 		selectedYearIndex: undefined,
 		scrollTimeout: 1,
 		timelineRecenterFlag: false,
+		selelectedPoint: undefined,
 		selectedMapMarker: undefined
 	},
 	DataVars = {

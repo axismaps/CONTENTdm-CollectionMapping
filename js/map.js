@@ -40,6 +40,15 @@ function initMap(){
 				
 			options.className = 'marker-cluster';
 			options.iconSize = [size, size];
+
+			if ( AppVars.selectedPoint ){
+				var children = cluster.getAllChildMarkers();
+				for ( var i in children ){
+					if ( children[i].pointer == AppVars.selectedPoint ){
+						options.className += ' activeCluster';
+					}
+				};
+			}
 			
 			return L.divIcon( options );
 		}
@@ -79,6 +88,7 @@ function drawPoints(){
 
 function selectPoint( point ){
 	if( AppVars.points ){
+		AppVars.selectedPoint = point;
 		$( '.activeCluster' ).removeClass( 'activeCluster' );
 		
 		AppVars.points.eachLayer(function( e ) {
