@@ -1,7 +1,16 @@
 <?php
 
+$fields = array();
+$fields_file = fopen( "fields.csv", "r" );
+while ( !feof( $fields_file ) ){
+	$field = fgetcsv( $fields_file, 1024 );
+	array_push($fields, $field);
+}
+fclose( $fields_file );
+	
+
 if( checkCacheAge() OR array_key_exists( 'force', $_REQUEST ) ) {
-	loadData();
+	loadData( $fields );
 }
 
 $data = fopen( 'data.json', 'r' );
@@ -21,7 +30,7 @@ function checkCacheAge() {
 	}
 }
 
-function loadData( ){
+function loadData( $fields ){
 	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
 	
 	$ch = curl_init();
@@ -33,9 +42,9 @@ function loadData( ){
 	
 	$url = "https://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmQuery/";
 	$url = $url . $_REQUEST["collection"] . '/0/title';
-	if( ! empty ( $_REQUEST["fields"] ) ) {
-		foreach( $_REQUEST["fields"] as $field ) {
-			$url = $url . '!' . $field;
+	if( ! empty ( $fields ) ) {
+		foreach( $fields as $field ) {
+			$url = $url . '!' . $field[0];
 		}
 	}
 	$url = $url . "/title/1024/1/0/0/0/0/0/0/json";
@@ -49,10 +58,10 @@ function loadData( ){
 	curl_close( $ch );
 	fclose( $temp );
 	
-	processData();
+	processData( $fields );
 }
 
-function processData(){
+function processData( $fields ){
 	$temp_file = fopen( "temp.json", "r" );
 	$temp_json = json_decode( fgets ( $temp_file ) );
 	
@@ -60,24 +69,53 @@ function processData(){
 	
 	$formats = [];
 	$tags = [];
+	$all_tags = [];
 	$minYear = 9999;
 	$maxYear = 0;
 	$entries = [];
+	$headers = [];
+	
+	foreach( $fields as $field ){
+		$headers[ $field[0] ] = array(
+			'name' => $field[1],
+			'tag' => strtolower($field[2]) === 'true' ? true : false
+		);
+	}
 	
 	foreach( $temp_json -> records as $value ) {
 		//Convert date into exact format just in case
 		$value -> {'date'} = date_parse( $value -> {'date'} );
 		
-		array_push( $entries, $value );
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
-		if ( ! in_array( $value -> filetype, $tags ) )
-			array_push( $tags, $value -> filetype ); //TODO: Change this to the tag field in the db once known
+		
+		$entry_tags = [];
+		foreach ( $headers as $key => $header_value ){
+		 	if ( $header_value['tag'] != true ) continue;
+			$tags_split = explode( ';', $value -> $key );
+			foreach( $tags_split as $tag ){
+				if( ! in_array( trim( $tag ), $entry_tags ) && trim( $tag ) != '' )
+					array_push( $entry_tags, trim( $tag ) );
+				if( trim( $tag ) != '' )
+					array_push( $all_tags, trim( $tag ) );
+			}
+		}
+				
+		$value -> {'tags'} = $entry_tags;
+		array_push( $entries, $value );
+		
 		if ( $minYear > $value -> {'date'}['year'] )
 			$minYear = $value -> {'date'}['year'];
 		if ( $maxYear < $value -> {'date'}['year'] )
 			$maxYear = $value -> {'date'}['year'];
 	}
+	
+	foreach( array_count_values( $all_tags ) as $k => $v ){
+		if( $v >= 5 ){
+			array_push( $tags, $k );
+		}
+	};
+	sort( $tags );
 	
 	$json = [ 
 		'formats' => $formats,
@@ -85,6 +123,7 @@ function processData(){
 		'minYear' => $minYear,
 		'maxYear' => $maxYear,
 		'entries' => $entries,
+		'headers' => $headers
 	];
 	
 	fwrite( $json_file, json_encode( $json, JSON_NUMERIC_CHECK ) );
