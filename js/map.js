@@ -55,19 +55,21 @@ function initMap(){
 	});
 	
 	AppVars.points.on( 'click', function( e ) {
+		AppVars.selectedPoint = e.layer.pointer;
+		
 		$( '.activeCluster' ).removeClass( 'activeCluster' );
 		$( e.layer._icon ).addClass( 'activeCluster' );
-		AppVars.selectedMapMarker = e.layer;
-		
-		console.log( AppVars.points.hasLayer( e.layer ) );
 		
 		selectYear( e.layer.year );
 		$( '#entry' + e.layer.pointer + ' .entry-title' ).click();
 	});
 	
 	AppVars.points.on( 'animationend spiderfied', function(){
-		if( AppVars.selectedMapMarker && AppVars.selectedMapMarker._icon ){
-			$( AppVars.points.getVisibleParent( AppVars.selectedMapMarker )._icon ).addClass( 'activeCluster' );
+		if( AppVars.selectedPoint ){
+			var point = findPoint( AppVars.selectedPoint );
+			if( AppVars.points.getVisibleParent( point ) !== null ){
+				$( AppVars.points.getVisibleParent( point )._icon ).addClass( 'activeCluster' );
+			}
 		}
 	});
 	
@@ -86,16 +88,24 @@ function drawPoints(){
 	});
 }
 
-function selectPoint( point ){
+function selectPoint( id ){
 	if( AppVars.points ){
-		AppVars.selectedPoint = point;
+		AppVars.selectedPoint = id;
 		$( '.activeCluster' ).removeClass( 'activeCluster' );
 		
-		AppVars.points.eachLayer(function( e ) {
-			if( e.pointer  == point){
-				console.log( e );
-				$( AppVars.points.getVisibleParent( e )._icon ).addClass( 'activeCluster' );
-			}
-		});
+		var point = findPoint( AppVars.selectedPoint );
+		if( AppVars.points.getVisibleParent( point ) !== null ){
+			$( AppVars.points.getVisibleParent( point )._icon ).addClass( 'activeCluster' );
+		}
 	}
+}
+
+function findPoint( point ){
+	var found;
+	AppVars.points.eachLayer( function( e ){
+		if( e.pointer  == point){
+			found = e;
+		}
+	});
+	return found;
 }
