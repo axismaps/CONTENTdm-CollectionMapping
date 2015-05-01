@@ -137,7 +137,7 @@ function checkLocation( $name ){
 	}
 	
 	$escaped_params = urlencode( '"' . $name . '"' );
-	$url = 'http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82l0r2h%2Cbw%3Do5-94zxuf&location=' . $escaped_params;
+	$url = 'http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82d622l%2C70%3Do5-94ygha&location=' . $escaped_params;
 	echo $url . ' ';
 	$json = file_get_contents( $url );
 	$jsonArr = json_decode($json);
