@@ -1,4 +1,26 @@
-/* Jquery-UI Overrides */
+/* Overrides */
+
+/* Leaflet */
+.leaflet-control-fullscreen a {
+  background-color: rgba(0, 0, 0, 0.75) !important;
+  background-image: none;
+  color: white !important;
+  font-size: 14px;
+  padding: 10px;
+  border: 1px solid rgba(255,255,255,.25);
+}
+
+.leaflet-control-fullscreen a .fa-compress{
+  display: none;
+}
+
+.leaflet-fullscreen-on .leaflet-control-fullscreen a .fa-compress{
+  display: block;
+}
+
+.leaflet-fullscreen-on .leaflet-control-fullscreen a .fa-expand{
+  display: none;
+}
 
 /* Slider */
 

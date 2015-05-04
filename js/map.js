@@ -5,6 +5,11 @@ function initMap(){
 		maxZoom: AppVars.maxZoom,
 		minZoom: AppVars.minZoom
 	} ).setView( [19,95], 6 );
+
+	L.control.fullscreen( {position: 'bottomright' } ).addTo( AppVars.map );
+	$( '.leaflet-control-fullscreen a' )
+		.append( '<i class="fa fa-expand fa-2x"></i>' )
+		.append( '<i class="fa fa-compress fa-2x"></i>' );
 	
 	/*placeholder tiles for now */
 	/* TODO: Do we want these? If not, restrict bounds so you can't see anything beyond historicTiles */
