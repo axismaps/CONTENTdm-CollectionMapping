@@ -102,7 +102,7 @@ function initReports(){
 	}).appendTo( '#reports-expanded .expanded-section' );
 	
 	$.map( DataVars.data.entries, function( v ) {
-		$( '#reports-accordion' ).append( '<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>' );
+		var $title = $( '<h3><i class="fa fa-folder"></i> <span>' + v.title + '</span></h3>' ).appendTo( '#reports-accordion' );
 		
 		$( '#reports-accordion' ).append( '<div/>' );
 		
@@ -113,7 +113,7 @@ function initReports(){
 			$( '<div/>', {
 				'class' : 'accordion-image'
 			}).appendTo( '#reports-accordion > div:last-child' ).css({
-				background:  'url(' + url + ')' + 'no-repeat 50% top',
+				'background-image':  'url(' + url + ')',
 				width: width + 'px',
 				height: width + 'px'
 			});
@@ -125,6 +125,9 @@ function initReports(){
 					//TODO: Show lightbox of report summary
 					console.log( 'Show lightbox here' );
 			});
+
+			$title.css( 'background-image', 'url(' + url + ')' )
+				.prepend( '<div class="mask">' );
 		}
 		
 		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.descri ).succinct({

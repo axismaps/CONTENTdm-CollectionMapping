@@ -120,12 +120,27 @@ a:hover{
 	overflow: hidden;
 	border-radius: 0;
 	margin: 0;
+	background-position: 50% 0;
+}
+
+#reports-accordion h3 .mask{
+	height: 45px;
 }
 
 #reports-accordion h3 i{
 	margin: 0 10px;
 	font-size: 24px;
 	vertical-align: middle;
+}
+#reports-accordion h3 span{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	line-height: 45px;
+	top: 0;
+}
+#reports-accordion h3:focus{
+	outline: none;
 }
 
 #reports-accordion h3:hover{
@@ -142,6 +157,7 @@ a:hover{
 
 #reports-accordion .accordion-image{
 	position: relative;
+	background-position: 50% -45px;
 }
 
 #reports-accordion .accordion-image > div, .timeline-entry .image-expand {
@@ -233,6 +249,19 @@ a:hover{
 /* Map */
 
 /* Timeline area */
+
+.mask{
+	position: absolute;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* W3C */
+	top: 0;
+	left: 0;
+	width: 100%;
+}
 
 #timeline{
 	color: #fff;
@@ -366,12 +395,6 @@ a:hover{
 .timeline-entry .mask{
 	margin: 0;
 	height: 100px;
-	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-	background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* W3C */
 }
 
 .timeline-entry a{
