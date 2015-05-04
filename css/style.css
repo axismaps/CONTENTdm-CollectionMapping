@@ -452,18 +452,18 @@ a:hover{
 	font-weight: bold;
 	margin-top: 10px;
 }
-.chronology:hover, .chronology.expanded{
+.chronology.active:hover, .chronology.expanded{
 	width: 400px;
 	margin-left: -400px;
 	height: auto;
 }
-.chronology:hover .chronology-content, .chronology.expanded .chronology-content{
+.chronology.active:hover .chronology-content, .chronology.expanded .chronology-content{
 	display: block;
 }
 .chronology i{
 	line-height: 30px;
 }
-.chronology:hover i, .chronology.expanded i{
+.chronology.active:hover i, .chronology.expanded i{
 	display: block;
 	float: left;
 	width: 50px;
