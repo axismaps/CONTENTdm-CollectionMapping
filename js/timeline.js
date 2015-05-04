@@ -170,7 +170,10 @@ function drawChronology(){
 					})
 					.html( '<i class="fa fa-clock-o"></i>' )
 					.click( function(){
-						if ( !$(this).hasClass( "active" ) ) return;
+						if ( !$(this).hasClass( "active" ) ){
+							selectYear( y );
+							return;
+						}
 						if ( $(this).hasClass( "expanded") )
 							$(this).removeClass( "expanded" );
 						else

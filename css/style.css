@@ -431,6 +431,7 @@ a:hover{
 	color: white;
 	background-color: #872c31;	
 	margin-left: -50px;
+	cursor: pointer;
 }
 .chronology.active{
 	background-color: #b2262e;
