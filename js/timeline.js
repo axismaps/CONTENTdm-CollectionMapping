@@ -103,6 +103,7 @@ function recenterTimeline(){
 	var left = $( ".timeline-year.active" ).index() * $( ".timeline-year" ).outerWidth()
 			- ( $( "#timeline" ).width()  - $( ".timeline-year" ).outerWidth() ) / 2;
 	$( "#timeline-inner" ).off( "scroll" )
+		.stop()
 		.animate( { scrollLeft: left }, function(){
 			$( "#timeline-inner" ).on( "scroll", timelineScroll );
 		});
