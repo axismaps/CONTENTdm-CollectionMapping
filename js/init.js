@@ -28,7 +28,8 @@ var ServerVars = {},
 			maxYear: 9999,
 			format: [],
 			tags: []
-		}
+		},
+		chronologyData: []
 	};
 
 function init() {
@@ -66,7 +67,7 @@ function loadData(){
 		init();
 	});
 	$.get( "csv/chronology.csv", function(csv){
-		var data = Papa.parse(csv);
-		console.log(data)
-	})
+		DataVars.chronologyData = Papa.parse(csv, {header:true} ).data;
+		drawChronology();
+	});
 }

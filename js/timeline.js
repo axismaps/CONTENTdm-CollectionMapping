@@ -12,6 +12,7 @@ function drawTimeline(){
 	}
 
 	drawPulse();
+	drawChronology();
 	selectYear( AppVars.years[0] );
 
 	$( ".entry-title" ).click( function(){
@@ -149,4 +150,28 @@ function getSubjectLinks( subject ){
 		subject = subject.replace( s, "<a href='#'>" + s + "</a>" );	// TO DO: make link actually do something
 	});
 	return subject;
+}
+
+function drawChronology(){
+	if ( !DataVars.chronologyData.length || !AppVars.years || !AppVars.years.length ) return;
+	_.each( DataVars.chronologyData, function(d){
+		var startYear = d.start.match(/\d{4}/)[0],
+			endYear = d.end ? d.end.match(/\d{4}/)[0] : startYear,
+			timelineYears = _.filter( AppVars.years, function(y){
+				return y >= startYear && y <= endYear;
+			});
+			_.each( timelineYears, function(y){
+				var $year = $( "#year" + y );
+				if ( !$( "#chronology" + y ).length ){
+					$( "<div class='chronology'>" )
+						.attr( "id", "chronology" + y )
+						.css({
+							left: $year.index() * $year.outerWidth() - 50
+						})
+						.html( '<i class="fa fa-clock-o"></i>' )
+						.appendTo( "#timeline-inner" );
+				}
+			});
+		
+	});
 }

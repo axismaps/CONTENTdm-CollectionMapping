@@ -282,6 +282,7 @@ a:hover{
 }
 #timeline-inner{
 	white-space: nowrap;
+	position: relative;
 	width: 100%;
 	overflow: auto;
 	overflow-y: hidden;
@@ -420,6 +421,16 @@ a:hover{
 	background-color: rgba(178,38,46,.5);
 	border: 2px solid #fff;
 	z-index: 100 !important;
+}
+.chronology{
+	position: absolute;
+	bottom: 0;
+	width: 50px;
+	height: 30px;
+	line-height: 30px;
+	text-align: center;
+	color: white;
+	background-color: #b2262e;
 }
 
 /* Lightbox */
