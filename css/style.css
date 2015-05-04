@@ -429,8 +429,11 @@ a:hover{
 	height: 30px;
 	text-align: center;
 	color: white;
-	background-color: #b2262e;
+	background-color: #872c31;	
 	margin-left: -50px;
+}
+.chronology.active{
+	background-color: #b2262e;
 }
 .chronology-content{
 	display: none;
