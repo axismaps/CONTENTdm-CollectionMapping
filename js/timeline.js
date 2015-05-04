@@ -156,22 +156,28 @@ function drawChronology(){
 	if ( !DataVars.chronologyData.length || !AppVars.years || !AppVars.years.length ) return;
 	_.each( DataVars.chronologyData, function(d){
 		var startYear = d.start.match(/\d{4}/)[0],
-			endYear = d.end ? d.end.match(/\d{4}/)[0] : startYear,
-			timelineYears = _.filter( AppVars.years, function(y){
-				return y >= startYear && y <= endYear;
-			});
-			_.each( timelineYears, function(y){
-				var $year = $( "#year" + y );
-				if ( !$( "#chronology" + y ).length ){
-					$( "<div class='chronology'>" )
-						.attr( "id", "chronology" + y )
-						.css({
-							left: $year.index() * $year.outerWidth() - 50
-						})
-						.html( '<i class="fa fa-clock-o"></i>' )
-						.appendTo( "#timeline-inner" );
-				}
-			});
-		
+			endYear = d.end ? d.end.match(/\d{4}/)[0] : startYear;
+		_.each( AppVars.years, function(y){
+			if ( y < startYear || y > endYear ) return;
+			var $year = $( "#year" + y );
+			if ( !$( "#chronology" + y ).length ){
+				$( "<div class='chronology'>" )
+					.attr( "id", "chronology" + y )
+					.css({
+						left: ($year.index() + 1) * $year.outerWidth()
+					})
+					.html( '<i class="fa fa-clock-o"></i>' )
+					.click( function(){
+						if ( $(this).hasClass( "expanded") )
+							$(this).removeClass( "expanded" );
+						else
+							$(this).addClass( "expanded" );
+					})
+					.appendTo( "#timeline-inner" );
+			}
+			$( "<div class='chronology-content'>" )
+				.html( "<p>" + d.start + ( d.end ? ( "–" + d.end ) : "" ) + "</p>" + "<p>" + d.text + "</p>" )
+				.appendTo( $( "#chronology" + y ) );
+		});
 	});
 }

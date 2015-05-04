@@ -427,10 +427,40 @@ a:hover{
 	bottom: 0;
 	width: 50px;
 	height: 30px;
-	line-height: 30px;
 	text-align: center;
 	color: white;
 	background-color: #b2262e;
+	margin-left: -50px;
+}
+.chronology-content{
+	display: none;
+	margin-left: 50px;
+}
+.chronology-content p{
+	margin: 5px;
+	text-align: left;
+	white-space: normal;
+}
+.chronology-content p:first-child{
+	font-weight: bold;
+	margin-top: 10px;
+}
+.chronology.expanded{
+	width: 400px;
+	margin-left: -400px;
+	height: auto;
+}
+.chronology.expanded .chronology-content{
+	display: block;
+}
+.chronology i{
+	line-height: 30px;
+}
+.chronology.expanded i{
+	display: block;
+	float: left;
+	width: 50px;
+	height: 30px;
 }
 
 /* Lightbox */
