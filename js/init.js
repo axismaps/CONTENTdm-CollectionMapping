@@ -65,4 +65,8 @@ function loadData(){
 		console.log( DataVars );
 		init();
 	});
+	$.get( "csv/chronology.csv", function(csv){
+		var data = Papa.parse(csv);
+		console.log(data)
+	})
 }
