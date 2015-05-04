@@ -432,6 +432,8 @@ a:hover{
 	background-color: #872c31;	
 	margin-left: -50px;
 	cursor: pointer;
+	transition: width 0.5s, margin 0.5s, height 0.5s;
+	overflow: hidden;
 }
 .chronology.active{
 	background-color: #b2262e;
@@ -444,23 +446,24 @@ a:hover{
 	margin: 5px;
 	text-align: left;
 	white-space: normal;
+	width: 340px;
 }
 .chronology-content p:first-child{
 	font-weight: bold;
 	margin-top: 10px;
 }
-.chronology.expanded{
+.chronology:hover, .chronology.expanded{
 	width: 400px;
 	margin-left: -400px;
 	height: auto;
 }
-.chronology.expanded .chronology-content{
+.chronology:hover .chronology-content, .chronology.expanded .chronology-content{
 	display: block;
 }
 .chronology i{
 	line-height: 30px;
 }
-.chronology.expanded i{
+.chronology:hover i, .chronology.expanded i{
 	display: block;
 	float: left;
 	width: 50px;

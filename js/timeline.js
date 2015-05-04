@@ -78,10 +78,14 @@ function selectYear( year, noAutoScroll, noImages ){
 	AppVars.selectedYearIndex = AppVars.years.indexOf( year );
 	$( ".timeline-year.active" ).removeClass( "active" );
 	$( ".pulse-circle.active" ).removeClass( "active" );
-	$( ".chronology.active" ).removeClass( "active" ).removeClass( "expanded" );
+	$( ".chronology.active" ).removeClass( "active" );
 	$( "#year" + year).addClass( "active" );
 	$( ".p" + year).addClass( "active" );
-	$( "#chronology" + year ).addClass( "active" );
+	$( "#chronology" + year )
+		.addClass( "active expanded" );
+	setTimeout( function(){
+		$( "#chronology" + year ).removeClass( "expanded" );
+	},3000);
 	$( "#year" ).html( year );
 
 	AppVars.selectedYear = year;
@@ -174,10 +178,6 @@ function drawChronology(){
 							selectYear( y );
 							return;
 						}
-						if ( $(this).hasClass( "expanded") )
-							$(this).removeClass( "expanded" );
-						else
-							$(this).addClass( "expanded" );
 					})
 					.appendTo( "#timeline-inner" );
 			}
