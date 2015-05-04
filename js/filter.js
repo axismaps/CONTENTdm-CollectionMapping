@@ -31,7 +31,7 @@ function filter( type ){
 			if( v.date.year > filters.maxYear ) return false;
 			if( filters.format.length > 0 && _.indexOf( filters.format, v.format ) == -1 ) return false;
 
-			var tag_value = false;
+			var tag_value = filters.tags.length ? false : true;
 			_.each( v.tags, function( tag ) {
 				if( filters.tags.length > 0 && _.indexOf( filters.tags, String( tag ) ) >= 0 ) tag_value = true;
 			});
