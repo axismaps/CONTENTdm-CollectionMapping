@@ -78,6 +78,7 @@ function selectYear( year, noAutoScroll, noImages ){
 	AppVars.selectedYearIndex = AppVars.years.indexOf( year );
 	$( ".timeline-year.active" ).removeClass( "active" );
 	$( ".pulse-circle.active" ).removeClass( "active" );
+	$( ".chronology.expanded" ).removeClass( "expanded" );
 	$( "#year" + year).addClass( "active" );
 	$( ".p" + year).addClass( "active" );
 	$( "#year" ).html( year );
@@ -168,6 +169,7 @@ function drawChronology(){
 					})
 					.html( '<i class="fa fa-clock-o"></i>' )
 					.click( function(){
+						if ( !$year.hasClass( "active" ) ) return;
 						if ( $(this).hasClass( "expanded") )
 							$(this).removeClass( "expanded" );
 						else
