@@ -41,8 +41,12 @@ function initMap(){
 				options = {
 					html: '<div><span style="line-height: ' + size + 'px">' + cluster.getChildCount() + '</span></div>'
 				};
+			} else {
+				options = {
+					html: '<div></div>'
+				};
 			}
-				
+
 			options.className = 'marker-cluster';
 			options.iconSize = [size, size];
 
@@ -88,7 +92,11 @@ function drawPoints(){
 	if( AppVars.points )	AppVars.points.clearLayers();
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
 		if( v.location.lat !== null){
-			var marker = L.marker( [ v.location.lat, v.location.lng ] );
+			var year = v.date.year ? (v.date.year + " | ") : "";
+			var marker = L.marker( [ v.location.lat, v.location.lng ],
+				{
+					title: year + v.title
+				});
 			marker.year = v.date.year;
 			marker.pointer = v.pointer;
 			marker.addTo( AppVars.points );
