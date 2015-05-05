@@ -64,6 +64,7 @@ function initMap(){
 		
 		$( '.activeCluster' ).removeClass( 'activeCluster' );
 		$( e.layer._icon ).addClass( 'activeCluster' );
+		$( e.layer._icon).children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + AppVars.selectedPoint + '" ) center/80px no-repeat');
 		
 		selectYear( e.layer.year );
 		$( '#entry' + e.layer.pointer + ' .entry-title' ).click();
@@ -73,7 +74,9 @@ function initMap(){
 		if( AppVars.selectedPoint ){
 			var point = findPoint( AppVars.selectedPoint );
 			if( AppVars.points.getVisibleParent( point ) !== null ){
-				$( AppVars.points.getVisibleParent( point )._icon ).addClass( 'activeCluster' );
+				var that = $( AppVars.points.getVisibleParent( point )._icon );
+				that.addClass( 'activeCluster' );
+				that.children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + AppVars.selectedPoint + '" ) center/80px no-repeat');
 			}
 		}
 	});
@@ -102,7 +105,7 @@ function selectPoint( id ){
 		if( AppVars.points.getVisibleParent( point ) !== null ){
 			var that = $( AppVars.points.getVisibleParent( point )._icon );
 			that.addClass( 'activeCluster' );
-			that.children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + id + '" ) center/80px 60px no-repeat');
+			that.children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + id + '" ) center/80px no-repeat');
 		}
 	}
 }
