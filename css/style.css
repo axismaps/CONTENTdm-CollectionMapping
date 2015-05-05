@@ -270,7 +270,7 @@ a:hover{
 	height: 40px !important;
 	width: 40px !important;
 	border-radius: 100px;
-	border: 1px solid #000 !important;
+	border: 2px solid #fff !important;
 }
 
 .marker-cluster.activeCluster div:hover{
