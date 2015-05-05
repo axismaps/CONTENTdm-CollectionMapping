@@ -244,20 +244,37 @@ a:hover{
 }
 
 .marker-cluster.activeCluster{
-	background-color: #B42933;
 	margin-left: -25px !important;
 	margin-top: -25px !important;
 	height: 50px !important;
 	width: 50px !important;
+	background-color: #B42933;
+	background-color: rgba( 180, 41, 51, 0.7 );
+	border: none !important;
 }
 
 .marker-cluster.activeCluster span{
-	line-height: 50px !important;
+	line-height: 40px !important;
 }
 
 .marker-cluster div {
 	text-align: center;
 	font-size: 12px;
+}
+
+.marker-cluster.activeCluster div{
+	box-sizing: border-box;
+	background-color: #fff;
+	margin-left: 5px !important;
+	margin-top: 5px !important;
+	height: 40px !important;
+	width: 40px !important;
+	border-radius: 100px;
+	border: 1px solid #000 !important;
+}
+
+.marker-cluster.activeCluster div:hover{
+	background-color: #aaa;
 }
 
 /* Timeline area */
