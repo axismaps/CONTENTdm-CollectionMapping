@@ -26,6 +26,20 @@ a{
 a:hover{
 	text-decoration: underline;
 }
+
+/* Search */
+#search {
+	margin: 0 25px;
+	line-height: 75px;
+}
+
+#search input{
+	padding: 10px;
+	width: 300px;
+	font-family: Oswald, FontAwesome, sans-serif;
+}
+
+
 /* Sidebar */
 
 #bar {
