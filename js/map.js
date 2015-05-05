@@ -102,7 +102,7 @@ function drawPoints(){
 	});
 }
 
-function selectPoint( id, zoom ){
+function selectPoint( id ){
 	if( AppVars.points ){
 		AppVars.selectedPoint = id;
 		$( '.activeCluster' ).removeClass( 'activeCluster' ).children( 'div' ).css( 'background', 'initial' );
