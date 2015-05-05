@@ -49,15 +49,6 @@ function initMap(){
 
 			options.className = 'marker-cluster';
 			options.iconSize = [size, size];
-
-			if ( AppVars.selectedPoint ){
-				var children = cluster.getAllChildMarkers();
-				for ( var i in children ){
-					if ( children[i].pointer == AppVars.selectedPoint ){
-						options.className += ' activeCluster';
-					}
-				};
-			}
 			
 			return L.divIcon( options );
 		}
