@@ -96,11 +96,13 @@ function drawPoints(){
 function selectPoint( id ){
 	if( AppVars.points ){
 		AppVars.selectedPoint = id;
-		$( '.activeCluster' ).removeClass( 'activeCluster' );
+		$( '.activeCluster' ).removeClass( 'activeCluster' ).children( 'div' ).css( 'background', 'initial' );
 		
 		var point = findPoint( AppVars.selectedPoint );
 		if( AppVars.points.getVisibleParent( point ) !== null ){
-			$( AppVars.points.getVisibleParent( point )._icon ).addClass( 'activeCluster' );
+			var that = $( AppVars.points.getVisibleParent( point )._icon );
+			that.addClass( 'activeCluster' );
+			that.children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + id + '" ) center/80px 60px no-repeat');
 		}
 	}
 }

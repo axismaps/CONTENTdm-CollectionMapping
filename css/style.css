@@ -243,23 +243,19 @@ a:hover{
 	background-color: #aaa;
 }
 
-.marker-cluster.activeCluster{
-	margin-left: -25px !important;
-	margin-top: -25px !important;
-	height: 50px !important;
-	width: 50px !important;
-	background-color: #B42933;
-	background-color: rgba( 180, 41, 51, 0.7 );
-	border: none !important;
-}
-
-.marker-cluster.activeCluster span{
-	line-height: 40px !important;
-}
-
 .marker-cluster div {
 	text-align: center;
 	font-size: 12px;
+}
+
+.marker-cluster.activeCluster{
+	margin-left: -30px !important;
+	margin-top: -30px !important;
+	height: 60px !important;
+	width: 60px !important;
+	background-color: #B42933;
+	background-color: rgba( 180, 41, 51, 0.7 );
+	border: none !important;
 }
 
 .marker-cluster.activeCluster div{
@@ -267,14 +263,18 @@ a:hover{
 	background-color: #fff;
 	margin-left: 5px !important;
 	margin-top: 5px !important;
-	height: 40px !important;
-	width: 40px !important;
+	height: 50px !important;
+	width: 50px !important;
 	border-radius: 100px;
 	border: 2px solid #fff !important;
 }
 
 .marker-cluster.activeCluster div:hover{
 	background-color: #aaa;
+}
+
+.marker-cluster.activeCluster span{
+	line-height: 50px !important;
 }
 
 /* Timeline area */
