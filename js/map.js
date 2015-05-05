@@ -66,7 +66,7 @@ function initMap(){
 	AppVars.points.on( 'click', function( e ) {
 		AppVars.selectedPoint = e.layer.pointer;
 		
-		$( '.activeCluster' ).removeClass( 'activeCluster' );
+		$( '.activeCluster' ).removeClass( 'activeCluster' ).children( 'div' ).css( 'background', 'initial' );
 		$( e.layer._icon ).addClass( 'activeCluster' );
 		$( e.layer._icon).children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + AppVars.selectedPoint + '" ) center/80px no-repeat');
 		

@@ -17,13 +17,13 @@ function drawTimeline(){
 	$( ".entry-title" ).click( function(){
 		var $entry = $(this).parent(),
 			$year = $entry.parent();
+		selectPoint( $entry.attr( 'id' ).replace( 'entry', '' ) );
 		if ( !$year.hasClass( "active" ) || $entry.hasClass( "expanded" ) ) return;
 		$( ".timeline-entry.expanded", $entry.parent() )
 			.removeClass( "expanded" )
 			.scrollTop( 0 )
 			.removeAttr( "style" );
 		expandEntry( $entry );
-		selectPoint( $entry.attr( 'id' ).replace( 'entry', '' ) );
 	});
 }
 
