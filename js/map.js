@@ -41,6 +41,10 @@ function initMap(){
 				options = {
 					html: '<div><span style="line-height: ' + size + 'px">' + cluster.getChildCount() + '</span></div>'
 				};
+			} else {
+				options = {
+					html: '<div></div>'
+				};
 			}
 				
 			options.className = 'marker-cluster';
@@ -73,7 +77,8 @@ function initMap(){
 		if( AppVars.selectedPoint ){
 			var point = findPoint( AppVars.selectedPoint );
 			if( AppVars.points.getVisibleParent( point ) !== null ){
-				$( AppVars.points.getVisibleParent( point )._icon ).addClass( 'activeCluster' );
+				$( AppVars.points.getVisibleParent( point )._icon ).addClass( 'activeCluster' )
+					.children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + AppVars.selectedPoint + '" ) center/80px 60px no-repeat');
 			}
 		}
 	});
