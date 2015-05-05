@@ -48,11 +48,7 @@ function filter( type ){
 	
 	if( type == 'date' ) sortByDate();
 
-	drawTimeline();
-}
-
-function update(){
-	
+	update();
 }
 
 function sortByDate(){

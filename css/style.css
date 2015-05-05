@@ -248,6 +248,52 @@ a:hover{
 
 /* Map */
 
+.marker-cluster {
+	background-clip: padding-box;
+	border-radius: 50px;
+	background-color: #fff;
+	border: 1px solid #000;
+}
+
+.marker-cluster:hover {
+	background-color: #aaa;
+}
+
+.marker-cluster div {
+	text-align: center;
+	font-size: 12px;
+}
+
+.marker-cluster.activeCluster{
+	margin-left: -30px !important;
+	margin-top: -30px !important;
+	height: 60px !important;
+	width: 60px !important;
+	background-color: #B42933;
+	background-color: rgba( 180, 41, 51, 0.7 );
+	border: none !important;
+}
+
+.marker-cluster.activeCluster div{
+	box-sizing: border-box;
+	background-color: #fff;
+	margin-left: 5px !important;
+	margin-top: 5px !important;
+	height: 50px !important;
+	width: 50px !important;
+	border-radius: 100px;
+	border: 2px solid #fff !important;
+}
+
+.marker-cluster.activeCluster div:hover{
+	background-color: #aaa;
+}
+
+.marker-cluster.activeCluster span{
+	line-height: 50px !important;
+	text-shadow: 1px 1px 1px white, -1px -1px 1px white;
+}
+
 /* Timeline area */
 
 .mask{

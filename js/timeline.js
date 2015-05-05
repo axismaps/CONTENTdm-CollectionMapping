@@ -17,6 +17,7 @@ function drawTimeline(){
 	$( ".entry-title" ).click( function(){
 		var $entry = $(this).parent(),
 			$year = $entry.parent();
+		selectPoint( $entry.attr( 'id' ).replace( 'entry', '' ) );
 		if ( !$year.hasClass( "active" ) || $entry.hasClass( "expanded" ) ) return;
 		$( ".timeline-entry.expanded", $entry.parent() )
 			.removeClass( "expanded" )
@@ -45,7 +46,7 @@ function drawYear( year ){
 		return d.date.year == year;
 	});
 	_.each( entries, function(d,i){
-		var $entry = $( "<div class='timeline-entry e" + i + "'>" );
+		var $entry = $( "<div class='timeline-entry e" + i + "' id='entry" + d.pointer + "'>" );
 		$( "<img>" )
 			.attr( "data-src", "http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=" + AppVars.collectionAlias + "&CISOPTR=" + d.pointer +"&action=2&DMSCALE=20&DMWIDTH=400&DMHEIGHT=270" )	// fake image source for testing, obvs
 			.appendTo( $entry );
@@ -86,6 +87,8 @@ function selectYear( year, noAutoScroll, noImages ){
 
 	if ( noImages ) return;
 	loadTimelineImages( year );	// load selected year images before surrounding years
+	
+	selectPoint( $( '.timeline-year.active .timeline-entry:first-child' ).attr( 'id' ).replace( 'entry', '' ) );
 }
 
 function advanceTimeline(){

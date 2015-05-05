@@ -20,7 +20,8 @@ var ServerVars = {},
 		selectedYear: undefined,
 		selectedYearIndex: undefined,
 		scrollTimeout: 1,
-		timelineRecenterFlag: false
+		timelineRecenterFlag: false,
+		selectedPoint: undefined
 	},
 	DataVars = {
 		filters: {
@@ -36,6 +37,7 @@ function init() {
 	initSidebar();
 	drawTimeline();
 	initMap();
+	drawPoints();
 }
 
 function initEvents(){
@@ -53,6 +55,12 @@ function initEvents(){
 function resize(){
 	$( "#timeline-inner" ).height( $( "#timeline" ).height() - $( "#year" ).outerHeight() );
 	recenterTimeline();
+	drawPulse();
+}
+
+function update(){
+	drawPoints();
+	drawTimeline();
 	drawPulse();
 }
 
