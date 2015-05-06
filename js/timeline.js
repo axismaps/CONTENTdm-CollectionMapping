@@ -58,8 +58,12 @@ function drawYear( year ){
 		else
 			title.html( year + " | " + d.title );
 		$entry.append( title )
-			.append( "<p class='entry-description'>" + d.descri + "</p>" )
-			.append( "<p><strong>SUBJECT:</strong> " + getSubjectLinks(d.subjec) + "</p>" );
+			.append( "<p class='entry-description'>" + d.descri + "</p>" );
+
+		_.each( DataVars.data.headers, function(header,prop){
+			if ( !header.tag || !d[prop] ) return;
+			$entry.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
+		});
 
 		$( '<div class="image-expand"><i class="fa fa-expand fa-2x"></i></div>' )
 			.appendTo( $entry )
@@ -147,10 +151,10 @@ function loadTimelineImages(year){
 		});
 	}	
 }
-function getSubjectLinks( subject ){
-	var subjects = subject.replace(/; /g,";").split(";");
-	subjects.forEach( function(s){
-		subject = subject.replace( s, "<a href='#'>" + s + "</a>" );	// TO DO: make link actually do something
+function getTagLinks( tag ){
+	var tags = tag.replace(/; /g,";").split(";");
+	tags.forEach( function(t){
+		tag = tag.replace( t, "<a href='#'>" + t + "</a>" );	// TO DO: make link actually do something
 	});
-	return subject;
+	return tag;
 }
