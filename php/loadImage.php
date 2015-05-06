@@ -19,9 +19,10 @@ if( array_key_exists( 'page', $_REQUEST ) ) {
 }
 
 //development vars
-$id = 72;
+// $id = 37; //pdf
+$id = 72; //jpg
 $size = 'full';
-$page = 1;
+$page = 0;
 
 if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.jpg' ) ){
 	$file_info = json_decode( file_get_contents( 'http://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmGetItemInfo/p15963coll18/' . $id . '/json' ) );
@@ -55,7 +56,14 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.j
 		
 		unlink( "temp.pdf" );
 	} elseif ( substr( $file_info->{'find'}, -3 ) == 'jpg' OR substr( $file_info->{'find'}, -4 ) == 'jpeg' ){
-		echo 'This is a jpg';
+		file_put_contents( 'temp.jpg', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
+		
+		$imagick = new Imagick();
+		$imagick->readimage( getcwd() . '\temp.jpg' );
+		$imagick->setImageFormat( 'jpeg' );
+		$imagick->writeImage( getcwd() . '\images\\' . $id . '-' . $size . '-' . '0.jpg' );
+		$imagick->clear();
+		$imagick->destroy();
 	}
 }
 
