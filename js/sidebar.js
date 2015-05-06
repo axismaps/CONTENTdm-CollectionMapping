@@ -276,6 +276,23 @@ function getIcon( text ){
 	switch( text ){
 			case "Art":
 				return '<i class="fa fa-paint-brush"></i>';
-				break;
+			case "Article":
+				return '<i class="fa fa-newspaper-o"></i>';
+			case "article":
+				return '<i class="fa fa-newspaper-o"></i>';
+			case "Book":
+				return '<i class="fa fa-book"></i>';
+			case "book":
+				return '<i class="fa fa-book"></i>';
+			case "Letter":
+				return '<i class="fa fa-envelope-o"></i>';
+			case "Official Record":
+				return '<i class="fa fa-university"></i>';
+			case "Photograph":
+				return '<i class="fa fa-picture-o"></i>';
+			case "Photography":
+				return '<i class="fa fa-picture-o"></i>';
+			default:
+				return '<i class="fa fa-file-o"></i>'; 
 	}
 }
