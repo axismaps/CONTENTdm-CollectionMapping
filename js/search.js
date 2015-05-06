@@ -1,10 +1,4 @@
-function initSearch(){
-	// var entries = new Bloodhound({
-		// datumTokenizer: Bloodhound.tokenizers.whitespace,
-		// queryTokenizer: Bloodhound.tokenizers.whitespace,
-		// local: DataVars.data
-	// });
-	
+function initSearch(){	
 	$( '#search .typeahead' ).typeahead({
 		highlight: true,
 		minLength: 2
@@ -21,7 +15,7 @@ var search = function(){
 			
 		_.each( DataVars.data.entries, function( v, k, l ){
 			if( substringRegex.test( v.descri ) || substringRegex.test( v.title ) ){
-				matches.push( v.title );
+				matches.push( {'value': v.title });
 			}
 		});
 		
