@@ -204,21 +204,22 @@ function initFilters(){
 	
 	$.map( DataVars.data.formats.sort(), function( v ){
 		$('<p/>' , {
-			text: v
+			html: '<span class="format-item">' + getIcon( v ) + v + '</span>'
 		})
 		.appendTo( $( '#format' ) )
 		.on( 'click', function() {
-			var text = $( this ).text();
-			$( this ).empty().text( text );
+			var text = $( this ).children( ' .format-item' ).text(),
+				html = $( this ).children( ' .format-item' );
+			$( this ).empty().html( html );
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
-				DataVars.filters.format = _.without( DataVars.filters.format, $( this ).text() );
+				DataVars.filters.format = _.without( DataVars.filters.format, text );
 				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
-				DataVars.filters.format.push( $( this ).text() );
+				DataVars.filters.format.push( text );
 				filter();
 			}
 		});
@@ -269,4 +270,12 @@ function initSummary(){
 
 function initAbout(){
 	alert( 'About lightbox will show up here' );
+}
+
+function getIcon( text ){
+	switch( text ){
+			case "Art":
+				return '<i class="fa fa-paint-brush"></i>';
+				break;
+	}
 }

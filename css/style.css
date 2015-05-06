@@ -242,8 +242,13 @@ a:hover{
 	color: #fff;
 }
 
-.expanded-section p > i{
+.expanded-section p .format-item i{
+	margin-right: 5px;
+}
+
+.expanded-section p > i.fa-check{
 	float: right;
+	margin-right: 0;
 }
 
 /* Map */
