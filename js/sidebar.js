@@ -204,21 +204,22 @@ function initFilters(){
 	
 	$.map( DataVars.data.formats.sort(), function( v ){
 		$('<p/>' , {
-			text: v
+			html: '<span class="format-item">' + getIcon( v ) + v + '</span>'
 		})
 		.appendTo( $( '#format' ) )
 		.on( 'click', function() {
-			var text = $( this ).text();
-			$( this ).empty().text( text );
+			var text = $( this ).children( ' .format-item' ).text(),
+				html = $( this ).children( ' .format-item' );
+			$( this ).empty().html( html );
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
-				DataVars.filters.format = _.without( DataVars.filters.format, $( this ).text() );
+				DataVars.filters.format = _.without( DataVars.filters.format, text );
 				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
-				DataVars.filters.format.push( $( this ).text() );
+				DataVars.filters.format.push( text );
 				filter();
 			}
 		});
@@ -269,4 +270,31 @@ function initSummary(){
 
 function initAbout(){
 	alert( 'About lightbox will show up here' );
+}
+
+function getIcon( text ){
+	switch( text ){
+			case "Art":
+				return '<i class="fa fa-paint-brush"></i>';
+			case "Article":
+			case "article":
+				return '<i class="fa fa-newspaper-o"></i>';
+			case "Biography":
+			case "Book":
+			case "book":
+				return '<i class="fa fa-book"></i>';
+			case "Letter":
+				return '<i class="fa fa-envelope-o"></i>';
+			case "Museum Record":
+				return '<i class="fa fa-archive"></i>';
+			case "Official Record":
+				return '<i class="fa fa-university"></i>';
+			case "Photograph":
+			case "Photography":
+				return '<i class="fa fa-picture-o"></i>';
+			case "Postcard":
+				return '<i class="fa fa-envelope-o"></i>';
+			default:
+				return '<i class="fa fa-file-o"></i>'; 
+	}
 }
