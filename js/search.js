@@ -18,7 +18,8 @@ var search = function(){
 			substringRegex = new RegExp(q, 'i' );
 			
 		_.each( DataVars.data.entries, function( v, k, l ){
-			if( substringRegex.test( v.descri ) || substringRegex.test( v.title ) ){
+			if( substringRegex.test( v.descri ) || substringRegex.test( v.title ) 
+				|| _.some(v.tags, function(t){ return substringRegex.test( t ) }) ){
 				matches.push( {'value': v.title, 'pointer': v.pointer, 'year': v.date.year });
 			}
 		});
