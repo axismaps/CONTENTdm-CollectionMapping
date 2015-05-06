@@ -106,7 +106,7 @@ function initReports(){
 		
 		$( '#reports-accordion' ).append( '<div class="reports-accordion-content"/>' );
 		
-		if( v.filetype == "jpg" ) {
+		//if( v.filetype == "jpg" ) {
 			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
 			var width = $( '#reports-accordion' ).width();
 			
@@ -124,9 +124,9 @@ function initReports(){
 				.html( '<i class="fa fa-expand fa-2x"></i>' )
 				.on( 'click', function(){
 					//TODO: Show lightbox of report summary
-					lightboxReport( $(this).parent().parent() );
+					lightboxReport( $(this).parent().parent(), v );
 			});
-		}
+		//}
 
 		var $textContainer = $( '<div class="text-container">' )
 			.appendTo( '#reports-accordion > div:last-child' );

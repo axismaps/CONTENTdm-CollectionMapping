@@ -51,23 +51,44 @@ function lightboxEntry( $entry, data ){
 				.load( function(){
 					var size = onFullImageLoad( $(this), $div );
 					$( ".mask", $div ).remove();
-					$( ".entry-title", $div ).prependTo( ".text-container", $div );
+					$( ".entry-title", $div ).prependTo( $(".text-container"), $div );
 				})
 		}
 	}
 }
 
 function lightboxReport( $report, data ){
-	var $div = startLightbox( $report, {}, loadFullImage );
+	var $div = startLightbox( $report, data, loadFullImage );
 	var title = $report.prev().clone().removeAttr("class").appendTo( $div );
-	var button = $( ".button", $div );
-	button.clone()
+	var button = $( ".button", $div )
 		.prependTo($(".text-container", $div) )
 		.click( function(){
 			// TO DO: load report
 		});
-	button.remove();
+	if ( data.filetype == "pdf" ){
+		var w = .9 * $(window).width(),
+			h = .9 * $(window).height();
+		$( "<object>" )
+			.attr( "data", "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + data.pointer + "/filename/" + data.pointer + ".pdf" )
+			.attr( "type", "application/pdf" )
+			.attr( "width", w - 400 )
+			.attr( "height", h )
+			.css( "width", w - 400 )
+			.css( "height", h )
+			.appendTo( $(".image-container", $div) );
+		$( ".image-container", $div ).css({
+			"width": w - 400,
+			"height": h,
+			"overflow": "hidden"
+		});
+		//$( ".mask", $div ).remove();
+		$( "img", $div ).remove();
+		title.addClass("loaded").insertAfter( button );
+		$( ".text-container", $div ).css( "max-height", h );
+	}
 	function loadFullImage(){
+		console.log(data.filetype)
+		if ( data.filetype == "pdf" ) return;
 		var $imageDiv = $( ".image-container", $div );
 		var $image = $( "<img>" )
 			.css({
@@ -155,7 +176,6 @@ function onFullImageLoad( image, container ){
 		"height": "auto",
 		"overflow": "hidden"
 	});
-	console.log(image.width(),image.height())
 	var w = Math.min( image.width(), .9 * $(window).width() - 400 ),
 		h;
 	if ( w * image.height() / image.width() > .9 * $(window).height() ){
@@ -164,13 +184,6 @@ function onFullImageLoad( image, container ){
 	} else {
 		h = w * image.height() / image.width();
 	}
-	// if ( image.width()> image.height() ){
-	// 	w = Math.min( image.width(), .9 * $(window).width() - 400 );
-	// 	h = w * image.height() / image.width();
-	// } else {
-	// 	h = Math.min( image.height(), .9 * $(window).height() );
-	// 	w = h * image.width() / image.height();
-	// }
 	image.css("height",300).animate( {width:w,height:h} );
 	$( ".text-container", container ).animate( {
 		"margin-left": w + 10

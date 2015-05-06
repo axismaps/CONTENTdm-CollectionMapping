@@ -486,9 +486,20 @@ a:hover{
 	text-shadow: 1px 1px 5px black,
 		-1px -1px 5px black;
 }
+.lightbox h3.loaded{
+	color: black;
+	position: initial;
+	text-shadow: none;
+	clear: left;
+	margin: 15px;
+}
+.lightbox h3.loaded i{
+	display: none;
+}
 .lightbox .button{
 	float: left !important;
-	margin-bottom: 10px;
+	margin-bottom: 15px;
+	margin-left: 15px;
 }
 .lightbox .text-container p{
 	clear: left;
@@ -497,6 +508,9 @@ a:hover{
 	position: absolute;
 	top: 20px;
 	left: 20px;
+}
+.lightbox .text-container p{
+	margin: 15px;
 }
 .lightbox .text-container p.entry-title{
 	position: initial;
