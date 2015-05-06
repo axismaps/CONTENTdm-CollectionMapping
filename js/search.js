@@ -5,7 +5,7 @@ function initSearch(){
 	},{
 		name: 'searchResults',
 		source: search(),
-		templates: {empty:noResults}
+		templates: { 'empty': noResults, 'suggestion': renderSuggestion }
 	});
 	
 	$( '.typeahead' ).on( 'typeahead:selected', function( e, suggestion ){
@@ -15,25 +15,48 @@ function initSearch(){
 
 var search = function(){
 	return function findMatches( q, cb ){
-		var matches=[],
+		var visibleMatches=[],
+			filteredMatches = [],
+			allMatches,
 			substringRegex = new RegExp(q, 'i' );
 			
 		_.each( DataVars.data.entries, function( v, k, l ){
 			if( substringRegex.test( v.descri ) || substringRegex.test( v.title ) 
 				|| _.some(v.tags, function(t){ return substringRegex.test( t ) }) ){
-				matches.push( {'value': v.title, 'pointer': v.pointer, 'year': v.date.year });
+				if ( $( '#entry' + v.pointer ).length )
+					visibleMatches.push( {'value': v.title, 'pointer': v.pointer, 'year': v.date.year });
+				else
+					filteredMatches.push( {'value': v.title, 'pointer': v.pointer, 'year': v.date.year, 'filtered': true });
 			}
 		});
+
+		if ( filteredMatches.length ){
+			allMatches = visibleMatches.concat( {value:''}, filteredMatches );
+		} else {
+			allMatches = visibleMatches;
+		}
 		
-		cb( matches );
+		cb( allMatches );
+
 	};
 };
 
-var noResults = function(query){
+function noResults(query){
 	return "<div class='tt-empty'><p>No results found.</p></div>";
+}
+function renderSuggestion(query){
+	if ( query.filtered ){
+		return '<div class="filtered-result"><p>' + query.value +'</p></div>';
+	} else if ( query.value !== '' ){
+		return '<div><p>' + query.value +'</p></div>';
+	} else {
+		return '<div class="filter-header"><p>The following results are not visible with current filters. Selecting one will clear active filters.</p></div>';
+	}
 }
 
 function displayResults( suggestion ){
+	if ( suggestion.value === '' ) return;
+	if ( suggestion.filtered ) $( '#all-docs-button' ).click();
 	AppVars.selectedPoint = suggestion.pointer;
 	selectYear( suggestion.year );
 	$( '#entry' + suggestion.pointer + ' .entry-title' ).click();
