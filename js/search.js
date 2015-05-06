@@ -4,7 +4,8 @@ function initSearch(){
 		minLength: 2
 	},{
 		name: 'searchResults',
-		source: search()
+		source: search(),
+		templates: {empty:noResults}
 	});
 	
 	$( '.typeahead' ).on( 'typeahead:selected', function( e, suggestion ){
@@ -27,6 +28,10 @@ var search = function(){
 		cb( matches );
 	};
 };
+
+var noResults = function(query){
+	return "<div class='tt-empty'><p>No results found.</p></div>";
+}
 
 function displayResults( suggestion ){
 	AppVars.selectedPoint = suggestion.pointer;

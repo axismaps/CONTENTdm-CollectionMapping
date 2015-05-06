@@ -46,11 +46,13 @@ a:hover{
     border: 1px solid rgba(0, 0, 0, 0.2);
     box-shadow: 0 5px 10px rgba(0,0,0,.2);
     max-height: 400px;
+    width: 100%;
     overflow: auto;
 }
 
-.tt-suggestion {
+.tt-suggestion, .tt-empty {
     padding: 10px 20px;
+    width: 100%;
 }
 
 .tt-suggestion.tt-cursor {
@@ -59,7 +61,7 @@ a:hover{
 	cursor: pointer;
 }
 
-.tt-suggestion p {
+.tt-suggestion p, .tt-empty p {
     margin: 0;
 }
 
