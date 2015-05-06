@@ -493,3 +493,13 @@ a:hover{
 .lightbox .text-container p{
 	clear: left;
 }
+.lightbox object{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+.lightbox .text-container p.entry-title{
+	position: initial;
+	color: black;
+	text-shadow: none;
+}

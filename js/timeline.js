@@ -49,7 +49,7 @@ function drawYear( year ){
 		var $imageContainer = $( "<div class='image-container'>" )
 			.appendTo( $entry );
 		$( "<img>" )
-			.attr( "data-src", "http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=" + AppVars.collectionAlias + "&CISOPTR=" + d.pointer +"&action=2&DMSCALE=20&DMWIDTH=400&DMHEIGHT=270" )	// fake image source for testing, obvs
+			.attr( "data-src", "http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=" + AppVars.collectionAlias + "&CISOPTR=" + d.pointer +"&action=2&DMSCALE=20&DMWIDTH=400&DMHEIGHT=270" )
 			.appendTo( $imageContainer );
 		$( "<div class='mask'>" ).appendTo( $imageContainer );
 
@@ -68,7 +68,7 @@ function drawYear( year ){
 		$( '<div class="image-expand"><i class="fa fa-expand fa-2x"></i></div>' )
 			.appendTo( $imageContainer )
 			.on( 'click', function(){
-				lightboxEntry( $entry );
+				lightboxEntry( $entry, d );
 			});
 
 		$div.append( $entry );

@@ -1,36 +1,64 @@
-function lightboxEntry( $entry ){
-	var $div = startLightbox( $entry, loadFullImage );
+function lightboxEntry( $entry, data ){
+	var $div = startLightbox( $entry, data, loadFullImage );
+	
 	$( ".entry-title, .mask", $div ).animate({
 		top: 20,
 		left: 20
 	});
+	$( ".image-container", $div ).css( "overflow", "hidden" );
+	if ( data.filetype == "pdf" ){
+		var w = .9 * $(window).width(),
+			h = .9 * $(window).height();
+		$( "<object>" )
+			.attr( "data", "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + data.pointer + "/filename/" + data.pointer + ".pdf" )
+			.attr( "type", "application/pdf" )
+			.attr( "width", w - 400 )
+			.attr( "height", h )
+			.css( "width", w - 400 )
+			.css( "height", h )
+			.insertAfter( $("img",$div) );
+		$( ".image-container", $div ).css({
+			"width": w - 400,
+			"height": h,
+			"overflow": "hidden"
+		});
+		$( ".mask", $div ).remove();
+		$( "img", $div ).remove();
+		$( ".entry-title", $div ).prependTo( $(".text-container", $div) );
+		$( ".text-container", $div ).css( "max-height", h );
+	}
 	function loadFullImage(){
 		var $image = $( "img", $div );
-		$( "<div>" )
-			.attr( "class", "image-loader" )
-			.css({
-				width: $image.width(),
-				height: $image.height()
-			})
-			.append( '<i class="fa fa-spinner fa-spin"></i>' )
-			.append( '<p>Loading full image...</p>' )
-			.insertAfter( $image );
-		var src = $image.attr( "src" );
-		src = src.replace( "=400", "=6000" )
-			.replace( "=270", "=6000" )
-			.replace( "=20", "=100" );
-		$image.attr( "src", src )
-			.load( function(){
-				var size = onFullImageLoad( $(this), $div );
-				$( ".mask", $div ).animate({
-					width: size.width
-				});
-			})
+
+		if ( data.filetype == "pdf" ){
+			
+
+		} else {
+			var $loader = $( "<div>" )
+				.attr( "class", "image-loader" )
+				.css({
+					width: $image.width(),
+					height: $image.height()
+				})
+				.append( '<i class="fa fa-spinner fa-spin"></i>' )
+				.append( '<p>Loading full image...</p>' )
+				.insertAfter( $image );
+			var src = $image.attr( "src" );
+			src = src.replace( "=400", "=6000" )
+				.replace( "=270", "=6000" )
+				.replace( "=20", "=100" );
+			$image.attr( "src", src )
+				.load( function(){
+					var size = onFullImageLoad( $(this), $div );
+					$( ".mask", $div ).remove();
+					$( ".entry-title", $div ).prependTo( ".text-container", $div );
+				})
+		}
 	}
 }
 
-function lightboxReport( $report ){
-	var $div = startLightbox( $report, loadFullImage );
+function lightboxReport( $report, data ){
+	var $div = startLightbox( $report, {}, loadFullImage );
 	var title = $report.prev().clone().removeAttr("class").appendTo( $div );
 	var button = $( ".button", $div );
 	button.clone()
@@ -67,12 +95,20 @@ function lightboxReport( $report ){
 	}
 }
 
-function startLightbox( $content, callback ){
+function startLightbox( $content, data, callback ){
 	var mask = $( "<div class='lightbox-mask lightbox'>" )
 		.appendTo( "body" )
 		.click( function(){
 			$( ".lightbox" ).remove();
 		});
+	var w, h;
+	if ( data.filetype == "pdf" ){
+		w = .9 * $(window).width();
+		h = .9 * $(window).height();
+	} else {
+		w = 600;
+		h = $( ".image-container", $div ).height();
+	}
 	var $div = $content.clone()
 		.removeClass( "ui-accordion" )
 		.removeClass( "ui-accordion-content" )
@@ -92,14 +128,14 @@ function startLightbox( $content, callback ){
 		.animate({
 			left: "50%",
 			top: "50%",
-			"margin-left": -300,
-			"margin-top": -135,
-			width: 600,
-			height: $( ".image-container", $div ).height(),
+			"margin-left": -w/2 -20,
+			"margin-top": -h/2 - 20,
+			width: w,
+			height: h,
 			padding: 20
 		},callback);
 	$( ".text-container", $div ).css( {
-		"margin-left": 310,
+		"margin-left": w/2 + 10,
 		"margin-top": 0 
 	});		
 	$( ".image-expand", $div ).remove();
