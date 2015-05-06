@@ -3,10 +3,27 @@
 if( array_key_exists( 'id', $_REQUEST ) ){
 	$id = $_REQUEST['id'];
 } else {
-	$id = 37;
+	// return
 }
 
-if( ! file_exists( getcwd(). '\images\\' . $id . '-0.jpg' ) ){
+if( array_key_exists( 'size', $_REQUEST ) ) {
+	$size =  $_REQUEST['size'];
+} else {
+	//return
+}
+
+if( array_key_exists( 'page', $_REQUEST ) ) {
+	$page = $_REQUEST['page'];
+} else {
+	$page = 0;
+}
+
+//development vars
+$id = 37;
+$size = 'full';
+$page = 1;
+
+if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.jpg' ) ){
 	file_put_contents( 'temp.pdf', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
 
 	//check amount of pages in pdf
@@ -16,23 +33,20 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-0.jpg' ) ){
 	$im->clear();
 	$im->destroy();
 
-	//go through each pdf page and convert to jpg
+	//convert pdf page to jpg
 	$imagick = new Imagick();
 	$imagick->setResolution(300,300);
 
-	$i = 0;
-	while( $i <= $pages - 1 ){
-		$imagick->readimage( getcwd() . '\temp.pdf[' . $i . ']' );
-		$imagick->setImageFormat( 'jpeg' );
-		$imagick->writeImage( getcwd() . '\images\\' . $id . '-' . $i . '.jpg' );
-		$i++;
-	}
+	$imagick->readimage( getcwd() . '\temp.pdf[' . $page . ']' );
+	$imagick->setImageFormat( 'jpeg' );
+	$imagick->writeImage( getcwd() . '\images\\' . $id . '-' . $size . '-' . $page . '.jpg' );
+		
 	$imagick->clear();
 	$imagick->destroy();
 	
 	unlink( "temp.pdf" );
 }
 
-header( "Location: images/$id-0.jpg" );
+// header( "Location: images/$id-0.jpg" );
 
 ?>
