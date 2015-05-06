@@ -19,8 +19,8 @@ if( array_key_exists( 'page', $_REQUEST ) ) {
 }
 
 //development vars
-// $id = 37; //pdf
-$id = 72; //jpg
+$id = 37; //pdf
+// $id = 72; //jpg
 $size = 'full';
 $page = 0;
 
@@ -47,7 +47,10 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.j
 		while( $i <= $pages - 1 ){
 			$imagick->readimage( getcwd() . '\temp.pdf[' . $i . ']' );
 			$imagick->setImageFormat( 'jpeg' );
-			$imagick->writeImage( getcwd() . '\images\\' . $id . '-' . $size . '-' . $i . '.jpg' );
+			$imagick->writeImage( getcwd() . '\images\\' . $id . '-full-' . $i . '.jpg' );
+			
+			$imagick->scaleImage( 400, 0 );
+			$imagick->writeImage( getcwd(). '\images\\'. $id . '-small-' . $i . '.jpg' );
 			$i++;
 		}
 			
@@ -61,9 +64,14 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.j
 		$imagick = new Imagick();
 		$imagick->readimage( getcwd() . '\temp.jpg' );
 		$imagick->setImageFormat( 'jpeg' );
-		$imagick->writeImage( getcwd() . '\images\\' . $id . '-' . $size . '-' . '0.jpg' );
+		$imagick->writeImage( getcwd() . '\images\\' . $id . '-full-0.jpg' );
+		
+		$imagick->scaleImage( 400, 0 );
+		$imagick->writeImage( getcwd(). '\images\\'. $id . '-small-0.jpg' );
+		
 		$imagick->clear();
 		$imagick->destroy();
+		unlink( "temp.jpg" );
 	}
 }
 
