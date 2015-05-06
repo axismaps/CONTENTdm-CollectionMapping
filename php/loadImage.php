@@ -75,6 +75,6 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.j
 	}
 }
 
-// header( "Location: images/$id-$size-$page.jpg" );
+header( "Location: images/$id-$size-$page.jpg" );
 
 ?>
