@@ -1,28 +1,28 @@
 <?php
 
-if( array_key_exists( 'id', $_REQUEST ) ){
-	$id = $_REQUEST['id'];
+if( array_key_exists( 'id', $_GET ) ){
+	$id = $_GET['id'];
 } else {
 	// return
 }
 
-if( array_key_exists( 'size', $_REQUEST ) ) {
-	$size =  $_REQUEST['size'];
+if( array_key_exists( 'size', $_GET ) ) {
+	$size =  $_GET['size'];
 } else {
 	$size = 'full';
 }
 
-if( array_key_exists( 'page', $_REQUEST ) ) {
-	$page = $_REQUEST['page'];
+if( array_key_exists( 'page', $_GET ) ) {
+	$page = $_GET['page'];
 } else {
 	$page = 0;
 }
 
 //development vars
-$id = 37; //pdf
+// $id = 37; //pdf
 // $id = 72; //jpg
-$size = 'full';
-$page = 0;
+// $size = 'full';
+// $page = 0;
 
 if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.jpg' ) ){
 	$file_info = json_decode( file_get_contents( 'http://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmGetItemInfo/p15963coll18/' . $id . '/json' ) );
