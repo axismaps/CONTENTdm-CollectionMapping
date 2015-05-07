@@ -4,48 +4,48 @@ function lightboxEntry( $entry, data ){
 	if ( data.filetype == "pdf" ){
 		ligthtboxPDF( $div, data.pointer )
 			.insertAfter( $("img",$div) );
-		$( ".mask", $div ).remove();
 		$( "img", $div ).remove();
-		$( ".entry-title", $div ).prependTo( $(".text-container", $div) );
+		$( ".mask", $div ).remove();
 	} else {
-		$( ".entry-title, .mask", $div ).animate({
+		$( ".mask", $div ).animate({
 			top: 20,
-			left: 20
+			left: 20,
+			height: 270
 		});
 	}
+	$( ".entry-title", $div ).prependTo( $(".text-container", $div) );
 	function loadFullImage(){
 		if ( data.filetype == "pdf" ) return;
 		var $image = $( "img", $div );
 		var $loader = $( "<div>" )
 			.attr( "class", "image-loader" )
 			.css({
-				width: $image.width(),
-				height: $image.height()
+				width: $image.parent().width(),
+				height: $image.parent().height()
 			})
 			.append( '<i class="fa fa-spinner fa-spin"></i>' )
 			.append( '<p>Loading full image...</p>' )
-			.insertAfter( $image );
+			.appendTo( $( ".image-container", $div ) );
 		var src = $image.attr( "src" );
 		src = src.replace( "=400", "=6000" )
 			.replace( "=270", "=6000" )
 			.replace( "=20", "=100" );
 		$image.attr( "src", src )
 			.load( function(){
-				var size = onFullImageLoad( $(this), $div );
 				$( ".mask", $div ).remove();
-				$( ".entry-title", $div ).prependTo( $(".text-container", $div) );
+				var size = onFullImageLoad( $(this), $div );
 			})
 	}
 }
 
 function lightboxReport( $report, data ){
 	var $div = startLightbox( $report, data, loadFullImage );
-	var title = $report.prev().clone().removeAttr("class").appendTo( $div );
 	var button = $( ".button", $div )
 		.prependTo($(".text-container", $div) )
 		.click( function(){
 			// TO DO: load report
 		});
+	var title = $report.prev().clone().removeAttr("class").addClass("loaded").insertAfter( button );
 	if ( data.filetype == "pdf" ){
 		ligthtboxPDF( $div, data.pointer )
 			.appendTo( $(".image-container",$div) );
@@ -76,7 +76,6 @@ function lightboxReport( $report, data ){
 		$image.attr( "src", src )
 			.load( function(){
 				onFullImageLoad( $(this), $div );
-				title.addClass("loaded").insertAfter( button );
 			});
 	}
 }
