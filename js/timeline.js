@@ -17,6 +17,7 @@ function drawTimeline(){
 	$( ".entry-title" ).click( function(){
 		var $entry = $(this).parent().parent(),
 			$year = $entry.parent();
+		selectPoint( $entry.attr( 'id' ).replace( 'entry', '' ) );
 		if ( !$year.hasClass( "active" ) || $entry.hasClass( "expanded" ) ) return;
 		$( ".timeline-entry.expanded", $entry.parent() )
 			.removeClass( "expanded" )
@@ -45,11 +46,11 @@ function drawYear( year ){
 		return d.date.year == year;
 	});
 	_.each( entries, function(d,i){
-		var $entry = $( "<div class='timeline-entry e" + i + "'>" );
+		var $entry = $( "<div class='timeline-entry e" + i + "' id='entry" + d.pointer + "'>" );
 		var $imageContainer = $( "<div class='image-container'>" )
 			.appendTo( $entry );
 		$( "<img>" )
-			.attr( "data-src", "http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=" + AppVars.collectionAlias + "&CISOPTR=" + d.pointer +"&action=2&DMSCALE=20&DMWIDTH=400&DMHEIGHT=270" )
+			.attr( "data-src", "php/loadImage.php?id=" + d.pointer + '&size=small')
 			.appendTo( $imageContainer );
 		$( "<div class='mask'>" ).appendTo( $imageContainer );
 
@@ -62,8 +63,16 @@ function drawYear( year ){
 
 		var $textContainer = $( "<div class='text-container'>" )
 			.append( "<p class='entry-description'>" + d.descri + "</p>" )
-			.append( "<p><strong>SUBJECT:</strong> " + getSubjectLinks(d.subjec) + "</p>" )
 			.appendTo( $entry );
+		_.each( DataVars.data.headers, function(header,prop){
+			if ( !header.tag || !d[prop] ) return;
+			$textContainer.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
+		});
+
+		$( "a.tag-link", $entry ).click( function(){
+			var name = $(this).html();
+			$( ".tag:contains('" + name + "')" ).click();
+		});
 
 		$( '<div class="image-expand"><i class="fa fa-expand fa-2x"></i></div>' )
 			.appendTo( $imageContainer )
@@ -90,6 +99,8 @@ function selectYear( year, noAutoScroll, noImages ){
 
 	if ( noImages ) return;
 	loadTimelineImages( year );	// load selected year images before surrounding years
+	
+	selectPoint( $( '.timeline-year.active .timeline-entry:first-child' ).attr( 'id' ).replace( 'entry', '' ) );
 }
 
 function advanceTimeline(){
@@ -107,6 +118,7 @@ function recenterTimeline(){
 	var left = $( ".timeline-year.active" ).index() * $( ".timeline-year" ).outerWidth()
 			- ( $( "#timeline" ).width()  - $( ".timeline-year" ).outerWidth() ) / 2;
 	$( "#timeline-inner" ).off( "scroll" )
+		.stop()
 		.animate( { scrollLeft: left }, function(){
 			$( "#timeline-inner" ).on( "scroll", timelineScroll );
 		});
@@ -147,10 +159,10 @@ function loadTimelineImages(year){
 		});
 	}	
 }
-function getSubjectLinks( subject ){
-	var subjects = subject.replace(/; /g,";").split(";");
-	subjects.forEach( function(s){
-		subject = subject.replace( s, "<a href='#'>" + s + "</a>" );	// TO DO: make link actually do something
+function getTagLinks( tag ){
+	var tags = tag.replace(/; /g,";").split(";");
+	tags.forEach( function(t){
+		tag = tag.replace( t, "<a class='tag-link' href='#'>" + t + "</a>" );	// TO DO: make link actually do something
 	});
-	return subject;
+	return tag;
 }

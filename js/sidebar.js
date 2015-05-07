@@ -102,31 +102,32 @@ function initReports(){
 	}).appendTo( '#reports-expanded .expanded-section' );
 	
 	$.map( DataVars.data.entries, function( v ) {
-		$( '#reports-accordion' ).append( '<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>' );
+		var $title = $( '<h3><i class="fa fa-folder"></i> <span>' + v.title + '</span></h3>' ).appendTo( '#reports-accordion' );
 		
 		$( '#reports-accordion' ).append( '<div class="reports-accordion-content"/>' );
 		
-		//if( v.filetype == "jpg" ) {
-			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
-			var width = $( '#reports-accordion' ).width();
-			
-			$( '<div/>', {
-				'class' : 'accordion-image image-container'
-			}).appendTo( '#reports-accordion > div:last-child' ).css({
-				background:  'url(' + url + ')' + 'no-repeat 50% top',
-				width: width + 'px',
-				height: width + 'px'
-			});
-			
-			$( '<div/>' )
-				.appendTo( '#reports-accordion > div:last-child > div' )
-				.attr( 'class', 'image-expand' )
-				.html( '<i class="fa fa-expand fa-2x"></i>' )
-				.on( 'click', function(){
-					//TODO: Show lightbox of report summary
-					lightboxReport( $(this).parent().parent(), v );
-			});
-		//}
+		var url = 'php/loadImage.php?id=' + v.pointer + '&size=small';
+		var width = $( '#reports-accordion' ).width();
+		
+		$( '<div/>', {
+			'class' : 'accordion-image image-container'
+		}).appendTo( '#reports-accordion > div:last-child' ).css({
+			'background-image':  'url(' + url + ')',
+			width: width + 'px',
+			height: width + 'px'
+		});
+		
+		$( '<div/>' )
+			.appendTo( '#reports-accordion > div:last-child > div' )
+			.attr( 'class', 'image-expand' )
+			.html( '<i class="fa fa-expand fa-2x"></i>' )
+			.on( 'click', function(){
+				//TODO: Show lightbox of report summary
+				lightboxReport( $(this).parent().parent(), v );
+		});
+
+		$title.css( 'background-image', 'url(' + url + ')' )
+			.prepend( '<div class="mask">' );
 
 		var $textContainer = $( '<div class="text-container">' )
 			.appendTo( '#reports-accordion > div:last-child' );
@@ -161,7 +162,7 @@ function initFilters(){
 	$( '#date-range' ).append( '<div class="line"><span class="h4-title">Date Range</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#date-range .clear-text' ).on( 'click', function(){
-		$( '#date-slider' ).slider( "values", [1800, 1900] );
+		$( '#date-slider' ).slider( "values", [DataVars.data.minYear, DataVars.data.maxYear] );
 		$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
 		$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 		
@@ -179,7 +180,7 @@ function initFilters(){
 		range: true,
 		min: DataVars.data.minYear,
 		max: DataVars.data.maxYear,
-		values: [ 1800, 1900 ], //TODO: Should this be dynamically set?
+		values: [ DataVars.data.minYear, DataVars.data.maxYear ],
 		slide: function( event, ui ){
 			$( '#minYear' ).text( ui.values[ 0 ] );
 			$( '#maxYear' ).text( ui.values[ 1 ] );
@@ -205,21 +206,22 @@ function initFilters(){
 	
 	$.map( DataVars.data.formats.sort(), function( v ){
 		$('<p/>' , {
-			text: v
+			html: '<span class="format-item">' + getIcon( v ) + v + '</span>'
 		})
 		.appendTo( $( '#format' ) )
 		.on( 'click', function() {
-			var text = $( this ).text();
-			$( this ).empty().text( text );
+			var text = $( this ).children( ' .format-item' ).text(),
+				html = $( this ).children( ' .format-item' );
+			$( this ).empty().html( html );
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
-				DataVars.filters.format = _.without( DataVars.filters.format, $( this ).text() );
+				DataVars.filters.format = _.without( DataVars.filters.format, text );
 				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
-				DataVars.filters.format.push( $( this ).text() );
+				DataVars.filters.format.push( text );
 				filter();
 			}
 		});
@@ -245,6 +247,7 @@ function initTags(){
 		$('<p/>' , {
 			text: v
 		})
+		.attr( 'class', 'tag' )
 		.appendTo( sect )
 		.on( 'click', function() {
 			var text = $( this ).text();
@@ -270,4 +273,31 @@ function initSummary(){
 
 function initAbout(){
 	alert( 'About lightbox will show up here' );
+}
+
+function getIcon( text ){
+	switch( text ){
+			case "Art":
+				return '<i class="fa fa-paint-brush"></i>';
+			case "Article":
+			case "article":
+				return '<i class="fa fa-newspaper-o"></i>';
+			case "Biography":
+			case "Book":
+			case "book":
+				return '<i class="fa fa-book"></i>';
+			case "Letter":
+				return '<i class="fa fa-envelope-o"></i>';
+			case "Museum Record":
+				return '<i class="fa fa-archive"></i>';
+			case "Official Record":
+				return '<i class="fa fa-university"></i>';
+			case "Photograph":
+			case "Photography":
+				return '<i class="fa fa-picture-o"></i>';
+			case "Postcard":
+				return '<i class="fa fa-envelope-o"></i>';
+			default:
+				return '<i class="fa fa-file-o"></i>'; 
+	}
 }

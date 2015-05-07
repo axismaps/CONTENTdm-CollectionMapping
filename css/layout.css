@@ -16,8 +16,14 @@ html, body{
 	display: block;
 }
 
-h1{
+#topbar h1{
 	margin: 0 25px;
+	display: inline-block;
+}
+
+#search{
+	display: inline-block;
+	float: right;
 }
 
 #interactive-area{

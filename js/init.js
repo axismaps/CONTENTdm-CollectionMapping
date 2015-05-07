@@ -21,7 +21,8 @@ var ServerVars = {},
 		selectedYearIndex: undefined,
 		scrollTimeout: 1,
 		timelineRecenterFlag: false,
-		pdfCapable: false
+		pdfCapable: false,
+		selectedPoint: undefined
 	},
 	DataVars = {
 		filters: {
@@ -35,9 +36,12 @@ var ServerVars = {},
 function init() {
 	AppVars.pdfCapable = getAcrobatInfo().acrobat;
 	initEvents();
+	initSearch();
 	initSidebar();
+	initTags();
 	drawTimeline();
 	initMap();
+	drawPoints();
 }
 
 function initEvents(){
@@ -58,13 +62,20 @@ function resize(){
 	drawPulse();
 }
 
+function update(){
+	drawPoints();
+	drawTimeline();
+	drawPulse();
+}
+
 function loadData(){
 	$.get( "php/loadData.php", {
-		collection: AppVars.collectionAlias,
-		fields: ['subjec', 'date', 'covera', 'descri', 'format']
+		collection: AppVars.collectionAlias
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
+		DataVars.filters.minYear = DataVars.data.minYear;
+		DataVars.filters.maxYear = DataVars.data.maxYear;
 		console.log( DataVars );
 		init();
 	});

@@ -1,0 +1,5 @@
+subjec,Subject,true
+date,Date,false
+covera,Location,true
+descri,Description,false
+format,Format,false

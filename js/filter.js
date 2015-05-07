@@ -4,9 +4,10 @@ function filter( type ){
 		data = DataVars.data;
 
 	$( "#filters-button span" ).html( "Filters" );
+	$( "#tags-button span" ).html( "Tags" );
 		
 	//Default parameters, exit early
-	if( filters.minYear === 0 && filters.maxYear === 9999 && filters.tags.length === 0 && filters.format.length === 0 ) {
+	if( filters.minYear === DataVars.data.minYear && filters.maxYear === DataVars.data.maxYear && filters.tags.length === 0 && filters.format.length === 0 ) {
 		DataVars.filteredData = data;
 	} else {
 	
@@ -17,14 +18,25 @@ function filter( type ){
 		};
 		
 		var filterCount = filters.format.length;
+
+		if ( filters.minYear !== DataVars.data.minYear || filters.maxYear !== DataVars.data.maxYear ) filterCount ++;
+		if ( filterCount ) $( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
+
+		var tagCount = filters.tags.length;
 		if ( filters.minYear !== 0 || filters.maxYear !== 9999 ) filterCount ++;
-		$( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
+		if ( tagCount ) $( "#tags-button span" ).html( "Tags (" + tagCount + ")" );
 
 		_.each( data.entries, function( v ) {
 			//filters
 			if( v.date.year < filters.minYear ) return false;
-			if ( v.date.year > filters.maxYear ) return false;
-			if ( filters.format.length > 0 && _.indexOf( filters.format, v.format ) == -1 ) return false;
+			if( v.date.year > filters.maxYear ) return false;
+			if( filters.format.length > 0 && _.indexOf( filters.format, v.format ) == -1 ) return false;
+
+			var tag_value = filters.tags.length ? false : true;
+			_.each( v.tags, function( tag ) {
+				if( filters.tags.length > 0 && _.indexOf( filters.tags, String( tag ) ) >= 0 ) tag_value = true;
+			});
+			if( tag_value == false ) return false;
 
 			//update minYear and maxYear and push onto array
 			if( fD.minYear >= v.date.year ) fD.minYear = v.date.year;
@@ -37,11 +49,7 @@ function filter( type ){
 	
 	if( type == 'date' ) sortByDate();
 
-	drawTimeline();
-}
-
-function update(){
-	
+	update();
 }
 
 function sortByDate(){

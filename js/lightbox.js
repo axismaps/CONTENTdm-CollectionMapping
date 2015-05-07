@@ -20,6 +20,7 @@ function lightboxEntry( $entry, data ){
 			$( "<a>" )
 				.attr( "href", "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + data.pointer + "/filename/" + data.pointer + ".pdf" )
 				.attr( "target", "_blank" )
+				.attr( "class", "pdf" )
 				.html( "Download PDF document" )
 				.insertAfter( $( ".entry-title", $div ) );
 		}
@@ -34,9 +35,7 @@ function lightboxEntry( $entry, data ){
 			.append( '<p>Loading full image...</p>' )
 			.appendTo( $( ".image-container", $div ) );
 		var src = $image.attr( "src" );
-		src = src.replace( "=400", "=6000" )
-			.replace( "=270", "=6000" )
-			.replace( "=20", "=100" );
+		src = src.replace( "small", "full" )
 		$image.attr( "src", src )
 			.load( function(){
 				$( ".mask", $div ).remove();
@@ -58,6 +57,7 @@ function lightboxReport( $report, data ){
 		ligthtboxPDF( $div, data.pointer )
 			.appendTo( $(".image-container",$div) );
 		title.addClass("loaded").insertAfter( button );
+		$( ".image-container", $div ).css( "background-image", "none" );
 	}
 	function loadFullImage(){
 		if ( pdf ) return;
@@ -65,6 +65,7 @@ function lightboxReport( $report, data ){
 			$( "<a>" )
 				.attr( "href", "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + data.pointer + "/filename/" + data.pointer + ".pdf" )
 				.attr( "target", "_blank" )
+				.attr( "class", "pdf" )
 				.html( "Download PDF document" )
 				.insertAfter( title );
 		}
@@ -85,9 +86,7 @@ function lightboxReport( $report, data ){
 			.append( '<p>Loading full image...</p>' )
 			.appendTo( $imageDiv );
 		var src = $imageDiv.css( "background" ).match(/url\((.*)\)/)[1];
-		src = src.replace( "=1000", "=6000" )
-			.replace( "=800", "=6000" )
-			.replace( "=20", "=100" );
+		src = src.replace( "small", "full" )
 		$image.attr( "src", src )
 			.load( function(){
 				onFullImageLoad( $(this), $div );
