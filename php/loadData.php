@@ -83,6 +83,11 @@ function processData( $fields ){
 	}
 	
 	foreach( $temp_json -> records as $value ) {
+		
+		if( substr( $value -> {'find'}, -3 ) == 'cpd' ){
+			continue;
+		}
+		
 		//Convert date into exact format just in case
 		$value -> {'date'} = date_parse( $value -> {'date'} );
 		if( $value -> {'date'}['year'] == 0 ){
