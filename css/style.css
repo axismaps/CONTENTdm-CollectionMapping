@@ -414,8 +414,14 @@ a:hover{
 	overflow: auto;
 }
 
-.timeline-entry img{
-	height: 270px;
+.timeline-img-div  {
+	width: 380px;
+	height: 200px;
+	overflow: hidden;
+}
+
+.timeline-img-div img{
+	width: 100%;
 }
 
 .timeline-entry p, .timeline-entry div{
