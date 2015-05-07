@@ -4,6 +4,7 @@ if( array_key_exists( 'id', $_GET ) ){
 	$id = $_GET['id'];
 } else {
 	// return
+	$id = 0; //set something so it doesn't crash TODO: return unloaded picture or generic image
 }
 
 if( array_key_exists( 'size', $_GET ) ) {
@@ -17,12 +18,6 @@ if( array_key_exists( 'page', $_GET ) ) {
 } else {
 	$page = 0;
 }
-
-//development vars
-// $id = 37; //pdf
-// $id = 72; //jpg
-// $size = 'full';
-// $page = 0;
 
 if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.jpg' ) ){
 	$file_info = json_decode( file_get_contents( 'http://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmGetItemInfo/p15963coll18/' . $id . '/json' ) );
