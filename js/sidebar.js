@@ -106,29 +106,28 @@ function initReports(){
 		
 		$( '#reports-accordion' ).append( '<div/>' );
 		
-		if( v.filetype == "jpg" ) {
-			var url = 'php/loadImage.php?id=' + v.pointer + '&size=small';
-			var width = $( '#reports-accordion' ).width();
-			
-			$( '<div/>', {
-				'class' : 'accordion-image'
-			}).appendTo( '#reports-accordion > div:last-child' ).css({
-				'background-image':  'url(' + url + ')',
-				width: width + 'px',
-				height: width + 'px'
-			});
-			
-			$( '<div/>' )
-				.appendTo( '#reports-accordion > div:last-child > div' )
-				.html( '<i class="fa fa-expand fa-2x"></i>' )
-				.on( 'click', function(){
-					//TODO: Show lightbox of report summary
-					console.log( 'Show lightbox here' );
-			});
+		var url = 'php/loadImage.php?id=' + v.pointer + '&size=small';
+		var width = $( '#reports-accordion' ).width();
+		
+		$( '<div/>', {
+			'class' : 'accordion-image'
+		}).appendTo( '#reports-accordion > div:last-child' ).css({
+			'background-image':  'url(' + url + ')',
+			width: width + 'px',
+			height: width + 'px'
+		});
+		
+		$( '<div/>' )
+			.appendTo( '#reports-accordion > div:last-child > div' )
+			.html( '<i class="fa fa-expand fa-2x"></i>' )
+			.on( 'click', function(){
+				//TODO: Show lightbox of report summary
+				console.log( 'Show lightbox here' );
+		});
 
-			$title.css( 'background-image', 'url(' + url + ')' )
-				.prepend( '<div class="mask">' );
-		}
+		$title.css( 'background-image', 'url(' + url + ')' )
+			.prepend( '<div class="mask">' );
+
 		
 		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.descri ).succinct({
 			size: 300
