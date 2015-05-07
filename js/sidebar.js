@@ -244,6 +244,7 @@ function initTags(){
 		$('<p/>' , {
 			text: v
 		})
+		.attr( 'class', 'tag' )
 		.appendTo( sect )
 		.on( 'click', function() {
 			var text = $( this ).text();

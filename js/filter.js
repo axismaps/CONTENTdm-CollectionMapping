@@ -18,13 +18,13 @@ function filter( type ){
 		};
 		
 		var filterCount = filters.format.length;
-		
+
 		if ( filters.minYear !== DataVars.data.minYear || filters.maxYear !== DataVars.data.maxYear ) filterCount ++;
-		$( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
+		if ( filterCount ) $( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
 
 		var tagCount = filters.tags.length;
 		if ( filters.minYear !== 0 || filters.maxYear !== 9999 ) filterCount ++;
-		$( "#tags-button span" ).html( "Tags (" + tagCount + ")" );
+		if ( tagCount ) $( "#tags-button span" ).html( "Tags (" + tagCount + ")" );
 
 		_.each( data.entries, function( v ) {
 			//filters
