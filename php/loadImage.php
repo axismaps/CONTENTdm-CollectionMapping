@@ -13,13 +13,7 @@ if( array_key_exists( 'size', $_GET ) ) {
 	$size = 'full';
 }
 
-if( array_key_exists( 'page', $_GET ) ) {
-	$page = $_GET['page'];
-} else {
-	$page = 0;
-}
-
-if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.jpg' ) ){
+if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-.jpg' ) ){
 	$file_info = json_decode( file_get_contents( 'http://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmGetItemInfo/p15963coll18/' . $id . '/json' ) );
 	
 	//file is a pdf
@@ -27,28 +21,17 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.j
 	
 		file_put_contents( 'temp.pdf', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
 
-		//check amount of pages in pdf
-		$im = new Imagick();
-		$im->readimage( getcwd() . '\temp.pdf' );
-		$pages = $im->getNumberImages();
-		$im->clear();
-		$im->destroy();
-
 		//convert pdf page to jpg
 		$imagick = new Imagick();
 		$imagick->setResolution(300,300);
 		
-		$i = 0;
-		while( $i <= $pages - 1 ){
-			$imagick->readimage( getcwd() . '\temp.pdf[' . $i . ']' );
-			$imagick->setImageFormat( 'jpeg' );
-			$imagick->writeImage( getcwd() . '\images\\' . $id . '-full-' . $i . '.jpg' );
+		$imagick->readimage( getcwd() . '\temp.pdf[0]' );
+		$imagick->setImageFormat( 'jpeg' );
+		$imagick->writeImage( getcwd() . '\images\\' . $id . '-full.jpg' );
 			
-			$imagick->scaleImage( 400, 0 );
-			$imagick->writeImage( getcwd(). '\images\\'. $id . '-small-' . $i . '.jpg' );
-			$i++;
-		}
-			
+		$imagick->scaleImage( 400, 0 );
+		$imagick->writeImage( getcwd(). '\images\\'. $id . '-small.jpg' );
+					
 		$imagick->clear();
 		$imagick->destroy();
 		
@@ -59,10 +42,10 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.j
 		$imagick = new Imagick();
 		$imagick->readimage( getcwd() . '\temp.jpg' );
 		$imagick->setImageFormat( 'jpeg' );
-		$imagick->writeImage( getcwd() . '\images\\' . $id . '-full-0.jpg' );
+		$imagick->writeImage( getcwd() . '\images\\' . $id . '-full.jpg' );
 		
 		$imagick->scaleImage( 400, 0 );
-		$imagick->writeImage( getcwd(). '\images\\'. $id . '-small-0.jpg' );
+		$imagick->writeImage( getcwd(). '\images\\'. $id . '-small.jpg' );
 		
 		$imagick->clear();
 		$imagick->destroy();
@@ -70,6 +53,6 @@ if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-' . $page . '.j
 	}
 }
 
-header( "Location: images/$id-$size-$page.jpg" );
+header( "Location: images/$id-$size.jpg" );
 
 ?>
