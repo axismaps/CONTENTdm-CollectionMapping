@@ -59,7 +59,7 @@ function initMap(){
 		
 		$( '.activeCluster' ).removeClass( 'activeCluster' ).children( 'div' ).css( 'background', 'initial' );
 		$( e.layer._icon ).addClass( 'activeCluster' );
-		$( e.layer._icon).children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + AppVars.selectedPoint + '" ) center/80px no-repeat');
+		$( e.layer._icon).children( 'div' ).css( 'background', 'url( "php/loadImage.php?id=' + AppVars.selectedPoint + '&size=small" ) center/80px no-repeat');
 		
 		selectYear( e.layer.year );
 		$( '#entry' + e.layer.pointer + ' .entry-title' ).click();
@@ -71,7 +71,7 @@ function initMap(){
 			if( AppVars.points.getVisibleParent( point ) !== null ){
 				var that = $( AppVars.points.getVisibleParent( point )._icon );
 				that.addClass( 'activeCluster' );
-				that.children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + AppVars.selectedPoint + '" ) center/80px no-repeat');
+				that.children( 'div' ).css( 'background', 'url( "php/loadImage.php?id=' + AppVars.selectedPoint + '&size=small" ) center/80px no-repeat');
 			}
 		}
 	});
@@ -104,7 +104,7 @@ function selectPoint( id ){
 		if( AppVars.points.getVisibleParent( point ) !== null ){
 			var that = $( AppVars.points.getVisibleParent( point )._icon );
 			that.addClass( 'activeCluster' );
-			that.children( 'div' ).css( 'background', 'url( "http://cdm15963.contentdm.oclc.org/utils/getthumbnail/collection/' + AppVars.collectionAlias + '/id/' + id + '" ) center/80px no-repeat');
+			that.children( 'div' ).css( 'background', 'url( "php/loadImage.php?id=' + id + '&size=small" ) center/80px no-repeat');
 		}
 	}
 }
