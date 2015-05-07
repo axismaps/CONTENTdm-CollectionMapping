@@ -19,18 +19,13 @@ if( ! file_exists( 'images\\' . $id . '-' . $size . '.jpg' ) ){
 	//file is a pdf
 	if( substr( $file_info->{'find'}, -3 ) == 'pdf' ) {
 		
-		$i = 0;
-		while( file_exists( 'temp' . $i . '.pdf' )) {
-			$i++;
-		}
-		
-		file_put_contents( 'temp' . $i . '.pdf', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
+		file_put_contents( 'temp' . $id . '.pdf', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
 
 		//convert pdf page to jpg
 		$imagick = new Imagick();
 		$imagick->setResolution(300,300);
 		
-		$imagick->readimage( getcwd() . '\temp' . $i . '.pdf[0]' );
+		$imagick->readimage( getcwd() . '\temp' . $id . '.pdf[0]' );
 		$imagick->setImageFormat( 'jpeg' );
 		$imagick->writeImage( getcwd() . '\images\\' . $id . '-full.jpg' );
 			
@@ -40,18 +35,13 @@ if( ! file_exists( 'images\\' . $id . '-' . $size . '.jpg' ) ){
 		$imagick->clear();
 		$imagick->destroy();
 		
-		unlink( "temp" . $i . ".pdf" );
+		unlink( "temp" . $id . ".pdf" );
 	} elseif ( substr( $file_info->{'find'}, -3 ) == 'jpg' OR substr( $file_info->{'find'}, -4 ) == 'jpeg' ){
 		
-		$i = 0;
-		while( file_exists( 'temp' . $i . '.jpg' )) {
-			$i++;
-		}
-		
-		file_put_contents( 'temp' . $i . '.jpg', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
+		file_put_contents( 'temp' . $id . '.jpg', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
 		
 		$imagick = new Imagick();
-		$imagick->readimage( getcwd() . '\temp' . $i . '.jpg' );
+		$imagick->readimage( getcwd() . '\temp' . $id . '.jpg' );
 		$imagick->setImageFormat( 'jpeg' );
 		$imagick->writeImage( getcwd() . '\images\\' . $id . '-full.jpg' );
 		
@@ -60,10 +50,10 @@ if( ! file_exists( 'images\\' . $id . '-' . $size . '.jpg' ) ){
 		
 		$imagick->clear();
 		$imagick->destroy();
-		unlink( "temp" . $i . ".jpg" );
+		unlink( "temp" . $id . ".jpg" );
 	}
 }
 
-header( "Location: images/$id-$size.jpg", TRUE, 302 );
+header( "Location: images/$id-$size.jpg" );
 exit;
 ?>
