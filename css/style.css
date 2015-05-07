@@ -26,6 +26,56 @@ a{
 a:hover{
 	text-decoration: underline;
 }
+
+/* Search */
+#search {
+	margin: 0 25px;
+	padding-top: 15px;
+}
+
+#search input{
+	padding: 10px;
+	width: 300px;
+	font-family: Oswald, FontAwesome, sans-serif;
+}
+
+.tt-dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    max-height: 400px;
+    overflow: auto;
+    width: 100%;
+}
+
+.tt-suggestion p, .tt-empty p {
+   padding: 10px 20px;
+   margin: 0;
+}
+
+.tt-suggestion.tt-cursor p {
+    color: #fff;
+    background-color: #b6272f;
+	cursor: pointer;
+}
+
+.filter-header{
+	font-size: 12px;
+	font-style: italic;
+	border-top: 1px solid #ccc;
+	background-color: #f7f7f7;
+}
+.tt-suggestion.tt-cursor .filter-header p {
+    background-color: #f7f7f7;
+	cursor: default;
+	color: black;
+}
+.filtered-result{
+	background-color: #f7f7f7;
+}
+
+
 /* Sidebar */
 
 #bar {

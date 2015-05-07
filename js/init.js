@@ -34,6 +34,7 @@ var ServerVars = {},
 
 function init() {
 	initEvents();
+	initSearch();
 	initSidebar();
 	drawTimeline();
 	initMap();
