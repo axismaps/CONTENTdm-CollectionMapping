@@ -160,7 +160,7 @@ function initFilters(){
 	$( '#date-range' ).append( '<div class="line"><span class="h4-title">Date Range</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#date-range .clear-text' ).on( 'click', function(){
-		$( '#date-slider' ).slider( "values", [1800, 1900] );
+		$( '#date-slider' ).slider( "values", [DataVars.data.minYear, DataVars.data.maxYear] );
 		$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
 		$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 		
@@ -178,7 +178,7 @@ function initFilters(){
 		range: true,
 		min: DataVars.data.minYear,
 		max: DataVars.data.maxYear,
-		values: [ 1800, 1900 ], //TODO: Should this be dynamically set?
+		values: [ DataVars.data.minYear, DataVars.data.maxYear ],
 		slide: function( event, ui ){
 			$( '#minYear' ).text( ui.values[ 0 ] );
 			$( '#maxYear' ).text( ui.values[ 1 ] );

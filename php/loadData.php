@@ -112,7 +112,7 @@ function processData( $fields ){
 		$value -> {'tags'} = $entry_tags;
 		array_push( $entries, $value );
 		
-		if ( $minYear > $value -> {'date'}['year'] )
+		if ( $minYear > $value -> {'date'}['year'] && $value -> {'date'}['year'] > 0 )
 			$minYear = $value -> {'date'}['year'];
 		if ( $maxYear < $value -> {'date'}['year'] )
 			$maxYear = $value -> {'date'}['year'];

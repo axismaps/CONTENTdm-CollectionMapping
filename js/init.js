@@ -71,6 +71,8 @@ function loadData(){
 	}).done( function( data ) {
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
+		DataVars.filters.minYear = DataVars.data.minYear;
+		DataVars.filters.maxYear = DataVars.data.maxYear;
 		console.log( DataVars );
 		init();
 	});
