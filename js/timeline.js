@@ -49,7 +49,7 @@ function drawYear( year ){
 		var $entry = $( "<div class='timeline-entry e" + i + "' id='entry" + d.pointer + "'>" );
 		var $imgDiv = $( "<div>" ).addClass( "timeline-img-div" ).appendTo( $entry );
 		$( "<img>" )
-			.attr( "data-src", "php/loadImage.php?id=" + d.pointer )
+			.attr( "data-src", "php/loadImage.php?id=" + d.pointer + '&size=small')
 			.appendTo( $imgDiv);
 		$( "<div class='mask'>" ).appendTo( $entry );
 
