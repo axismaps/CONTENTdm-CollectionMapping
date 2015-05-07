@@ -85,8 +85,9 @@ function processData( $fields ){
 	foreach( $temp_json -> records as $value ) {
 		//Convert date into exact format just in case
 		$value -> {'date'} = date_parse( $value -> {'date'} );
-		
-		// $value -> {'location'} = checkLocation( $value -> covera );
+		if( $value -> {'date'}['year'] == 0 ){
+			continue;
+		}
 
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
