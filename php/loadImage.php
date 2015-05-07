@@ -13,7 +13,7 @@ if( array_key_exists( 'size', $_GET ) ) {
 	$size = 'full';
 }
 
-if( ! file_exists( getcwd(). '\images\\' . $id . '-' . $size . '-.jpg' ) ){
+if( ! file_exists( 'images\\' . $id . '-' . $size . '.jpg' ) ){
 	$file_info = json_decode( file_get_contents( 'http://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmGetItemInfo/p15963coll18/' . $id . '/json' ) );
 	
 	//file is a pdf
