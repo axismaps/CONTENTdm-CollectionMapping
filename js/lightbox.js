@@ -1,7 +1,7 @@
 function lightboxEntry( $entry, data ){
 	var $div = startLightbox( $entry, data, loadFullImage );
-	
-	if ( data.filetype == "pdf" ){
+	var pdf = ( data.filetype == "pdf" && AppVars.pdfCapable );
+	if ( pdf ){
 		ligthtboxPDF( $div, data.pointer )
 			.insertAfter( $("img",$div) );
 		$( "img", $div ).remove();
@@ -15,7 +15,14 @@ function lightboxEntry( $entry, data ){
 	}
 	$( ".entry-title", $div ).prependTo( $(".text-container", $div) );
 	function loadFullImage(){
-		if ( data.filetype == "pdf" ) return;
+		if ( pdf ) return;
+		else if ( data.filetype == "pdf" ){
+			$( "<a>" )
+				.attr( "href", "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + data.pointer + "/filename/" + data.pointer + ".pdf" )
+				.attr( "target", "_blank" )
+				.html( "Download PDF document" )
+				.insertAfter( $( ".entry-title", $div ) );
+		}
 		var $image = $( "img", $div );
 		var $loader = $( "<div>" )
 			.attr( "class", "image-loader" )
@@ -46,13 +53,21 @@ function lightboxReport( $report, data ){
 			// TO DO: load report
 		});
 	var title = $report.prev().clone().removeAttr("class").addClass("loaded").insertAfter( button );
-	if ( data.filetype == "pdf" ){
+	var pdf = ( data.filetype == "pdf" && AppVars.pdfCapable );
+	if ( pdf ){
 		ligthtboxPDF( $div, data.pointer )
 			.appendTo( $(".image-container",$div) );
 		title.addClass("loaded").insertAfter( button );
 	}
 	function loadFullImage(){
-		if ( data.filetype == "pdf" ) return;
+		if ( pdf ) return;
+		else if ( data.filetype == "pdf" ){
+			$( "<a>" )
+				.attr( "href", "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + data.pointer + "/filename/" + data.pointer + ".pdf" )
+				.attr( "target", "_blank" )
+				.html( "Download PDF document" )
+				.insertAfter( title );
+		}
 		var $imageDiv = $( ".image-container", $div );
 		var $image = $( "<img>" )
 			.css({
@@ -87,7 +102,8 @@ function startLightbox( $content, data, callback ){
 			$( ".lightbox" ).remove();
 		});
 	var w, h;
-	if ( data.filetype == "pdf" ){
+	var pdf = ( data.filetype == "pdf" && AppVars.pdfCapable );
+	if ( pdf ){
 		w = .8 * $(window).width();
 		h = .8 * $(window).height();
 	} else {
@@ -130,11 +146,13 @@ function startLightbox( $content, data, callback ){
 function ligthtboxPDF( $div, pointer ){
 	var w = .8 * $(window).width(),
 		h = .8 * $(window).height();
+	var url = "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + pointer + "/filename/" + pointer + ".pdf";
 	var obj = $( "<object>" )
-		.attr( "data", "http://cdm15963.contentdm.oclc.org/utils/getfile/collection/" + AppVars.collectionAlias + "/id/" + pointer + "/filename/" + pointer + ".pdf" )
+		.attr( "data", url )
 		.attr( "type", "application/pdf" )
 		.attr( "width", w - 400 )
-		.attr( "height", h );
+		.attr( "height", h )
+		.html( "alt : <a href='" + url + "'>Download PDF</a>" );
 	$( ".image-container", $div ).css({
 		"width": w - 400,
 		"height": h,

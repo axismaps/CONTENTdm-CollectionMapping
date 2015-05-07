@@ -519,3 +519,7 @@ a:hover{
 	text-shadow: none;
 	width: auto;
 }
+.lightbox a{
+	color: #0061b3;
+	margin-left: 15px;
+}
