@@ -107,7 +107,7 @@ function initReports(){
 		$( '#reports-accordion' ).append( '<div/>' );
 		
 		if( v.filetype == "jpg" ) {
-			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
+			var url = 'php/loadImage.php?id=' + v.pointer + '&size=small';
 			var width = $( '#reports-accordion' ).width();
 			
 			$( '<div/>', {
