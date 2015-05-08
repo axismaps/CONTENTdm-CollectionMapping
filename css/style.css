@@ -639,6 +639,9 @@ a:hover{
 	clear: left;
 	margin: 15px;
 }
+.lightbox .accordion-text h3.loaded{
+	margin-left: 0;
+}
 .lightbox h3.loaded i{
 	display: none;
 }
@@ -646,6 +649,9 @@ a:hover{
 	float: left !important;
 	margin-bottom: 15px;
 	margin-left: 15px;
+}
+.lightbox .accordion-text .button{
+	margin-left: 0;
 }
 .lightbox .text-container p{
 	clear: left;
