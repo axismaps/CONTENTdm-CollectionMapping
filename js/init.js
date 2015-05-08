@@ -122,7 +122,7 @@ var getAcrobatInfo = function() {
   };
  
   var isAcrobatInstalled = function() {
-    return !!getPDFPlugin();
+    return getBrowserName() == "firefox" || !!getPDFPlugin();
   };
  
   var getAcrobatVersion = function() {
