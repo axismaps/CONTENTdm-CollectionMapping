@@ -446,6 +446,7 @@ a:hover{
 	transition: opacity 1s;
 	border-left: 1px solid #999;
 	border-right: 1px solid #999;
+	overflow: hidden;
 }
 
 .timeline-year.active{
