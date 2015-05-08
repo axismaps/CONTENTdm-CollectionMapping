@@ -9,7 +9,7 @@ function initReports(){
 	$.map( DataVars.reports, function( v ) {
 		var $title = $( '<h3><i class="fa fa-folder"></i> <span>' + v.Title + '</span></h3>' ).appendTo( '#reports-accordion' );
 		
-		$( '#reports-accordion' ).append( '<div/>' );
+		$( '#reports-accordion' ).append( '<div class="reports-accordion-content"/>' );
 		
 		var url = 'php/loadImage.php?id=' + v.CoverImage + '&size=small';
 		var width = $( '#reports-accordion' ).width();
@@ -45,6 +45,7 @@ function initReports(){
 		.on( 'click', function(){
 			//TODO: Show full report on click
 			console.log( v );
+			lightboxReport( $( this ).parent(), v );
 		});
 	});
 	
