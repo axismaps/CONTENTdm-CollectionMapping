@@ -47,15 +47,16 @@ function lightboxEntry( $entry, data ){
 function lightboxReport( $report, data ){
 	var $div = startLightbox( $report, data, loadFullImage );
 	var button = $( ".button", $div )
-		.prependTo($(".text-container", $div) )
+		.prependTo($("p", $div) )
 		.click( function(){
 			// TO DO: load report
 		});
 	var title = $report.prev().clone().removeAttr("class").addClass("loaded").insertAfter( button );
 	var pdf = ( data.filetype == "pdf" && AppVars.pdfCapable );
+	pdf = false; //TODO: Don't leave this as is. Developer only.
 	if ( pdf ){
 		ligthtboxPDF( $div, data.pointer )
-			.appendTo( $(".image-container",$div) );
+			.appendTo( $(".accordion-image",$div) );
 		title.addClass("loaded").insertAfter( button );
 		$( ".image-container", $div ).css( "background-image", "none" );
 	}
@@ -69,7 +70,7 @@ function lightboxReport( $report, data ){
 				.html( "Download PDF document" )
 				.insertAfter( title );
 		}
-		var $imageDiv = $( ".image-container", $div );
+		var $imageDiv = $( ".accordion-image", $div );
 		var $image = $( "<img>" )
 			.css({
 				height: $imageDiv.height(),
@@ -91,6 +92,7 @@ function lightboxReport( $report, data ){
 			.load( function(){
 				onFullImageLoad( $(this), $div );
 			});
+		$imageDiv.css( "background-image", "none" );
 	}
 }
 
@@ -110,8 +112,7 @@ function startLightbox( $content, data, callback ){
 		h = $( ".image-container", $div ).height();
 	}
 	var $div = $content.clone()
-		.removeClass( "ui-accordion" )
-		.removeClass( "ui-accordion-content" )
+		.removeAttr("class")
 		.addClass( "lightbox" )
 		.css({
 			position: "absolute",

@@ -239,7 +239,7 @@ a:hover{
 	cursor: initial;
 }
 
-.reports-accordion-content .button{
+.reports-accordion-content .button, .lightbox .button{
 	float: right;
 	color: #fff;
 	background-color: #aaa;
@@ -579,7 +579,7 @@ a:hover{
 }
 
 /* Lightbox */
-.image-container{
+.image-container, .lightbox .accordion-image{
 	float: left;
 	overflow: hidden;
 }
@@ -598,8 +598,11 @@ a:hover{
 .lightbox > div.text-container p:first-child{
 	margin-top: 0;
 }
-.lightbox > div.text-container{
+.lightbox > div.text-container, .lightbox > p.accordion-text{
 	overflow: auto;
+}
+.lightbox > p.accordion-text{
+	height: 100%;
 }
 .image-loader{
 	position: absolute !important;

@@ -22,19 +22,18 @@ function initReports(){
 			height: width + 'px'
 		});
 		
-		$( '<div/>' )
+		$( '<div class="image-expand" />' )
 			.appendTo( '#reports-accordion > div:last-child > div' )
 			.html( '<i class="fa fa-expand fa-2x"></i>' )
 			.on( 'click', function(){
-				//TODO: Show lightbox of report summary
-				console.log( 'Show lightbox here' );
+				lightboxReport( $( this ).parent().parent(), v );
 		});
 
 		$title.css( 'background-image', 'url(' + url + ')' )
 			.prepend( '<div class="mask">' );
 
 		
-		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.Description ).succinct({
+		$( '<p class="accordion-text" />' ).appendTo( '#reports-accordion > div:last-child' ).text( v.Description ).succinct({
 			size: 300
 		});
 		
@@ -45,7 +44,6 @@ function initReports(){
 		.on( 'click', function(){
 			//TODO: Show full report on click
 			console.log( v );
-			lightboxReport( $( this ).parent(), v );
 		});
 	});
 	
