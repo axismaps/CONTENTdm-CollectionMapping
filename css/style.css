@@ -208,6 +208,7 @@ a:hover{
 #reports-accordion .accordion-image{
 	position: relative;
 	background-position: 50% -45px;
+	background-repeat: no-repeat;
 }
 
 #reports-accordion .accordion-image > div, .timeline-entry .image-expand {
