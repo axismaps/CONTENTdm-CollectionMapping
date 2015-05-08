@@ -36,7 +36,6 @@ function init() {
 	initEvents();
 	initSearch();
 	initSidebar();
-	initReports();
 	initTags();
 	drawTimeline();
 	initMap();
@@ -68,6 +67,10 @@ function update(){
 }
 
 function loadData(){
+	$.get( "csv/reports.csv", function( csv ){
+		DataVars.reports = Papa.parse( csv, {header: true} ).data;
+	});
+	
 	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias
 	}).done( function( data ) {
