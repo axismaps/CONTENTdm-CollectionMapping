@@ -19,6 +19,10 @@ html, body{
 #topbar h1{
 	margin: 0 25px;
 	display: inline-block;
+	max-width: calc(100% - 430px);
+  	white-space: nowrap;
+  	overflow: hidden;
+  	text-overflow: ellipsis;
 }
 
 #search{

@@ -1,5 +1,6 @@
 bower_components/*
 tiles/*
 php/images/*
+images/*
 php/loadImage.php
 data.json
