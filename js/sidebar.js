@@ -70,18 +70,7 @@ function sidebarEvents() {
 	});
 	
 	$( '#summary-button' ).on( 'click', function(){
-		if( $( this ).hasClass( 'selected' ) ){
-			$( '#bar-expanded' ).hide();
-			$( this ).removeClass( 'selected' );
-		}
-		else {
-			$( this ).siblings( '.selected' ).removeClass( 'selected' );
-			$( this ).addClass( 'selected' );
-			
-			$( '#bar-expanded > div' ).hide();
-			$( '#bar-expanded' ).show();
-			initSummary();
-		}
+		$( '.ui-accordion-content-active .image-expand' ).click();
 	});
 	
 	$( '#about-button' ).on( 'click', function(){
@@ -206,10 +195,6 @@ function initTags(){
 			}
 		});
 	});
-}
-
-function initSummary(){
-	$( '#summary-expanded' ).show();
 }
 
 function initAbout(){
