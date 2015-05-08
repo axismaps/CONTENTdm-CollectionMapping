@@ -45,6 +45,9 @@ function lightboxEntry( $entry, data ){
 }
 
 function lightboxReport( $report, data ){
+	//Replaces succinct text with full text
+	$report.find( 'p.accordion-text' ).text( data.Description);
+	
 	var $div = startLightbox( $report, data, loadFullImage );
 	var button = $( ".button", $div )
 		.prependTo($("p", $div) )

@@ -603,6 +603,7 @@ a:hover{
 }
 .lightbox > p.accordion-text{
 	height: 100%;
+	padding-left: 15px;
 }
 .image-loader{
 	position: absolute !important;
