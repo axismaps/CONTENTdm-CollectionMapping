@@ -211,6 +211,10 @@ a:hover{
 	background-repeat: no-repeat;
 }
 
+#reports-accordion .text-container{
+	margin-top: 310px;
+}
+
 #reports-accordion .accordion-image > div, .timeline-entry .image-expand {
 	position: absolute;
 	right: 20px;
@@ -222,7 +226,7 @@ a:hover{
 	cursor: pointer;
 }
 
-#reports-accordion .accordion-image > div:hover {
+.image-expand:hover{
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -235,7 +239,7 @@ a:hover{
 	cursor: initial;
 }
 
-#reports-accordion .button{
+.reports-accordion-content .button{
 	float: right;
 	color: #fff;
 	background-color: #aaa;
@@ -471,17 +475,19 @@ a:hover{
 	overflow: auto;
 }
 
-.timeline-img-div  {
-	width: 380px;
-	height: 250px;
-	overflow: hidden;
+.timeline-entry > div{
 }
 
-.timeline-img-div img{
-	width: 100%;
+.timeline-entry .image-container{
+	width: 400px;
+	height: 270px;
 }
 
-.timeline-entry p, .timeline-entry div{
+.timeline-entry .text-container{
+	margin-top: 280px;
+}
+
+.timeline-entry > div p, .timeline-entry > div div{
 	margin: 15px;
 	position: relative;
 }
@@ -494,7 +500,7 @@ a:hover{
 
 .timeline-entry p.entry-title, .timeline-entry .mask{
 	position: absolute;
-	width: 100%;
+	width: 400px;
 	top: 0;
 }
 .timeline-entry p.entry-title{
@@ -573,3 +579,90 @@ a:hover{
 }
 
 /* Lightbox */
+.image-container{
+	float: left;
+	overflow: hidden;
+}
+.lightbox{
+	z-index: 1001;
+	background-color: white;
+}
+.lightbox-mask{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,.75) !important;
+}
+.lightbox > div.text-container p:first-child{
+	margin-top: 0;
+}
+.lightbox > div.text-container{
+	overflow: auto;
+}
+.image-loader{
+	position: absolute !important;
+	top:20px;
+	left:20px;
+	color: white;
+	margin: 0 !important;
+	text-shadow: 1px 1px 5px black,
+		-1px -1px 5px black;
+	text-align: center;
+}
+.image-loader i{
+	font-size: 60px;
+	margin-top: 105px;
+}
+.image-loader p{
+	font-size: 16px;
+}
+.lightbox h3{
+	color: white;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	margin: 0;
+	text-shadow: 1px 1px 5px black,
+		-1px -1px 5px black;
+	background: none !important;
+}
+.lightbox h3.loaded{
+	color: black;
+	position: initial;
+	text-shadow: none;
+	clear: left;
+	margin: 15px;
+}
+.lightbox h3.loaded i{
+	display: none;
+}
+.lightbox .button{
+	float: left !important;
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+.lightbox .text-container p{
+	clear: left;
+}
+.lightbox object{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+.lightbox .text-container p{
+	margin: 15px;
+}
+.lightbox .text-container p.entry-title{
+	position: initial;
+	color: black;
+	text-shadow: none;
+	width: auto;
+}
+.lightbox a{
+	color: #0061b3;
+}
+.lightbox a.pdf{
+	margin-left: 15px;
+}

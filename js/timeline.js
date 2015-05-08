@@ -15,7 +15,7 @@ function drawTimeline(){
 	selectYear( AppVars.years[0] );
 
 	$( ".entry-title" ).click( function(){
-		var $entry = $(this).parent(),
+		var $entry = $(this).parent().parent(),
 			$year = $entry.parent();
 		selectPoint( $entry.attr( 'id' ).replace( 'entry', '' ) );
 		if ( !$year.hasClass( "active" ) || $entry.hasClass( "expanded" ) ) return;
@@ -47,23 +47,26 @@ function drawYear( year ){
 	});
 	_.each( entries, function(d,i){
 		var $entry = $( "<div class='timeline-entry e" + i + "' id='entry" + d.pointer + "'>" );
-		var $imgDiv = $( "<div>" ).addClass( "timeline-img-div" ).appendTo( $entry );
+		var $imageContainer = $( "<div class='image-container'>" )
+			.appendTo( $entry );
 		$( "<img>" )
 			.attr( "data-src", "php/loadImage.php?id=" + d.pointer + '&size=small')
-			.appendTo( $imgDiv);
-		$( "<div class='mask'>" ).appendTo( $entry );
+			.appendTo( $imageContainer );
+		$( "<div class='mask'>" ).appendTo( $imageContainer );
 
 		var title = $( "<p>" ).attr( "class", "entry-title" );
 		if ( d.date.day )
 			title.html( d.date.month + "/" + d.date.day + "/" + year + " | " + d.title )
 		else
 			title.html( year + " | " + d.title );
-		$entry.append( title )
-			.append( "<p class='entry-description'>" + d.descri + "</p>" );
+		$imageContainer.append( title );
 
+		var $textContainer = $( "<div class='text-container'>" )
+			.append( "<p class='entry-description'>" + d.descri + "</p>" )
+			.appendTo( $entry );
 		_.each( DataVars.data.headers, function(header,prop){
 			if ( !header.tag || !d[prop] ) return;
-			$entry.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
+			$textContainer.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
 		});
 
 		$( "a.tag-link", $entry ).click( function(){
@@ -72,10 +75,9 @@ function drawYear( year ){
 		});
 
 		$( '<div class="image-expand"><i class="fa fa-expand fa-2x"></i></div>' )
-			.appendTo( $entry )
+			.appendTo( $imageContainer )
 			.on( 'click', function(){
-				//TODO: Show lightbox of full image
-				console.log( 'Show lightbox here' );
+				lightboxEntry( $entry, d );
 			});
 
 		$div.append( $entry );
