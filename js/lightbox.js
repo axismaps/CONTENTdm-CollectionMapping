@@ -45,24 +45,21 @@ function lightboxEntry( $entry, data ){
 }
 
 function lightboxReport( $report, data ){
-	//Replaces succinct text with full text
-	$report.find( 'p.accordion-text' ).text( data.Description);
-	
 	var $div = startLightbox( $report, data, loadFullImage );
 	var button = $( ".button", $div )
-		.prependTo($("p", $div) )
+		.prependTo($("p.accordion-text", $div) )
 		.click( function(){
 			// TO DO: load report
 		});
-	var title = $report.prev().clone().removeAttr("class").addClass("loaded").insertAfter( button );
+	
 	var pdf = ( data.filetype == "pdf" && AppVars.pdfCapable );
-	pdf = false; //TODO: Don't leave this as is. Developer only.
 	if ( pdf ){
 		ligthtboxPDF( $div, data.pointer )
 			.appendTo( $(".accordion-image",$div) );
 		title.addClass("loaded").insertAfter( button );
 		$( ".image-container", $div ).css( "background-image", "none" );
 	}
+
 	function loadFullImage(){
 		if ( pdf ) return;
 		else if ( data.filetype == "pdf" ){
@@ -96,6 +93,7 @@ function lightboxReport( $report, data ){
 				onFullImageLoad( $(this), $div );
 			});
 		$imageDiv.css( "background-image", "none" );
+		$title = $( '<h3 class="entry-title" />' ).text( data.Title ).appendTo( $imageDiv );
 	}
 }
 
@@ -141,7 +139,8 @@ function startLightbox( $content, data, callback ){
 	$( ".text-container", $div ).css( {
 		"margin-left": w/2 + 10,
 		"margin-top": 0 
-	});		
+	});
+	$div.find( 'p.accordion-text' ).text( '' ).append( '<span>' + data.Description + '</span>' );
 	$( ".image-expand", $div ).remove();
 	return $div;
 }

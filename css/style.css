@@ -605,6 +605,10 @@ a:hover{
 	height: 100%;
 	padding-left: 15px;
 }
+.lightbox > p.accordion-text span{
+	clear: both;
+	display: block;
+}
 .image-loader{
 	position: absolute !important;
 	top:20px;
