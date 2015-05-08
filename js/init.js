@@ -36,6 +36,7 @@ function init() {
 	initEvents();
 	initSearch();
 	initSidebar();
+	initReports();
 	initTags();
 	drawTimeline();
 	initMap();
