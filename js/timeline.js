@@ -68,6 +68,11 @@ function drawYear( year ){
 			if ( !header.tag || !d[prop] ) return;
 			$textContainer.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
 		});
+		_.each( DataVars.reports, function( entry, index ){
+			if( _.indexOf( entry.Documents, d.pointer ) >= 0 ){
+				console.log( 'add ' + d.pointer + ' to list' );
+			}
+		});
 
 		$( "a.tag-link", $entry ).click( function(){
 			var name = $(this).html();

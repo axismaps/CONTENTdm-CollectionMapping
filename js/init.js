@@ -71,6 +71,9 @@ function update(){
 function loadData(){
 	$.get( "csv/reports.csv", function( csv ){
 		DataVars.reports = Papa.parse( csv, {header: true} ).data;
+		_.each( DataVars.reports, function( entry ){
+			entry.Documents = entry.Documents.split( ';' ).map(Number);
+		});
 	});
 	
 	$.get( "php/loadData.php", {
