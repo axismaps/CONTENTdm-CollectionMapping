@@ -534,6 +534,27 @@ a:hover{
 	color: #0061b3;
 }
 
+.timeline-entry #studentReports p{
+	margin: 0;
+	display: inline-block;
+	max-width: 180px;
+}
+
+.timeline-entry #studentReports .button{
+	display: inline-block;
+	float: right;
+	color: #fff;
+	background-color: #aaa;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin: 0;
+	margin-right: 10px;
+}
+.timeline-entry #studentReports .button:hover{
+	color: #000;
+}
+
 #pulse p, #pulse > div{
 	display: inline-block;
 	vertical-align: middle;

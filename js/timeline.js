@@ -70,11 +70,20 @@ function drawYear( year ){
 		});
 		
 		var foundStudentReport = false,
-			$studentReports = $( '<div id="studentReports"><strong>Student Reports: </strong></div>');
+			$studentReports = $( '<div id="studentReports"><strong>STUDENT REPORTS: </strong></div>');
 		_.each( DataVars.reports, function( entry, index ){
 			if( _.indexOf( entry.Documents, d.pointer ) >= 0 ){
 				foundStudentReport = true;
-				$( '<p class="italic">' + entry.Title + '</p>' ).appendTo( $studentReports );
+				var $buttonDiv = $( '<div/>', {
+					'class': 'button',
+					html : 'View Report <i class="fa fa-chevron-right"></i>'
+				})
+				.on( 'click', function(){
+					//TODO: Show full report on click
+					console.log( v );
+				});
+				$( '<div><p class="italic">' + entry.Title + '</p></div>' ).appendTo( $studentReports ).append( $buttonDiv );
+				
 			}
 		});
 		if( foundStudentReport === true ) $studentReports.appendTo( $textContainer );
