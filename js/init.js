@@ -66,6 +66,11 @@ function update(){
 	drawPoints();
 	drawTimeline();
 	drawPulse();
+	
+	//Return topbar to it's normal state
+	$( '#topbar-picture' ).css( 'background-image', 'none' );
+	$( '#topbar .title' ).text( 'Baptists in Burma: ' );
+	$( '#topbar .subtitle' ).text( 'Midwestern Missionaries at Home and Abroad' );
 }
 
 function loadData(){
