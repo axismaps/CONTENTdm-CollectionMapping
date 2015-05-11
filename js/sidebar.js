@@ -239,6 +239,7 @@ function initTags(){
 	
 	$( '#tags-expanded .expanded-section .clear-text' ).on( 'click', function() {
 		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
+		$( '#tags-expanded .expanded-section p.temp' ).remove();
 		DataVars.filters.tags = [];
 		filter();
 	});
