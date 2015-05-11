@@ -707,3 +707,20 @@ a:hover{
 .lightbox a.pdf{
 	margin-left: 15px;
 }
+.lightbox #studentReports {
+	margin-left: 15px;
+}
+.lightbox #studentReports > div {
+	margin: 15px;
+}
+.lightbox #studentReports p{
+	margin: 0;
+	display: inline-block;
+	max-width: 180px;
+}
+
+.lightbox #studentReports .button{
+	display: inline-block;
+	float: right !important;
+	margin: 0;
+}
