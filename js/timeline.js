@@ -71,7 +71,11 @@ function drawYear( year ){
 
 		$( "a.tag-link", $entry ).click( function(){
 			var name = $(this).html();
-			$( ".tag:contains('" + name + "')" ).click();
+			if( $( '.tag:contains("' + name + '")').length >= 1 ) {
+				$( ".tag:contains('" + name + "')" ).click();
+			} else{
+				createTempTag( name );
+			}
 		});
 
 		$( '<div class="image-expand"><i class="fa fa-expand fa-2x"></i></div>' )
@@ -162,7 +166,7 @@ function loadTimelineImages(year){
 function getTagLinks( tag ){
 	var tags = tag.replace(/; /g,";").split(";");
 	tags.forEach( function(t){
-		tag = tag.replace( t, "<a class='tag-link' href='#'>" + t + "</a>" );	// TO DO: make link actually do something
+		tag = tag.replace( t, "<a class='tag-link' href='#'>" + t + "</a>" );
 	});
 	return tag;
 }

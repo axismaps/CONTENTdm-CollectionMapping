@@ -239,6 +239,7 @@ function initTags(){
 	
 	$( '#tags-expanded .expanded-section .clear-text' ).on( 'click', function() {
 		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
+		$( '#tags-expanded .expanded-section p.temp' ).remove();
 		DataVars.filters.tags = [];
 		filter();
 	});
@@ -266,6 +267,21 @@ function initTags(){
 		});
 	});
 }
+
+function createTempTag( name ){
+	$( '<p class="tag temp selected">' + name.trim() + '</p>' )
+		.insertAfter( $( '#tags-expanded .expanded-section .line' ) )
+		.append( "<i class='fa fa-check'></i>" )
+		.on( 'click', function(){
+			DataVars.filters.tags = _.without( DataVars.filters.tags, name.trim() );
+			$( this ).remove();
+			filter();
+		});
+		
+	DataVars.filters.tags.push( name.trim() );
+	filter();
+}
+
 
 function initSummary(){
 	$( '#summary-expanded' ).show();
