@@ -678,6 +678,9 @@ a:hover{
 	margin-bottom: 15px;
 	margin-left: 15px;
 }
+.lightbox .button:hover{
+	color: #000;
+}
 .lightbox .accordion-text .button{
 	margin-left: 0;
 }
