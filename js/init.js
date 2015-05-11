@@ -69,6 +69,10 @@ function update(){
 }
 
 function loadData(){
+	$.get( "csv/icons.csv", function( csv ){
+		DataVars.icons = Papa.parse( csv, {header: true} ).data;
+	});
+	
 	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias
 	}).done( function( data ) {
