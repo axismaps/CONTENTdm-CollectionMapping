@@ -9,12 +9,6 @@ h1{
 	line-height: 75px;
 	font-size: 30px;
 }
-h1 span.title{
-	font-weight: bold;
-}
-h1 span.subtitle{
-	font-weight: lighter;
-}
 
 .italic {
 	font-style: italic;
@@ -25,6 +19,23 @@ a{
 }
 a:hover{
 	text-decoration: underline;
+}
+
+/* Topbar */
+#topbar-picture{
+	display: inline-block;
+	height: 75px;
+	width: 75px;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+h1 span.title{
+	font-weight: bold;
+}
+h1 span.subtitle{
+	font-weight: lighter;
 }
 
 /* Search */
