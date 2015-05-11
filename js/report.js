@@ -7,7 +7,7 @@ function initReports(){
 	}).appendTo( '#reports-expanded .expanded-section' );
 	
 	$.map( DataVars.reports, function( v ) {
-		var $title = $( '<h3><i class="fa fa-folder"></i> <span>' + v.Title + '</span></h3>' ).appendTo( '#reports-accordion' );
+		var $title = $( '<h3 dataId="' + v.id + '"><i class="fa fa-folder"></i> <span>' + v.Title + '</span></h3>' ).appendTo( '#reports-accordion' );
 		
 		$( '#reports-accordion' ).append( '<div class="reports-accordion-content"/>' );
 		
@@ -52,7 +52,7 @@ function initReports(){
 	});
 }
 
-function loadReport( report ){	
+function loadReport( report ){
 	DataVars.filteredData = {
 		maxYear: 9999,
 		minYear: 0,
@@ -68,6 +68,7 @@ function loadReport( report ){
 		}
 	});
 	
+	$( '#reports-accordion h3[dataId=' + report.id +']' ).click();
 	update();
 }
 
