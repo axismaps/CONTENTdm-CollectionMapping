@@ -272,7 +272,36 @@ function initSummary(){
 }
 
 function initAbout(){
-	alert( 'About lightbox will show up here' );
+	var mask = $( "<div class='lightbox-mask lightbox'>" )
+		.appendTo( "body" )
+		.click( function(){
+			$( ".lightbox" ).remove();
+		});
+	var w = .8 * $(window).width(),
+		h = .8 * $(window).height();
+	
+	var $div = $( '<div />' ).addClass( "lightbox" )
+		.css({
+			position: "absolute",
+			left: '100px',
+			top: '100px',
+			"margin-top": 0,
+			"margin-left": 0,
+			width: 300,
+			transition: "none",
+			padding: 0
+		})
+		.appendTo("body")
+		.animate({
+			left: "50%",
+			top: "50%",
+			"margin-left": -w/2 -20,
+			"margin-top": -h/2 - 20,
+			width: w,
+			height: h,
+			padding: 20
+		})
+		.html( 'Lorem ipsum dolor sit amet, in eripuit corrumpit mea, ei vis facilisis voluptaria. At sea aperiam accusata, quo eius reque prodesset at. Pertinacia adolescens te his, quod wisi mnesarchum ne mea. Diceret commune accommodare vix et. Vidit forensibus at vel, cum in alii erroribus gloriatur. Modus idque no mei, alia minim sadipscing usu an.<br />Convenire reprehendunt in mea. Sit commune placerat et. Ea duo etiam expetendis deterruisset. Ut populo graecis vim.<br /> Summo fastidii eloquentiam in pro. Duo omnesque luptatum ut, no dicant facete intellegebat mel. Mea quando pertinax maluisset ex, eros ponderum assentior ne mei. Eu usu omittam iudicabit.<br /> Everti blandit eu eum. Erat salutatus vix cu, in veri scaevola his, usu placerat verterem ex. Omnes inimicus et nec, est at mutat mucius utamur. Te nostrum salutandi assueverit mea, mundi veritus deseruisse usu ea. Has elit falli omittantur te, an duo legere essent. Pri ea illud reque.' );
 }
 
 function getIcon( text ){
