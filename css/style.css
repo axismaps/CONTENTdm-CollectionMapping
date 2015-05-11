@@ -23,12 +23,16 @@ a:hover{
 
 /* Topbar */
 #topbar-picture{
-	display: inline-block;
+	display: none;
 	height: 75px;
 	width: 75px;
 	background-size: cover;
 	background-position: 50% 50%;
 	background-repeat: no-repeat;
+}
+
+.report #topbar-picture{
+	display: inline-block;
 }
 
 h1 span.title{

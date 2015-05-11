@@ -50,6 +50,7 @@ function renderSuggestion(query){
 	} else if ( query.value !== '' ){
 		return '<div><p>' + query.value +'</p></div>';
 	} else {
+		if ( $( 'body' ).hasClass( 'report' ) ) return '<div class="filter-header"><p>The following results are not included in the current report. Selecting one will exit the report.</p></div>';
 		return '<div class="filter-header"><p>The following results are not visible with current filters. Selecting one will clear active filters.</p></div>';
 	}
 }

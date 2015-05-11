@@ -74,7 +74,7 @@ function loadReport( report ){
 	$( '#topbar .title' ).text( 'Report: ' );
 	$( '#topbar .subtitle' ).text( report.Title );
 	
-	
+	$( 'body' ).addClass( 'report' );
 }
 
 function showReportInfo(){

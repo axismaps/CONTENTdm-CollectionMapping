@@ -71,6 +71,7 @@ function update(){
 	$( '#topbar-picture' ).css( 'background-image', 'none' );
 	$( '#topbar .title' ).text( 'Baptists in Burma: ' );
 	$( '#topbar .subtitle' ).text( 'Midwestern Missionaries at Home and Abroad' );
+	$( 'body' ).removeClass( 'report' );
 }
 
 function loadData(){
