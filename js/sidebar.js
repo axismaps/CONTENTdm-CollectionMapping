@@ -276,28 +276,14 @@ function initAbout(){
 }
 
 function getIcon( text ){
-	switch( text ){
-			case "Art":
-				return '<i class="fa fa-paint-brush"></i>';
-			case "Article":
-			case "article":
-				return '<i class="fa fa-newspaper-o"></i>';
-			case "Biography":
-			case "Book":
-			case "book":
-				return '<i class="fa fa-book"></i>';
-			case "Letter":
-				return '<i class="fa fa-envelope-o"></i>';
-			case "Museum Record":
-				return '<i class="fa fa-archive"></i>';
-			case "Official Record":
-				return '<i class="fa fa-university"></i>';
-			case "Photograph":
-			case "Photography":
-				return '<i class="fa fa-picture-o"></i>';
-			case "Postcard":
-				return '<i class="fa fa-envelope-o"></i>';
-			default:
-				return '<i class="fa fa-file-o"></i>'; 
-	}
+	var iconToUse = '',
+		defaultIcon = '';
+	
+	_.each( DataVars.icons, function( icon ){
+		if( text == icon.format ) iconToUse = icon['fa-icon'];
+		if( icon.format == "Default" ) defaultIcon = icon['fa-icon'];
+	});
+	
+	if( iconToUse ) return '<i class="fa ' + iconToUse + '"></i>';
+	else return '<i class="fa ' + defaultIcon + '"></i>';
 }
