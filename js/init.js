@@ -37,7 +37,6 @@ function init() {
 	AppVars.pdfCapable = getAcrobatInfo().acrobat;
 	initEvents();
 	initSearch();
-	initSidebar();
 	initTags();
 	drawTimeline();
 	initMap();

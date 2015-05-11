@@ -111,12 +111,33 @@ h1 span.subtitle{
 }
 
 #bar .sidebar-button.primary.selected{
-	background-color: #B42933;
 	color: #fff;
 }
 
 #bar .sidebar-button.secondary.selected{
 	color: #fff;
+}
+
+#bar .sidebar-button#all-docs-button, .report #bar .sidebar-button#reports-button{
+	background-color: #B42933;
+	color: #fff;
+}
+
+.report #bar .sidebar-button#all-docs-button{
+	color: #999;
+	background-color: transparent;
+}
+
+.report #filters-button, .report #tags-button{
+	display: none;
+}
+
+#summary-button{
+	display: none;
+}
+
+.report #summary-button{
+	display: block;
 }
 
 #bar hr{

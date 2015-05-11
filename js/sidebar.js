@@ -1,18 +1,9 @@
-function initSidebar(){
-	$( '#filters-button' ).show();
-	$( '#tags-button' ).show();
-	$( '#summary-button' ).hide();
-}
-
 function sidebarEvents() {
 	$( '#all-docs-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).hide();
 		$( this ).addClass( 'selected' );
 		$( '#reports-button' ).removeClass( 'selected' );
 		$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
-		$( '#secondary-buttons div' ).hide();
-		$( '#filters-button' ).show();
-		$( '#tags-button' ).show();
 		
 		allDocs();
 	});
@@ -21,11 +12,9 @@ function sidebarEvents() {
 		$( this ).addClass( 'selected' );
 		$( '#all-docs-button' ).removeClass( 'selected' );
 		
-		$( '#secondary-buttons div' ).hide();
-		$( '#summary-button' ).show();
-		
-		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').children( '.selected' ).length == 0 ){
+		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#reports-expanded').is(':visible') ){
 			$( '#bar-expanded' ).hide();
+			$(this).removeClass( 'selected' );
 		} 
 		else if( $( '#secondary-buttons').children( '.selected' ).length > 0 ) {
 			$( '#secondary-buttons').children( '.selected' ).removeClass( 'selected' );
@@ -84,6 +73,8 @@ function allDocs(){
 
 function initFilters(){
 	$( '#filters-expanded' ).show();
+
+	$( '#reports-button' ).removeClass( 'selected' );
 	
 	if ( $('#filters-expanded .expanded-section').children().length ) return;
 	$( '.expanded-section' ).empty();
