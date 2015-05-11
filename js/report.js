@@ -68,6 +68,7 @@ function loadReport( report ){
 		}
 	});
 	
+	if( ! $( '#reports-expanded' ).is( ':visible' ) ) $( '#reports-button' ).click();
 	$( '#reports-accordion h3[dataId=' + report.id +']' ).click();
 	update();
 }
