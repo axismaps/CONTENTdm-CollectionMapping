@@ -42,8 +42,7 @@ function initReports(){
 				html : 'View Report <i class="fa fa-chevron-right"></i>'
 		}).appendTo( '#reports-accordion > div:last-child' )
 		.on( 'click', function(){
-			//TODO: Show full report on click
-			console.log( v );
+			loadReport( v );
 		});
 	});
 	
@@ -53,8 +52,9 @@ function initReports(){
 	});
 }
 
-function loadReport(){
-	
+function loadReport( v ){
+	console.log( 'loading report' );
+	console.log( v );
 }
 
 function showReportInfo(){

@@ -79,8 +79,7 @@ function drawYear( year ){
 					html : 'View Report <i class="fa fa-chevron-right"></i>'
 				})
 				.on( 'click', function(){
-					//TODO: Show full report on click
-					console.log( v );
+					loadReport( entry );
 				});
 				$( '<div><p class="italic">' + entry.Title + '</p></div>' ).appendTo( $studentReports ).append( $buttonDiv );
 				

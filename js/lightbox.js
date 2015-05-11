@@ -50,7 +50,7 @@ function lightboxReport( $report, data ){
 	var button = $( ".button", $div )
 		.prependTo($("p.accordion-text", $div) )
 		.click( function(){
-			// TO DO: load report
+			loadReport( data );
 		});
 	
 	var pdf = ( data.filetype == "pdf" && AppVars.pdfCapable );
