@@ -112,7 +112,7 @@ function startLightbox( $content, data, callback ){
 		w = 600;
 		h = $( ".image-container", $div ).height();
 	}
-	var $div = $content.clone()
+	var $div = $content.clone( true)
 		.removeAttr("class")
 		.addClass( "lightbox" )
 		.css({
@@ -140,7 +140,9 @@ function startLightbox( $content, data, callback ){
 		"margin-left": w/2 + 10,
 		"margin-top": 0 
 	});
+	//Only remove text in the accordion section (i.e. doesn't affect timeline entries)
 	$div.find( 'p.accordion-text' ).text( '' ).append( '<span>' + data.Description + '</span>' );
+	
 	$( ".image-expand", $div ).remove();
 	return $div;
 }
