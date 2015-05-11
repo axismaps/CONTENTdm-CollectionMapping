@@ -68,11 +68,16 @@ function drawYear( year ){
 			if ( !header.tag || !d[prop] ) return;
 			$textContainer.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
 		});
+		
+		var foundStudentReport = false,
+			$studentReports = $( '<div id="studentReports"><strong>Student Reports: </strong></div>');
 		_.each( DataVars.reports, function( entry, index ){
 			if( _.indexOf( entry.Documents, d.pointer ) >= 0 ){
-				console.log( 'add ' + d.pointer + ' to list' );
+				foundStudentReport = true;
+				$( '<p class="italic">' + entry.Title + '</p>' ).appendTo( $studentReports );
 			}
 		});
+		if( foundStudentReport === true ) $studentReports.appendTo( $textContainer );
 
 		$( "a.tag-link", $entry ).click( function(){
 			var name = $(this).html();
