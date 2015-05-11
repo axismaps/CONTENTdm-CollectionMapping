@@ -83,7 +83,6 @@ function loadData(){
 		DataVars.filteredData = $.parseJSON( data );
 		DataVars.filters.minYear = DataVars.data.minYear;
 		DataVars.filters.maxYear = DataVars.data.maxYear;
-		console.log( DataVars );
 		init();
 	});
 }

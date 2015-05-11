@@ -52,9 +52,23 @@ function initReports(){
 	});
 }
 
-function loadReport( v ){
-	console.log( 'loading report' );
-	console.log( v );
+function loadReport( report ){	
+	DataVars.filteredData = {
+		maxYear: 9999,
+		minYear: 0,
+		entries: []
+	};
+	
+	_.each( DataVars.data.entries, function( entry ){
+		if( _.indexOf( report.Documents, entry.pointer ) >= 0 ){
+			DataVars.filteredData.entries.push( entry );
+			
+			if( DataVars.filteredData.minYear >= entry.date.year ) DataVars.filteredData.minYear = v.date.year;
+			if( DataVars.filteredData.maxYear <= entry.date.year ) DataVars.filteredData.maxYear = v.date.year;
+		}
+	});
+	
+	update();
 }
 
 function showReportInfo(){
