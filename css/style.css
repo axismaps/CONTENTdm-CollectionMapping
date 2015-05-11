@@ -218,8 +218,10 @@ h1 span.subtitle{
 
 #reports-accordion .accordion-image{
 	position: relative;
-	background-position: 50% -45px;
+	background-position: 50% 0;
 	background-repeat: no-repeat;
+	margin-top: -45px;
+	height: 200px;
 }
 
 #reports-accordion .text-container{

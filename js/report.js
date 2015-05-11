@@ -17,9 +17,7 @@ function initReports(){
 		$( '<div/>', {
 			'class' : 'accordion-image'
 		}).appendTo( '#reports-accordion > div:last-child' ).css({
-			'background-image':  'url(' + url + ')',
-			width: width + 'px',
-			height: width + 'px'
+			'background-image':  'url(' + url + ')'
 		});
 		
 		$( '<div class="image-expand" />' )
