@@ -267,6 +267,21 @@ function initTags(){
 	});
 }
 
+function createTempTag( name ){
+	$( '<p class="tag temp selected">' + name.trim() + '</p>' )
+		.insertAfter( $( '#tags-expanded .expanded-section .line' ) )
+		.append( "<i class='fa fa-check'></i>" )
+		.on( 'click', function(){
+			DataVars.filters.tags = _.without( DataVars.filters.tags, name.trim() );
+			$( this ).remove();
+			filter();
+		});
+		
+	DataVars.filters.tags.push( name.trim() );
+	filter();
+}
+
+
 function initSummary(){
 	$( '#summary-expanded' ).show();
 }
