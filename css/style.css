@@ -649,6 +649,9 @@ a:hover{
 .lightbox h3.loaded i{
 	display: none;
 }
+.lightbox h4{
+	clear: both;
+}
 .lightbox .button{
 	float: left !important;
 	margin-bottom: 15px;

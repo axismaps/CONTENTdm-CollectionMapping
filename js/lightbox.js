@@ -46,6 +46,7 @@ function lightboxEntry( $entry, data ){
 
 function lightboxReport( $report, data ){
 	var $div = startLightbox( $report, data, loadFullImage );
+	var $title = $( '<h4 />' ).text( data.Title ).prependTo( $("p.accordion-text", $div) );
 	var button = $( ".button", $div )
 		.prependTo($("p.accordion-text", $div) )
 		.click( function(){
@@ -93,7 +94,6 @@ function lightboxReport( $report, data ){
 				onFullImageLoad( $(this), $div );
 			});
 		$imageDiv.css( "background-image", "none" );
-		$title = $( '<h3 class="entry-title" />' ).text( data.Title ).appendTo( $imageDiv );
 	}
 }
 
