@@ -104,13 +104,13 @@ function initReports(){
 	$.map( DataVars.data.entries, function( v ) {
 		var $title = $( '<h3><i class="fa fa-folder"></i> <span>' + v.title + '</span></h3>' ).appendTo( '#reports-accordion' );
 		
-		$( '#reports-accordion' ).append( '<div/>' );
+		$( '#reports-accordion' ).append( '<div class="reports-accordion-content"/>' );
 		
 		var url = 'php/loadImage.php?id=' + v.pointer + '&size=small';
 		var width = $( '#reports-accordion' ).width();
 		
 		$( '<div/>', {
-			'class' : 'accordion-image'
+			'class' : 'accordion-image image-container'
 		}).appendTo( '#reports-accordion > div:last-child' ).css({
 			'background-image':  'url(' + url + ')',
 			width: width + 'px',
@@ -119,24 +119,27 @@ function initReports(){
 		
 		$( '<div/>' )
 			.appendTo( '#reports-accordion > div:last-child > div' )
+			.attr( 'class', 'image-expand' )
 			.html( '<i class="fa fa-expand fa-2x"></i>' )
 			.on( 'click', function(){
 				//TODO: Show lightbox of report summary
-				console.log( 'Show lightbox here' );
+				lightboxReport( $(this).parent().parent(), v );
 		});
 
 		$title.css( 'background-image', 'url(' + url + ')' )
 			.prepend( '<div class="mask">' );
 
+		var $textContainer = $( '<div class="text-container">' )
+			.appendTo( '#reports-accordion > div:last-child' );
 		
-		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.descri ).succinct({
+		$( '<p/>' ).appendTo( $textContainer  ).text( v.descri ).succinct({
 			size: 300
 		});
 		
 		$( '<div/>', {
 				'class': 'button',
 				html : 'View Report <i class="fa fa-chevron-right"></i>'
-		}).appendTo( '#reports-accordion > div:last-child' )
+		}).appendTo( $textContainer  )
 		.on( 'click', function(){
 			//TODO: Show full report on click
 			console.log( v );
