@@ -1,18 +1,9 @@
-function initSidebar(){
-	$( '#filters-button' ).show();
-	$( '#tags-button' ).show();
-	$( '#summary-button' ).hide();
-}
-
 function sidebarEvents() {
 	$( '#all-docs-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).hide();
 		$( this ).addClass( 'selected' );
 		$( '#reports-button' ).removeClass( 'selected' );
 		$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
-		$( '#secondary-buttons div' ).hide();
-		$( '#filters-button' ).show();
-		$( '#tags-button' ).show();
 		
 		allDocs();
 	});
@@ -21,11 +12,9 @@ function sidebarEvents() {
 		$( this ).addClass( 'selected' );
 		$( '#all-docs-button' ).removeClass( 'selected' );
 		
-		$( '#secondary-buttons div' ).hide();
-		$( '#summary-button' ).show();
-		
-		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').children( '.selected' ).length == 0 ){
+		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#reports-expanded').is(':visible') ){
 			$( '#bar-expanded' ).hide();
+			$(this).removeClass( 'selected' );
 		} 
 		else if( $( '#secondary-buttons').children( '.selected' ).length > 0 ) {
 			$( '#secondary-buttons').children( '.selected' ).removeClass( 'selected' );
@@ -70,18 +59,7 @@ function sidebarEvents() {
 	});
 	
 	$( '#summary-button' ).on( 'click', function(){
-		if( $( this ).hasClass( 'selected' ) ){
-			$( '#bar-expanded' ).hide();
-			$( this ).removeClass( 'selected' );
-		}
-		else {
-			$( this ).siblings( '.selected' ).removeClass( 'selected' );
-			$( this ).addClass( 'selected' );
-			
-			$( '#bar-expanded > div' ).hide();
-			$( '#bar-expanded' ).show();
-			initSummary();
-		}
+		$( '.ui-accordion-content-active .image-expand' ).click();
 	});
 	
 	$( '#about-button' ).on( 'click', function(){
@@ -93,67 +71,10 @@ function allDocs(){
 	$( '.clear-text' ).click();
 }
 
-function initReports(){
-	$( '#reports-expanded' ).show();
-	if ( $( "#reports-accordion" ).length ) return;
-	
-	$( '<div/>', {
-		id: "reports-accordion"
-	}).appendTo( '#reports-expanded .expanded-section' );
-	
-	$.map( DataVars.data.entries, function( v ) {
-		var $title = $( '<h3><i class="fa fa-folder"></i> <span>' + v.title + '</span></h3>' ).appendTo( '#reports-accordion' );
-		
-		$( '#reports-accordion' ).append( '<div class="reports-accordion-content"/>' );
-		
-		var url = 'php/loadImage.php?id=' + v.pointer + '&size=small';
-		var width = $( '#reports-accordion' ).width();
-		
-		$( '<div/>', {
-			'class' : 'accordion-image image-container'
-		}).appendTo( '#reports-accordion > div:last-child' ).css({
-			'background-image':  'url(' + url + ')',
-			width: width + 'px',
-			height: width + 'px'
-		});
-		
-		$( '<div/>' )
-			.appendTo( '#reports-accordion > div:last-child > div' )
-			.attr( 'class', 'image-expand' )
-			.html( '<i class="fa fa-expand fa-2x"></i>' )
-			.on( 'click', function(){
-				//TODO: Show lightbox of report summary
-				lightboxReport( $(this).parent().parent(), v );
-		});
-
-		$title.css( 'background-image', 'url(' + url + ')' )
-			.prepend( '<div class="mask">' );
-
-		var $textContainer = $( '<div class="text-container">' )
-			.appendTo( '#reports-accordion > div:last-child' );
-		
-		$( '<p/>' ).appendTo( $textContainer  ).text( v.descri ).succinct({
-			size: 300
-		});
-		
-		$( '<div/>', {
-				'class': 'button',
-				html : 'View Report <i class="fa fa-chevron-right"></i>'
-		}).appendTo( $textContainer  )
-		.on( 'click', function(){
-			//TODO: Show full report on click
-			console.log( v );
-		});
-	});
-	
-	$( '#reports-accordion' ).accordion({
-		heightStyle: "content",
-		icons: false
-	});
-}
-
 function initFilters(){
 	$( '#filters-expanded' ).show();
+
+	$( '#reports-button' ).removeClass( 'selected' );
 	
 	if ( $('#filters-expanded .expanded-section').children().length ) return;
 	$( '.expanded-section' ).empty();

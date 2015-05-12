@@ -46,19 +46,21 @@ function lightboxEntry( $entry, data ){
 
 function lightboxReport( $report, data ){
 	var $div = startLightbox( $report, data, loadFullImage );
+	var $title = $( '<h4 />' ).text( data.Title ).prependTo( $("p.accordion-text", $div) );
 	var button = $( ".button", $div )
-		.prependTo($(".text-container", $div) )
+		.prependTo($("p.accordion-text", $div) )
 		.click( function(){
-			// TO DO: load report
+			loadReport( data );
 		});
-	var title = $report.prev().clone().removeAttr("class").addClass("loaded").insertAfter( button );
+	
 	var pdf = ( data.filetype == "pdf" && AppVars.pdfCapable );
 	if ( pdf ){
 		ligthtboxPDF( $div, data.pointer )
-			.appendTo( $(".image-container",$div) );
+			.appendTo( $(".accordion-image",$div) );
 		title.addClass("loaded").insertAfter( button );
 		$( ".image-container", $div ).css( "background-image", "none" );
 	}
+
 	function loadFullImage(){
 		if ( pdf ) return;
 		else if ( data.filetype == "pdf" ){
@@ -69,7 +71,7 @@ function lightboxReport( $report, data ){
 				.html( "Download PDF document" )
 				.insertAfter( title );
 		}
-		var $imageDiv = $( ".image-container", $div );
+		var $imageDiv = $( ".accordion-image", $div );
 		var $image = $( "<img>" )
 			.css({
 				height: $imageDiv.height(),
@@ -91,6 +93,7 @@ function lightboxReport( $report, data ){
 			.load( function(){
 				onFullImageLoad( $(this), $div );
 			});
+		$imageDiv.css( "background-image", "none" );
 	}
 }
 
@@ -109,9 +112,8 @@ function startLightbox( $content, data, callback ){
 		w = 600;
 		h = $( ".image-container", $div ).height();
 	}
-	var $div = $content.clone()
-		.removeClass( "ui-accordion" )
-		.removeClass( "ui-accordion-content" )
+	var $div = $content.clone( true)
+		.removeAttr("class")
 		.addClass( "lightbox" )
 		.css({
 			position: "absolute",
@@ -137,7 +139,10 @@ function startLightbox( $content, data, callback ){
 	$( ".text-container", $div ).css( {
 		"margin-left": w/2 + 10,
 		"margin-top": 0 
-	});		
+	});
+	//Only remove text in the accordion section (i.e. doesn't affect timeline entries)
+	$div.find( 'p.accordion-text' ).text( '' ).append( '<span>' + data.Description + '</span>' );
+	
 	$( ".image-expand", $div ).remove();
 	return $div;
 }

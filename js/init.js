@@ -37,7 +37,6 @@ function init() {
 	AppVars.pdfCapable = getAcrobatInfo().acrobat;
 	initEvents();
 	initSearch();
-	initSidebar();
 	initTags();
 	drawTimeline();
 	initMap();
@@ -66,11 +65,24 @@ function update(){
 	drawPoints();
 	drawTimeline();
 	drawPulse();
+	
+	//Return topbar to it's normal state
+	$( '#topbar-picture' ).css( 'background-image', 'none' );
+	$( '#topbar .title' ).text( 'Baptists in Burma: ' );
+	$( '#topbar .subtitle' ).text( 'Midwestern Missionaries at Home and Abroad' );
+	$( 'body' ).removeClass( 'report' );
 }
 
 function loadData(){
 	$.get( "csv/icons.csv", function( csv ){
 		DataVars.icons = Papa.parse( csv, {header: true} ).data;
+	});
+	$.get( "csv/reports.csv", function( csv ){
+		DataVars.reports = Papa.parse( csv, {header: true} ).data;
+		_.each( DataVars.reports, function( entry, i ){
+			entry.Documents = entry.Documents.split( ';' ).map(Number);
+			entry.id = i;
+		});
 	});
 	
 	$.get( "php/loadData.php", {
@@ -80,7 +92,6 @@ function loadData(){
 		DataVars.filteredData = $.parseJSON( data );
 		DataVars.filters.minYear = DataVars.data.minYear;
 		DataVars.filters.maxYear = DataVars.data.maxYear;
-		console.log( DataVars );
 		init();
 	});
 }

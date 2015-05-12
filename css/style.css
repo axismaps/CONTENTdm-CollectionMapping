@@ -9,12 +9,6 @@ h1{
 	line-height: 75px;
 	font-size: 30px;
 }
-h1 span.title{
-	font-weight: bold;
-}
-h1 span.subtitle{
-	font-weight: lighter;
-}
 
 .italic {
 	font-style: italic;
@@ -25,6 +19,27 @@ a{
 }
 a:hover{
 	text-decoration: underline;
+}
+
+/* Topbar */
+#topbar-picture{
+	display: none;
+	height: 75px;
+	width: 75px;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.report #topbar-picture{
+	display: inline-block;
+}
+
+h1 span.title{
+	font-weight: bold;
+}
+h1 span.subtitle{
+	font-weight: lighter;
 }
 
 /* Search */
@@ -96,12 +111,33 @@ a:hover{
 }
 
 #bar .sidebar-button.primary.selected{
-	background-color: #B42933;
 	color: #fff;
 }
 
 #bar .sidebar-button.secondary.selected{
 	color: #fff;
+}
+
+#bar .sidebar-button#all-docs-button, .report #bar .sidebar-button#reports-button{
+	background-color: #B42933;
+	color: #fff;
+}
+
+.report #bar .sidebar-button#all-docs-button{
+	color: #999;
+	background-color: transparent;
+}
+
+.report #filters-button, .report #tags-button{
+	display: none;
+}
+
+#summary-button{
+	display: none;
+}
+
+.report #summary-button{
+	display: block;
 }
 
 #bar hr{
@@ -207,7 +243,10 @@ a:hover{
 
 #reports-accordion .accordion-image{
 	position: relative;
-	background-position: 50% -45px;
+	background-position: 50% 0;
+	background-repeat: no-repeat;
+	margin-top: -45px;
+	height: 200px;
 }
 
 #reports-accordion .text-container{
@@ -238,7 +277,7 @@ a:hover{
 	cursor: initial;
 }
 
-.reports-accordion-content .button{
+.reports-accordion-content .button, .lightbox .button{
 	float: right;
 	color: #fff;
 	background-color: #aaa;
@@ -534,6 +573,28 @@ a:hover{
 	color: #0061b3;
 }
 
+.timeline-entry #studentReports p{
+	margin: 0;
+	display: inline-block;
+	max-width: 180px;
+	vertical-align: middle;
+}
+
+.timeline-entry #studentReports .button{
+	display: inline-block;
+	float: right;
+	color: #fff;
+	background-color: #aaa;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin: 0;
+	margin-right: 10px;
+}
+.timeline-entry #studentReports .button:hover{
+	color: #000;
+}
+
 #pulse p, #pulse > div{
 	display: inline-block;
 	vertical-align: middle;
@@ -579,7 +640,7 @@ a:hover{
 }
 
 /* Lightbox */
-.image-container{
+.image-container, .lightbox .accordion-image{
 	float: left;
 	overflow: hidden;
 }
@@ -598,8 +659,16 @@ a:hover{
 .lightbox > div.text-container p:first-child{
 	margin-top: 0;
 }
-.lightbox > div.text-container{
+.lightbox > div.text-container, .lightbox > p.accordion-text{
 	overflow: auto;
+}
+.lightbox > p.accordion-text{
+	height: 100%;
+	padding-left: 15px;
+}
+.lightbox > p.accordion-text span{
+	clear: both;
+	display: block;
 }
 .image-loader{
 	position: absolute !important;
@@ -635,13 +704,25 @@ a:hover{
 	clear: left;
 	margin: 15px;
 }
+.lightbox .accordion-text h3.loaded{
+	margin-left: 0;
+}
 .lightbox h3.loaded i{
 	display: none;
+}
+.lightbox h4{
+	clear: both;
 }
 .lightbox .button{
 	float: left !important;
 	margin-bottom: 15px;
 	margin-left: 15px;
+}
+.lightbox .button:hover{
+	color: #000;
+}
+.lightbox .accordion-text .button{
+	margin-left: 0;
 }
 .lightbox .text-container p{
 	clear: left;
@@ -665,4 +746,22 @@ a:hover{
 }
 .lightbox a.pdf{
 	margin-left: 15px;
+}
+.lightbox #studentReports {
+	margin-left: 15px;
+}
+.lightbox #studentReports > div {
+	margin: 15px;
+}
+.lightbox #studentReports p{
+	margin: 0;
+	display: inline-block;
+	max-width: 180px;
+	vertical-align: middle;
+}
+
+.lightbox #studentReports .button{
+	display: inline-block;
+	float: right !important;
+	margin: 0;
 }
