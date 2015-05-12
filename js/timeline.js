@@ -47,7 +47,7 @@ function drawYear( year ){
 		return d.date.year == year;
 	});
 	_.each( entries, function(d,i){
-		var $entry = $( "<div class='timeline-entry e" + i + "' id='entry" + d.pointer + "'>" );
+		var $entry = $( "<div class='timeline-entry e" + i + " db-entry' id='entry" + d.pointer + "'>" );
 		var $imageContainer = $( "<div class='image-container'>" )
 			.appendTo( $entry );
 		$( "<img>" )
@@ -199,53 +199,60 @@ function drawChronology(){
 	_.each( DataVars.chronologyData, function(d){
 		var startYear = d.start.match(/\d{4}/)[0],
 			endYear = d.end ? d.end.match(/\d{4}/)[0] : startYear;
+		var date = startYear !== endYear ? startYear + '-' + endYear : startYear;
 		_.each( AppVars.years, function(y, index){
 			
 			if( startYear > y && endYear <  AppVars.years[index+1] ){
-				if( $( '#year' + startYear ).length == 0 ){
+				//determine whether a new year is needed or whether it can be added to a previously existing chrono-specific year
+				var chronoYear = $( '#year' + y ).next().find( '.db-entry' ).length > 0 ? startYear : $( '#year' + y ).next().attr( 'id').slice(-4);
+				
+				if( $( '#year' + chronoYear ).length == 0 ){
 					var $div = $( "<div>" )
 						.attr( "class", "timeline-year" )
-						.attr( "id", "year" + startYear )
+						.attr( "id", "year" + chronoYear )
 						.insertAfter( "#year" + y )
 						.click( function(){
-							if ( !$(this).hasClass( "active" ) ) selectYear( startYear );
+							if ( !$(this).hasClass( "active" ) ) selectYear( chronoYear );
 						})
 				}
 					
-				var date = startYear !== endYear ? startYear + '-' + endYear : startYear;
-				$( "<div class='chronology timeline-entry'>" )
-					.attr( "id", "chronology" + startYear )
+				$chrono = $( "<div class='chronology timeline-entry'>" )
 					.html( '<i class="fa fa-clock-o"></i><span>' + date + '</span> | ' )
 					.click( function(){
 						if ( !$(this).hasClass( "active" ) ){
-							selectYear( startYear );
+							selectYear( chronoYear );
 							return;
 						}
 					})
-					.prependTo( "#year" + startYear );
-				$( "<span />" )
-					.html( d.text )
-					.appendTo( $( "#chronology" + startYear ) );
+					.append( '<span>' + d.text + '</span>' );
+					
+				if( $( '#year' + chronoYear + ' .chronology').length > 0 ){
+					$( '#year' + chronoYear + ' .chronology').last().after( $chrono );
+				} else {
+					$( '#year' + chronoYear ).prepend( $chrono );
+				}
 			}
 			
 			if ( y < startYear || y > endYear ) return;
 			
 			var $year = $( "#year" + y );
 			if ( !$( "#chronology" + y ).length ){
-				$( "<div class='chronology timeline-entry'>" )
-					.attr( "id", "chronology" + y )
-					.html( '<i class="fa fa-clock-o"></i>' )
+				$chrono = $( "<div class='chronology timeline-entry'>" )
+					.html( '<i class="fa fa-clock-o"></i><span>' + date + '</span> | '  )
 					.click( function(){
 						if ( !$(this).hasClass( "active" ) ){
 							selectYear( y );
 							return;
 						}
 					})
-					.prependTo( "#year" + y );
+					.append( '<span>' + d.text + '</span>' );
+					
+				if( $( '#year' + y + ' .chronology').length > 0 ){
+					$( '#year' + y + ' .chronology').last().after( $chrono );
+				} else {
+					$( '#year' + y ).prepend( $chrono );
+				}
 			}
-			$( "<span />" )
-				.html( d.text )
-				.appendTo( $( "#chronology" + y ) );
 				
 			// Code for date	
 			// "<p>" + d.start + ( d.end ? ( "–" + d.end ) : "" ) + "</p>"
