@@ -83,9 +83,17 @@ function processData( $fields ){
 	}
 	
 	foreach( $temp_json -> records as $value ) {
+		
+		if( substr( $value -> {'find'}, -3 ) == 'cpd' ){
+			continue;
+		}
+		
 		//Convert date into exact format just in case
 		$value -> {'date'} = date_parse( $value -> {'date'} );
-		
+		if( $value -> {'date'}['year'] == 0 ){
+			continue;
+		}
+
 		if ( ! in_array( $value -> format, $formats ) )
 			array_push( $formats, $value -> format);
 		
@@ -100,11 +108,17 @@ function processData( $fields ){
 					array_push( $all_tags, trim( $tag ) );
 			}
 		}
+
+		$locations = explode( ';', $value -> covera );
+		foreach( $locations as $location ){
+			$location = trim( $location );
+			$value -> {'location'} = checkLocation( $location );
+		}
 				
 		$value -> {'tags'} = $entry_tags;
 		array_push( $entries, $value );
 		
-		if ( $minYear > $value -> {'date'}['year'] )
+		if ( $minYear > $value -> {'date'}['year'] && $value -> {'date'}['year'] > 0 )
 			$minYear = $value -> {'date'}['year'];
 		if ( $maxYear < $value -> {'date'}['year'] )
 			$maxYear = $value -> {'date'}['year'];
@@ -131,6 +145,35 @@ function processData( $fields ){
 	
 	fclose( $temp_file );
 	unlink( "temp.json" );
+}
+
+function checkLocation( $name ){
+	
+	$location_file = fopen( "locations.csv", "r+" );
+	while ( !feof( $location_file ) ){
+		$line = fgetcsv( $location_file, 1024 );
+		if( $line[0] == $name ) {
+			$location = array( 'name' => $line[0], 'lat' => $line[1], 'lng' => $line[2] );
+			fclose( $location_file );
+			return $location;
+		}
+	}
+	
+	$escaped_params = urlencode( '"' . $name . '"' );
+	$url = 'http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82d622l%2C70%3Do5-94ygha&location=' . $escaped_params;
+	echo $url . ' ';
+	$json = file_get_contents( $url );
+	$jsonArr = json_decode($json);
+
+	$lat1 = $jsonArr->results[0]->locations[0]->latLng->lat;
+	$lon1 = $jsonArr->results[0]->locations[0]->latLng->lng;
+
+	fputcsv( $location_file, [ $name, $lat1, $lon1 ] );
+	$location = array( 'name' => $name, 'lat' => $lat1, 'lng' => $lon1 );
+	
+	fclose( $location_file );
+	
+	return $location;
 }
 
 ?>

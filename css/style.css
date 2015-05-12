@@ -9,12 +9,6 @@ h1{
 	line-height: 75px;
 	font-size: 30px;
 }
-h1 span.title{
-	font-weight: bold;
-}
-h1 span.subtitle{
-	font-weight: lighter;
-}
 
 .italic {
 	font-style: italic;
@@ -26,6 +20,77 @@ a{
 a:hover{
 	text-decoration: underline;
 }
+
+/* Topbar */
+#topbar-picture{
+	display: none;
+	height: 75px;
+	width: 75px;
+	background-size: cover;
+	background-position: 50% 50%;
+	background-repeat: no-repeat;
+}
+
+.report #topbar-picture{
+	display: inline-block;
+}
+
+h1 span.title{
+	font-weight: bold;
+}
+h1 span.subtitle{
+	font-weight: lighter;
+}
+
+/* Search */
+#search {
+	margin: 0 25px;
+	padding-top: 15px;
+}
+
+#search input{
+	padding: 10px;
+	width: 300px;
+	font-family: Oswald, FontAwesome, sans-serif;
+}
+
+.tt-dropdown-menu {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    max-height: 400px;
+    overflow: auto;
+    width: 100%;
+}
+
+.tt-suggestion p, .tt-empty p {
+   padding: 10px 20px;
+   margin: 0;
+}
+
+.tt-suggestion.tt-cursor p {
+    color: #fff;
+    background-color: #b6272f;
+	cursor: pointer;
+}
+
+.filter-header{
+	font-size: 12px;
+	font-style: italic;
+	border-top: 1px solid #ccc;
+	background-color: #f7f7f7;
+}
+.tt-suggestion.tt-cursor .filter-header p {
+    background-color: #f7f7f7;
+	cursor: default;
+	color: black;
+}
+.filtered-result{
+	background-color: #f7f7f7;
+}
+
+
 /* Sidebar */
 
 #bar {
@@ -46,12 +111,33 @@ a:hover{
 }
 
 #bar .sidebar-button.primary.selected{
-	background-color: #B42933;
 	color: #fff;
 }
 
 #bar .sidebar-button.secondary.selected{
 	color: #fff;
+}
+
+#bar .sidebar-button#all-docs-button, .report #bar .sidebar-button#reports-button{
+	background-color: #B42933;
+	color: #fff;
+}
+
+.report #bar .sidebar-button#all-docs-button{
+	color: #999;
+	background-color: transparent;
+}
+
+.report #filters-button, .report #tags-button{
+	display: none;
+}
+
+#summary-button{
+	display: none;
+}
+
+.report #summary-button{
+	display: block;
 }
 
 #bar hr{
@@ -120,12 +206,27 @@ a:hover{
 	overflow: hidden;
 	border-radius: 0;
 	margin: 0;
+	background-position: 50% 0;
+}
+
+#reports-accordion h3 .mask{
+	height: 45px;
 }
 
 #reports-accordion h3 i{
 	margin: 0 10px;
 	font-size: 24px;
 	vertical-align: middle;
+}
+#reports-accordion h3 span{
+	position: absolute;
+	margin: 0;
+	padding: 0;
+	line-height: 45px;
+	top: 0;
+}
+#reports-accordion h3:focus{
+	outline: none;
 }
 
 #reports-accordion h3:hover{
@@ -142,6 +243,14 @@ a:hover{
 
 #reports-accordion .accordion-image{
 	position: relative;
+	background-position: 50% 0;
+	background-repeat: no-repeat;
+	margin-top: -45px;
+	height: 200px;
+}
+
+#reports-accordion .text-container{
+	margin-top: 310px;
 }
 
 #reports-accordion .accordion-image > div, .timeline-entry .image-expand {
@@ -155,7 +264,7 @@ a:hover{
 	cursor: pointer;
 }
 
-#reports-accordion .accordion-image > div:hover {
+.image-expand:hover{
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
@@ -168,7 +277,7 @@ a:hover{
 	cursor: initial;
 }
 
-#reports-accordion .button{
+.reports-accordion-content .button, .lightbox .button{
 	float: right;
 	color: #fff;
 	background-color: #aaa;
@@ -226,13 +335,77 @@ a:hover{
 	color: #fff;
 }
 
-.expanded-section p > i{
+.expanded-section p .format-item i{
+	margin-right: 5px;
+}
+
+.expanded-section p > i.fa-check{
 	float: right;
+	margin-right: 0;
 }
 
 /* Map */
 
+.marker-cluster {
+	background-clip: padding-box;
+	border-radius: 50px;
+	background-color: #fff;
+	border: 1px solid #000;
+}
+
+.marker-cluster:hover {
+	background-color: #aaa;
+}
+
+.marker-cluster div {
+	text-align: center;
+	font-size: 12px;
+}
+
+.marker-cluster.activeCluster{
+	margin-left: -30px !important;
+	margin-top: -30px !important;
+	height: 60px !important;
+	width: 60px !important;
+	background-color: #B42933;
+	background-color: rgba( 180, 41, 51, 0.7 );
+	border: none !important;
+}
+
+.marker-cluster.activeCluster div{
+	box-sizing: border-box;
+	background-color: #fff;
+	margin-left: 5px !important;
+	margin-top: 5px !important;
+	height: 50px !important;
+	width: 50px !important;
+	border-radius: 100px;
+	border: 2px solid #fff !important;
+}
+
+.marker-cluster.activeCluster div:hover{
+	background-color: #aaa;
+}
+
+.marker-cluster.activeCluster span{
+	line-height: 50px !important;
+	text-shadow: 1px 1px 1px white, -1px -1px 1px white;
+}
+
 /* Timeline area */
+
+.mask{
+	position: absolute;
+	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
+	background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* W3C */
+	top: 0;
+	left: 0;
+	width: 100%;
+}
 
 #timeline{
 	color: #fff;
@@ -251,6 +424,8 @@ a:hover{
 	line-height: 50px;
 	font-weight: normal;
 	font-size: 24px;
+	border-bottom: 1px solid #999;
+	border-left: 1px solid #999;
 }
 
 .timeline-button{
@@ -285,8 +460,23 @@ a:hover{
 	position: relative;
 	width: 100%;
 	overflow: auto;
-	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
+	overflow-y: hidden;
+}
+#timeline-shadow{
+	width: 1px;
+	background-color: #999;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	top: 51px;
+	height: -moz-calc(100% - 51px);
+    height: -webkit-calc(100% - 51px);
+    height: -o-calc(100% - 51px);
+    height: calc(100% - 51px);
+	-webkit-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.25);
+	-moz-box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.25);
+	box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.25);
 }
 
 .timeline-year{
@@ -298,6 +488,9 @@ a:hover{
 	vertical-align: top;
 	opacity: .25;
 	transition: opacity 1s;
+	border-left: 1px solid #999;
+	border-right: 1px solid #999;
+	overflow: hidden;
 }
 
 .timeline-year.active{
@@ -322,11 +515,19 @@ a:hover{
 	overflow: auto;
 }
 
-.timeline-entry img{
+.timeline-entry > div{
+}
+
+.timeline-entry .image-container{
+	width: 400px;
 	height: 270px;
 }
 
-.timeline-entry p, .timeline-entry div{
+.timeline-entry .text-container{
+	margin-top: 280px;
+}
+
+.timeline-entry > div p, .timeline-entry > div div{
 	margin: 15px;
 	position: relative;
 }
@@ -339,7 +540,7 @@ a:hover{
 
 .timeline-entry p.entry-title, .timeline-entry .mask{
 	position: absolute;
-	width: 100%;
+	width: 400px;
 	top: 0;
 }
 .timeline-entry p.entry-title{
@@ -367,16 +568,32 @@ a:hover{
 .timeline-entry .mask{
 	margin: 0;
 	height: 100px;
-	background: -moz-linear-gradient(top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(0,0,0,0.8)), color-stop(100%,rgba(0,0,0,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* IE10+ */
-	background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%,rgba(0,0,0,0) 100%); /* W3C */
 }
 
 .timeline-entry a{
 	color: #0061b3;
+}
+
+.timeline-entry #studentReports p{
+	margin: 0;
+	display: inline-block;
+	max-width: 180px;
+	vertical-align: middle;
+}
+
+.timeline-entry #studentReports .button{
+	display: inline-block;
+	float: right;
+	color: #fff;
+	background-color: #aaa;
+	cursor: pointer;
+	border-radius: 3px;
+	padding: 5px 10px;
+	margin: 0;
+	margin-right: 10px;
+}
+.timeline-entry #studentReports .button:hover{
+	color: #000;
 }
 
 #pulse p, #pulse > div{
@@ -471,3 +688,128 @@ a:hover{
 }
 
 /* Lightbox */
+.image-container, .lightbox .accordion-image{
+	float: left;
+	overflow: hidden;
+}
+.lightbox{
+	z-index: 1001;
+	background-color: white;
+}
+.lightbox-mask{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	background-color: rgba(0,0,0,.75) !important;
+}
+.lightbox > div.text-container p:first-child{
+	margin-top: 0;
+}
+.lightbox > div.text-container, .lightbox > p.accordion-text{
+	overflow: auto;
+}
+.lightbox > p.accordion-text{
+	height: 100%;
+	padding-left: 15px;
+}
+.lightbox > p.accordion-text span{
+	clear: both;
+	display: block;
+}
+.image-loader{
+	position: absolute !important;
+	top:20px;
+	left:20px;
+	color: white;
+	margin: 0 !important;
+	text-shadow: 1px 1px 5px black,
+		-1px -1px 5px black;
+	text-align: center;
+}
+.image-loader i{
+	font-size: 60px;
+	margin-top: 105px;
+}
+.image-loader p{
+	font-size: 16px;
+}
+.lightbox h3{
+	color: white;
+	position: absolute;
+	top: 30px;
+	left: 30px;
+	margin: 0;
+	text-shadow: 1px 1px 5px black,
+		-1px -1px 5px black;
+	background: none !important;
+}
+.lightbox h3.loaded{
+	color: black;
+	position: initial;
+	text-shadow: none;
+	clear: left;
+	margin: 15px;
+}
+.lightbox .accordion-text h3.loaded{
+	margin-left: 0;
+}
+.lightbox h3.loaded i{
+	display: none;
+}
+.lightbox h4{
+	clear: both;
+}
+.lightbox .button{
+	float: left !important;
+	margin-bottom: 15px;
+	margin-left: 15px;
+}
+.lightbox .button:hover{
+	color: #000;
+}
+.lightbox .accordion-text .button{
+	margin-left: 0;
+}
+.lightbox .text-container p{
+	clear: left;
+}
+.lightbox object{
+	position: absolute;
+	top: 20px;
+	left: 20px;
+}
+.lightbox .text-container p{
+	margin: 15px;
+}
+.lightbox .text-container p.entry-title{
+	position: initial;
+	color: black;
+	text-shadow: none;
+	width: auto;
+}
+.lightbox a{
+	color: #0061b3;
+}
+.lightbox a.pdf{
+	margin-left: 15px;
+}
+.lightbox #studentReports {
+	margin-left: 15px;
+}
+.lightbox #studentReports > div {
+	margin: 15px;
+}
+.lightbox #studentReports p{
+	margin: 0;
+	display: inline-block;
+	max-width: 180px;
+	vertical-align: middle;
+}
+
+.lightbox #studentReports .button{
+	display: inline-block;
+	float: right !important;
+	margin: 0;
+}

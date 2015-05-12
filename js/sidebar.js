@@ -1,18 +1,9 @@
-function initSidebar(){
-	$( '#filters-button' ).show();
-	$( '#tags-button' ).show();
-	$( '#summary-button' ).hide();
-}
-
 function sidebarEvents() {
 	$( '#all-docs-button' ).on( 'click', function(){
 		$( '#bar-expanded' ).hide();
 		$( this ).addClass( 'selected' );
 		$( '#reports-button' ).removeClass( 'selected' );
 		$( '#secondary-buttons').find( '.selected' ).removeClass( 'selected' );
-		$( '#secondary-buttons div' ).hide();
-		$( '#filters-button' ).show();
-		$( '#tags-button' ).show();
 		
 		allDocs();
 	});
@@ -21,11 +12,9 @@ function sidebarEvents() {
 		$( this ).addClass( 'selected' );
 		$( '#all-docs-button' ).removeClass( 'selected' );
 		
-		$( '#secondary-buttons div' ).hide();
-		$( '#summary-button' ).show();
-		
-		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#secondary-buttons').children( '.selected' ).length == 0 ){
+		if( $( this ).hasClass( 'selected' ) && $( '#bar-expanded' ).is(':visible') && $( '#reports-expanded').is(':visible') ){
 			$( '#bar-expanded' ).hide();
+			$(this).removeClass( 'selected' );
 		} 
 		else if( $( '#secondary-buttons').children( '.selected' ).length > 0 ) {
 			$( '#secondary-buttons').children( '.selected' ).removeClass( 'selected' );
@@ -70,18 +59,7 @@ function sidebarEvents() {
 	});
 	
 	$( '#summary-button' ).on( 'click', function(){
-		if( $( this ).hasClass( 'selected' ) ){
-			$( '#bar-expanded' ).hide();
-			$( this ).removeClass( 'selected' );
-		}
-		else {
-			$( this ).siblings( '.selected' ).removeClass( 'selected' );
-			$( this ).addClass( 'selected' );
-			
-			$( '#bar-expanded > div' ).hide();
-			$( '#bar-expanded' ).show();
-			initSummary();
-		}
+		$( '.ui-accordion-content-active .image-expand' ).click();
 	});
 	
 	$( '#about-button' ).on( 'click', function(){
@@ -93,62 +71,10 @@ function allDocs(){
 	$( '.clear-text' ).click();
 }
 
-function initReports(){
-	$( '#reports-expanded' ).show();
-	if ( $( "#reports-accordion" ).length ) return;
-	
-	$( '<div/>', {
-		id: "reports-accordion"
-	}).appendTo( '#reports-expanded .expanded-section' );
-	
-	$.map( DataVars.data.entries, function( v ) {
-		$( '#reports-accordion' ).append( '<h3><i class="fa fa-folder"></i> ' + v.title + '</h3>' );
-		
-		$( '#reports-accordion' ).append( '<div/>' );
-		
-		if( v.filetype == "jpg" ) {
-			var url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' + AppVars.collectionAlias + '&CISOPTR=' + v.pointer + '&action=2&DMSCALE=20&DMWIDTH=1000&DMHEIGHT=800';
-			var width = $( '#reports-accordion' ).width();
-			
-			$( '<div/>', {
-				'class' : 'accordion-image'
-			}).appendTo( '#reports-accordion > div:last-child' ).css({
-				background:  'url(' + url + ')' + 'no-repeat 50% top',
-				width: width + 'px',
-				height: width + 'px'
-			});
-			
-			$( '<div/>' )
-				.appendTo( '#reports-accordion > div:last-child > div' )
-				.html( '<i class="fa fa-expand fa-2x"></i>' )
-				.on( 'click', function(){
-					//TODO: Show lightbox of report summary
-					console.log( 'Show lightbox here' );
-			});
-		}
-		
-		$( '<p/>' ).appendTo( '#reports-accordion > div:last-child' ).text( v.descri ).succinct({
-			size: 300
-		});
-		
-		$( '<div/>', {
-				'class': 'button',
-				html : 'View Report <i class="fa fa-chevron-right"></i>'
-		}).appendTo( '#reports-accordion > div:last-child' )
-		.on( 'click', function(){
-			//TODO: Show full report on click
-			console.log( v );
-		});
-	});
-	
-	$( '#reports-accordion' ).accordion({
-		heightStyle: "content",
-		icons: false
-	});
-}
-
 function initFilters(){
 	$( '#filters-expanded' ).show();
+
+	$( '#reports-button' ).removeClass( 'selected' );
 	
 	if ( $('#filters-expanded .expanded-section').children().length ) return;
 	$( '.expanded-section' ).empty();
@@ -157,7 +83,7 @@ function initFilters(){
 	$( '#date-range' ).append( '<div class="line"><span class="h4-title">Date Range</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#date-range .clear-text' ).on( 'click', function(){
-		$( '#date-slider' ).slider( "values", [1800, 1900] );
+		$( '#date-slider' ).slider( "values", [DataVars.data.minYear, DataVars.data.maxYear] );
 		$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
 		$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 		
@@ -175,7 +101,7 @@ function initFilters(){
 		range: true,
 		min: DataVars.data.minYear,
 		max: DataVars.data.maxYear,
-		values: [ 1800, 1900 ], //TODO: Should this be dynamically set?
+		values: [ DataVars.data.minYear, DataVars.data.maxYear ],
 		slide: function( event, ui ){
 			$( '#minYear' ).text( ui.values[ 0 ] );
 			$( '#maxYear' ).text( ui.values[ 1 ] );
@@ -201,21 +127,22 @@ function initFilters(){
 	
 	$.map( DataVars.data.formats.sort(), function( v ){
 		$('<p/>' , {
-			text: v
+			html: '<span class="format-item">' + getIcon( v ) + v + '</span>'
 		})
 		.appendTo( $( '#format' ) )
 		.on( 'click', function() {
-			var text = $( this ).text();
-			$( this ).empty().text( text );
+			var text = $( this ).children( ' .format-item' ).text(),
+				html = $( this ).children( ' .format-item' );
+			$( this ).empty().html( html );
 			
 			if( $( this ).hasClass( 'selected' ) ){
 				$( this ).removeClass( 'selected' );
-				DataVars.filters.format = _.without( DataVars.filters.format, $( this ).text() );
+				DataVars.filters.format = _.without( DataVars.filters.format, text );
 				filter();
 			} else {
 				$( this ).append( "<i class='fa fa-check'></i>" );
 				$( this ).addClass( 'selected' );
-				DataVars.filters.format.push( $( this ).text() );
+				DataVars.filters.format.push( text );
 				filter();
 			}
 		});
@@ -233,6 +160,7 @@ function initTags(){
 	
 	$( '#tags-expanded .expanded-section .clear-text' ).on( 'click', function() {
 		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
+		$( '#tags-expanded .expanded-section p.temp' ).remove();
 		DataVars.filters.tags = [];
 		filter();
 	});
@@ -241,6 +169,7 @@ function initTags(){
 		$('<p/>' , {
 			text: v
 		})
+		.attr( 'class', 'tag' )
 		.appendTo( sect )
 		.on( 'click', function() {
 			var text = $( this ).text();
@@ -260,10 +189,67 @@ function initTags(){
 	});
 }
 
+function createTempTag( name ){
+	$( '<p class="tag temp selected">' + name.trim() + '</p>' )
+		.insertAfter( $( '#tags-expanded .expanded-section .line' ) )
+		.append( "<i class='fa fa-check'></i>" )
+		.on( 'click', function(){
+			DataVars.filters.tags = _.without( DataVars.filters.tags, name.trim() );
+			$( this ).remove();
+			filter();
+		});
+		
+	DataVars.filters.tags.push( name.trim() );
+	filter();
+}
+
+
 function initSummary(){
 	$( '#summary-expanded' ).show();
 }
 
 function initAbout(){
-	alert( 'About lightbox will show up here' );
+	var mask = $( "<div class='lightbox-mask lightbox'>" )
+		.appendTo( "body" )
+		.click( function(){
+			$( ".lightbox" ).remove();
+		});
+	var w = .8 * $(window).width(),
+		h = .8 * $(window).height();
+	
+	var $div = $( '<div />' ).addClass( "lightbox" )
+		.css({
+			position: "absolute",
+			left: '100px',
+			top: '100px',
+			"margin-top": 0,
+			"margin-left": 0,
+			width: 300,
+			transition: "none",
+			padding: 0
+		})
+		.appendTo("body")
+		.animate({
+			left: "50%",
+			top: "50%",
+			"margin-left": -w/2 -20,
+			"margin-top": -h/2 - 20,
+			width: w,
+			height: h,
+			padding: 20
+		})
+		.html( 'Lorem ipsum dolor sit amet, in eripuit corrumpit mea, ei vis facilisis voluptaria. At sea aperiam accusata, quo eius reque prodesset at. Pertinacia adolescens te his, quod wisi mnesarchum ne mea. Diceret commune accommodare vix et. Vidit forensibus at vel, cum in alii erroribus gloriatur. Modus idque no mei, alia minim sadipscing usu an.<br />Convenire reprehendunt in mea. Sit commune placerat et. Ea duo etiam expetendis deterruisset. Ut populo graecis vim.<br /> Summo fastidii eloquentiam in pro. Duo omnesque luptatum ut, no dicant facete intellegebat mel. Mea quando pertinax maluisset ex, eros ponderum assentior ne mei. Eu usu omittam iudicabit.<br /> Everti blandit eu eum. Erat salutatus vix cu, in veri scaevola his, usu placerat verterem ex. Omnes inimicus et nec, est at mutat mucius utamur. Te nostrum salutandi assueverit mea, mundi veritus deseruisse usu ea. Has elit falli omittantur te, an duo legere essent. Pri ea illud reque.' );
+}
+
+function getIcon( text ){
+	var iconToUse = '',
+		defaultIcon = '';
+	
+	_.each( DataVars.icons, function( icon ){
+		if( text == icon.format ) iconToUse = icon['fa-icon'];
+		if( icon.format == "Default" ) defaultIcon = icon['fa-icon'];
+	});
+	
+	if( iconToUse ) return '<i class="fa ' + iconToUse + '"></i>';
+	else return '<i class="fa ' + defaultIcon + '"></i>';
 }

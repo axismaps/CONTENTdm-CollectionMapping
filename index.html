@@ -10,6 +10,9 @@
 		
 		<!-- build:css css/site.css -->
 		<link rel="stylesheet" href="bower_components/leaflet/dist/leaflet.css" />
+		<link rel="stylesheet" href="bower_components/leaflet.markercluster/dist/MarkerCluster.css" />
+		<link rel="stylesheet" href="bower_components/Leaflet.fullscreen/dist/leaflet.fullscreen.css" />
+		
 		<link rel="stylesheet" href="bower_components/fontawesome/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css" />
 		
@@ -21,10 +24,13 @@
 	
 	<body>
 		<div id="topbar">
+			<div id="topbar-picture"></div>
 			<h1>
 				<span class="title">Baptists in Burma: </span><span class="subtitle">Midwestern Missionaries at Home and Abroad</span>
 			</h1>
-			<div id="search"></div>
+			<div id="search">
+				<input class="typeahead" type="text" placeholder="&#xF002; Search..." />
+			</div>
 		</div>
 		
 		<div id="interactive-area">
@@ -99,6 +105,7 @@
 						<h2 id="year"></h2>
 					</div>
 					<div id="timeline-inner"></div>
+					<div id="timeline-shadow"></div>
 				</div>
 				<div id="pulse"></div>
 			</div>
@@ -111,9 +118,11 @@
 		<script src="bower_components/jquery/dist/jquery.js"></script>
 		<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
 		<script src="bower_components/leaflet/dist/leaflet-src.js"></script>
+		<script src="bower_components/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+		<script src="bower_components/Leaflet.fullscreen/dist/Leaflet.fullscreen.js"></script>
 		<script src="bower_components/underscore/underscore-min.js"></script>
 		<script src="bower_components/succinct/jQuery.succinct.min.js"></script>
-		<script src="bower_components/underscore/underscore-min.js"></script>
+		<script src="bower_components/typeahead.js/dist/typeahead.bundle.min.js"></script>
 		<script src="bower_components/papa-parse/papaparse.min.js"></script>
 		
 		<script src="js/sidebar.js"></script>
@@ -121,8 +130,10 @@
 		<script src="js/timeline.js"></script>
 		<script src="js/pulse.js"></script>
 		<script src="js/filter.js"></script>
+		<script src="js/lightbox.js"></script>
+		<script src="js/search.js"></script>
+		<script src="js/report.js"></script>
 		<script src="js/init.js"></script>
 		<!-- endbuild -->
-		
 	</body>
 </html>

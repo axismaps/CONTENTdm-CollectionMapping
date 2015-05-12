@@ -7,7 +7,7 @@ function filter( type ){
 	$( "#tags-button span" ).html( "Tags" );
 		
 	//Default parameters, exit early
-	if( filters.minYear === 0 && filters.maxYear === 9999 && filters.tags.length === 0 && filters.format.length === 0 ) {
+	if( filters.minYear === DataVars.data.minYear && filters.maxYear === DataVars.data.maxYear && filters.tags.length === 0 && filters.format.length === 0 ) {
 		DataVars.filteredData = data;
 	} else {
 	
@@ -18,12 +18,13 @@ function filter( type ){
 		};
 		
 		var filterCount = filters.format.length;
-		if ( filters.minYear !== 0 || filters.maxYear !== 9999 ) filterCount ++;
-		$( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
-		
+
+		if ( filters.minYear !== DataVars.data.minYear || filters.maxYear !== DataVars.data.maxYear ) filterCount ++;
+		if ( filterCount ) $( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
+
 		var tagCount = filters.tags.length;
 		if ( filters.minYear !== 0 || filters.maxYear !== 9999 ) filterCount ++;
-		$( "#tags-button span" ).html( "Tags (" + tagCount + ")" );
+		if ( tagCount ) $( "#tags-button span" ).html( "Tags (" + tagCount + ")" );
 
 		_.each( data.entries, function( v ) {
 			//filters
@@ -48,11 +49,7 @@ function filter( type ){
 	
 	if( type == 'date' ) sortByDate();
 
-	drawTimeline();
-}
-
-function update(){
-	
+	update();
 }
 
 function sortByDate(){
