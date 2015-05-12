@@ -89,8 +89,11 @@ function drawYear( year ){
 
 		$( "a.tag-link", $entry ).click( function(){
 			var name = $(this).html();
-			if( $( '.tag:contains("' + name + '")').length >= 1 ) {
-				$( ".tag:contains('" + name + "')" ).click();
+			var $tags = $( '.tag' ).filter( function() {
+				return $( this ).text() === name;
+			});
+			if( $tags.length >= 1 ) {
+				$tags.click();
 			} else{
 				createTempTag( name );
 			}
