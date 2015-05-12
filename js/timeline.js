@@ -202,16 +202,20 @@ function drawChronology(){
 		_.each( AppVars.years, function(y, index){
 			
 			if( startYear > y && endYear <  AppVars.years[index+1] ){
-				var $div = $( "<div>" )
-					.attr( "class", "timeline-year" )
-					.attr( "id", "year" + startYear )
-					.insertAfter( "#year" + y )
-					.click( function(){
-						if ( !$(this).hasClass( "active" ) ) selectYear( startYear );
-					})
+				if( $( '#year' + startYear ).length == 0 ){
+					var $div = $( "<div>" )
+						.attr( "class", "timeline-year" )
+						.attr( "id", "year" + startYear )
+						.insertAfter( "#year" + y )
+						.click( function(){
+							if ( !$(this).hasClass( "active" ) ) selectYear( startYear );
+						})
+				}
+					
+				var date = startYear !== endYear ? startYear + '-' + endYear : startYear;
 				$( "<div class='chronology timeline-entry'>" )
 					.attr( "id", "chronology" + startYear )
-					.html( '<i class="fa fa-clock-o"></i>' )
+					.html( '<i class="fa fa-clock-o"></i><span>' + date + '</span> | ' )
 					.click( function(){
 						if ( !$(this).hasClass( "active" ) ){
 							selectYear( startYear );

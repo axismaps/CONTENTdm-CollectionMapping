@@ -649,9 +649,10 @@ h1 span.subtitle{
 	cursor: pointer;
 	height: auto;
 }
-.chronology.active{
+.timeline-year.active .chronology{
 	background-color: #b2262e;
 }
+
 .chronology i{
 }
 .chronology span{
