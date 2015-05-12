@@ -8,6 +8,7 @@ h1{
 	font-weight: normal;
 	line-height: 75px;
 	font-size: 30px;
+	vertical-align: top;
 }
 
 .italic {
@@ -44,13 +45,13 @@ h1 span.subtitle{
 
 /* Search */
 #search {
-	margin: 0 25px;
+	margin: 0 25px 0 0;
 	padding-top: 15px;
 }
 
 #search input{
 	padding: 10px;
-	width: 300px;
+	width: 250px;
 	font-family: Oswald, FontAwesome, sans-serif;
 }
 
