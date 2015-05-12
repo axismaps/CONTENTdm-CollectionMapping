@@ -205,11 +205,11 @@ function drawChronology(){
 			if ( y < startYear || y > endYear ) return;
 			var $year = $( "#year" + y );
 			if ( !$( "#chronology" + y ).length ){
-				$( "<div class='chronology'>" )
+				$( "<div class='chronology timeline-entry'>" )
 					.attr( "id", "chronology" + y )
-					.css({
-						left: ($year.index() + 1) * $year.outerWidth()
-					})
+					// .css({
+						// left: ($year.index() + 1) * $year.outerWidth()
+					// })
 					.html( '<i class="fa fa-clock-o"></i>' )
 					.click( function(){
 						if ( !$(this).hasClass( "active" ) ){
@@ -217,11 +217,14 @@ function drawChronology(){
 							return;
 						}
 					})
-					.appendTo( "#timeline-inner" );
+					.prependTo( "#year" + y );
 			}
-			$( "<div class='chronology-content'>" )
-				.html( "<p>" + d.start + ( d.end ? ( "–" + d.end ) : "" ) + "</p>" + "<p>" + d.text + "</p>" )
+			$( "<span />" )
+				.html( d.text )
 				.appendTo( $( "#chronology" + y ) );
+				
+			// Code for date	
+			// "<p>" + d.start + ( d.end ? ( "–" + d.end ) : "" ) + "</p>"
 		});
 	});
 }

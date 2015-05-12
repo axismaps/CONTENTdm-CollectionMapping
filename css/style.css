@@ -639,52 +639,38 @@ h1 span.subtitle{
 	border: 2px solid #fff;
 	z-index: 100 !important;
 }
+
+/* Chronology */
+
 .chronology{
-	position: absolute;
-	bottom: 0;
-	width: 50px;
-	height: 30px;
-	text-align: center;
+	padding: 15px;
 	color: white;
-	background-color: #872c31;	
-	margin-left: -50px;
+	background-color: #872c31;
 	cursor: pointer;
-	transition: width 0.5s, margin 0.5s, height 0.5s;
-	overflow: hidden;
+	height: auto;
 }
 .chronology.active{
 	background-color: #b2262e;
 }
-.chronology-content{
-	display: none;
-	margin-left: 50px;
+.chronology i{
 }
-.chronology-content p{
+.chronology span{
 	margin: 5px;
 	text-align: left;
 	white-space: normal;
 	width: 340px;
 }
-.chronology-content p:first-child{
+.chronology span{
 	font-weight: bold;
-	margin-top: 10px;
 }
 .chronology.active:hover, .chronology.expanded{
-	width: 400px;
-	margin-left: -400px;
-	height: auto;
+
 }
 .chronology.active:hover .chronology-content, .chronology.expanded .chronology-content{
-	display: block;
-}
-.chronology i{
-	line-height: 30px;
+
 }
 .chronology.active:hover i, .chronology.expanded i{
-	display: block;
-	float: left;
-	width: 50px;
-	height: 30px;
+
 }
 
 /* Lightbox */
