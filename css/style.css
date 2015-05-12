@@ -512,7 +512,7 @@ h1 span.subtitle{
 	transition: height .5s;
 }
 .timeline-entry.expanded{
-	overflow: auto;
+	overflow-y: auto;
 }
 
 .timeline-entry > div{

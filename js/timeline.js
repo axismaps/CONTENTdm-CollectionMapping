@@ -30,7 +30,7 @@ function drawTimeline(){
 function expandEntry( $entry ){
 	var totalHeight = $("#timeline-inner").height();
 	$entry.addClass( "expanded" )
-		.css( "height", Math.max( 500, totalHeight - $entry.siblings().length * 51 )  + "px");
+		.css( "height", Math.max( 400, totalHeight - $entry.siblings().length * 51 )  + "px");
 }
 
 function drawYear( year ){
