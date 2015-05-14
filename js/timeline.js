@@ -251,7 +251,7 @@ function drawChronology(){
 				
 				//once bug is figured out, uncomment
 				$( '<div class="chrono-entries">' )
-					.appendTo( '.chronology', $year)
+					.appendTo( $( '.chronology', $year) )
 					.append( $firstChrono );
 			}
 			
