@@ -655,6 +655,9 @@ h1 span.subtitle{
 	margin: 0;
 	cursor: pointer;
 }
+.chrono-title i{
+	float: right;
+}
 .chrono-entries{
 	padding-top: 5px;
 	display: none;

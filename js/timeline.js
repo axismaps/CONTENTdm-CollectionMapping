@@ -229,12 +229,13 @@ function drawChronology(){
 			
 			//second chrono entry setup
 			if( $( '.chrono-entry', $year ).length === 1 ){
-				$( '<span class="chrono-title">' )
+				$( '<p class="chrono-title">' )
 					.prependTo( $('.chronology', $year ) )
-					.text( 'Events leading up to ' + chronoYear )
+					.html( '<span>Events leading up to ' + chronoYear + '</span><i class="fa fa-chevron-right"></i>')
 					.on('click', function(){
 						if( $( this ).parent().parent().hasClass( 'active' ) ){
 							$( '.chrono-entries', $year ).slideToggle();
+							$( '.chrono-title i', $year ).toggleClass( 'fa-chevron-right fa-chevron-down' );
 						}
 					});
 				
