@@ -13,7 +13,7 @@ function lightboxEntry( $entry, data ){
 			height: 270
 		});
 	}
-	$( ".entry-title", $div ).prependTo( $(".text-container", $div) );
+	$( '<h4 />' ).text( $( ".entry-title", $div ).text() ).prependTo( $(".text-container", $div) );
 	
 	function loadFullImage(){
 		if ( pdf ) return;
@@ -143,6 +143,20 @@ function startLightbox( $content, data, callback ){
 	});
 	//Only remove text in the accordion section (i.e. doesn't affect timeline entries)
 	$div.find( 'p.accordion-text' ).text( '' ).append( '<span>' + data.Description + '</span>' );
+	
+	//Turn subject entries into unordered list
+	$( '<ul class="tag-list" />' ).insertAfter( $( '.tag-header:first strong', $div ) );
+	$div.find( '.text-container p.tag-header:first a' ).each(function(){
+		$( '<li />' ).append( this ).appendTo( $( '.tag-list:first', $div ) );
+	});
+	$( '.tag-header:first', $div ).contents().filter(function(){ return this.nodeType === 3; }).remove(); //removes text nodes
+	
+	//Turn location entries into unordered list
+	$( '<ul class="tag-list" />' ).insertAfter( $( '.tag-header:last strong', $div ) );
+	$div.find( '.text-container p.tag-header:last a' ).each(function(){
+		$( '<li />' ).append( this ).appendTo( $( '.tag-list:last', $div ) );
+	});
+	$( '.tag-header:last', $div ).contents().filter(function(){ return this.nodeType === 3; }).remove(); //removes text nodes
 	
 	$( $div ).prepend( '<div class="lightbox-close"><i class="fa fa-times"></i></div>' );
 	$( '.lightbox-close', $div ).on( 'click', function(){ $( ".lightbox" ).remove(); });

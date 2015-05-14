@@ -731,6 +731,10 @@ h1 span.subtitle{
 }
 .lightbox h4{
 	clear: both;
+	font-size: 18px;
+}
+.lightbox .text-container h4{
+	margin-left: 15px;
 }
 .lightbox .button{
 	float: left !important;
@@ -759,6 +763,9 @@ h1 span.subtitle{
 	color: black;
 	text-shadow: none;
 	width: auto;
+}
+.lightbox .text-container ul{
+	margin-top: 0;
 }
 .lightbox a{
 	color: #0061b3;

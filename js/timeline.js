@@ -66,7 +66,7 @@ function drawYear( year ){
 			.appendTo( $entry );
 		_.each( DataVars.data.headers, function(header,prop){
 			if ( !header.tag || !d[prop] ) return;
-			$textContainer.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
+			$textContainer.append( "<p class='tag-header'><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
 		});
 		
 		var foundStudentReport = false,
