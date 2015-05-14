@@ -231,16 +231,18 @@ function drawChronology(){
 			if( $( '.chrono-entry', $year ).length === 1 ){
 				$( '<p class="chrono-title">' )
 					.prependTo( $('.chronology', $year ) )
-					.html( '<span>Events leading up to ' + chronoYear + '</span><i class="fa fa-chevron-right"></i>')
+					.html( '<i class="fa fa-clock-o"></i><span>Events leading up to ' + chronoYear + '</span><i class="fa fa-chevron-right"></i>')
 					.on('click', function(){
 						if( $( this ).parent().parent().hasClass( 'active' ) ){
 							$( '.chrono-entries', $year ).slideToggle();
-							$( '.chrono-title i', $year ).toggleClass( 'fa-chevron-right fa-chevron-down' );
+							$( '.chrono-title i', $year ).eq(1).toggleClass( 'fa-chevron-right fa-chevron-down' );
 						}
 					});
 				
 				var $firstChrono = $( '.chrono-entry', $year ).clone();
 				$( '.chrono-entry', $year ).remove();
+
+				$( '.fa-clock-o', $firstChrono ).remove();
 				
 				$( '<div class="chrono-entries">' )
 					.appendTo( $( '.chronology', $year) )
@@ -249,7 +251,7 @@ function drawChronology(){
 			
 			//subsequent chrono entries
 			$( "<div class='chrono-entry'>" )
-					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
+					.html( '<span>' + textDate + '</span> | '  )
 					.appendTo( $( '.chrono-entries', $year ) )
 					.append( '<span>' + d.text + '</span>' );
 			
