@@ -47,12 +47,33 @@ h1 span.subtitle{
 #search {
 	margin: 0 25px 0 0;
 	padding-top: 15px;
+	position: relative;
 }
 
 #search input{
 	padding: 10px;
 	width: 250px;
 	font-family: Oswald, FontAwesome, sans-serif;
+}
+
+#search #search-clear{
+	position: absolute;
+	right: 5px;
+	top: 25px;
+	height: 20px;
+	width: 20px;
+	line-height: 20px;
+	text-align: center;
+	color: #aaa;
+	cursor: pointer;
+	background-color: #fff;
+	padding: 2px;
+	
+	display: none;
+}
+
+#search #search-clear:hover{
+	color: #000;
 }
 
 .tt-dropdown-menu {

@@ -8,8 +8,18 @@ function initSearch(){
 		templates: { 'empty': noResults, 'suggestion': renderSuggestion }
 	});
 	
+	$( '.typeahead' ).on( 'keypress', function( ){
+		$( '#search-clear' ).show();
+	});
+	
 	$( '.typeahead' ).on( 'typeahead:selected', function( e, suggestion ){
 		displayResults( suggestion );
+	});
+	
+	$( '#search-clear' ).on( 'click', function(){
+		$( '#search .typeahead' ).typeahead( 'val', '' );
+		$( '#search .typeahead' ).focus();
+		$( this ).hide();
 	});
 }
 
