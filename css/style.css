@@ -657,6 +657,24 @@ h1 span.subtitle{
 	left: 0;
 	background-color: rgba(0,0,0,.75) !important;
 }
+
+.lightbox-close{
+	position: absolute;
+	top: 5px;
+	right: 5px;
+	font-size: 18px;
+	color: #ccc;
+	height: 18px;
+	width: 18px;
+	font-height: 18px;
+	text-align: center;
+	padding: 5px;
+	cursor: pointer;
+}
+.lightbox-close:hover{
+	color: #999;
+}
+
 .lightbox > div.text-container p:first-child{
 	margin-top: 0;
 }

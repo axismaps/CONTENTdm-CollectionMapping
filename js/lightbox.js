@@ -14,6 +14,7 @@ function lightboxEntry( $entry, data ){
 		});
 	}
 	$( ".entry-title", $div ).prependTo( $(".text-container", $div) );
+	
 	function loadFullImage(){
 		if ( pdf ) return;
 		else if ( data.filetype == "pdf" ){
@@ -142,6 +143,9 @@ function startLightbox( $content, data, callback ){
 	});
 	//Only remove text in the accordion section (i.e. doesn't affect timeline entries)
 	$div.find( 'p.accordion-text' ).text( '' ).append( '<span>' + data.Description + '</span>' );
+	
+	$( $div ).prepend( '<div class="lightbox-close"><i class="fa fa-times"></i></div>' );
+	$( '.lightbox-close', $div ).on( 'click', function(){ $( ".lightbox" ).remove(); });
 	
 	$( ".image-expand", $div ).remove();
 	return $div;
