@@ -125,16 +125,18 @@ function selectYear( year, noAutoScroll, noImages ){
 	if ( noImages ) return;
 	loadTimelineImages( year );	// load selected year images before surrounding years
 	
-	selectPoint( $( '.timeline-year.active .timeline-entry:first-child' ).attr( 'id' ).replace( 'entry', '' ) );
+	selectPoint( $( '.timeline-year.active .db-entry:first' ).attr( 'id' ).replace( 'entry', '' ) );
 }
 
 function advanceTimeline(){
 	if ( AppVars.selectedYear == undefined ) return;
+	if ( $( '.timeline-year.active' ).next().length == 0 ) return;
 	selectYear( $( '.timeline-year.active' ).next().attr( 'id').slice(-4) );
 }
 
 function rewindTimeline(){
 	if ( AppVars.selectedYear == undefined ) return;
+	if ( $( '.timeline-year.active' ).prev().length == 0 ) return;
 	selectYear( $( '.timeline-year.active' ).prev().attr( 'id').slice(-4) );
 }
 
@@ -197,27 +199,28 @@ function getTagLinks( tag ){
 function drawChronology(){
 	if ( !DataVars.chronologyData.length || !AppVars.years || !AppVars.years.length ) return;
 	_.each( DataVars.chronologyData, function(d){
-		var startYear = d.start.match(/\d{4}/)[0],
+		var startYear = parseInt( d.start.match(/\d{4}/)[0] ),
 			endYear = d.end ? d.end.match(/\d{4}/)[0] : startYear;
-		var date = startYear !== endYear ? startYear + '-' + endYear : startYear;
-		_.each( AppVars.years, function(y, index){
 			
-			if( startYear > y && endYear <  AppVars.years[index+1] ){
-				//determine whether a new year is needed or whether it can be added to a previously existing chrono-specific year
-				var chronoYear = $( '#year' + y ).next().find( '.db-entry' ).length > 0 ? startYear : $( '#year' + y ).next().attr( 'id').slice(-4);
-				
-				if( $( '#year' + chronoYear ).length == 0 ){
-					var $div = $( "<div>" )
-						.attr( "class", "timeline-year" )
-						.attr( "id", "year" + chronoYear )
-						.insertAfter( "#year" + y )
-						.click( function(){
-							if ( !$(this).hasClass( "active" ) ) selectYear( chronoYear );
-						})
-				}
-					
+		var textDate = startYear !== endYear ? startYear + '-' + endYear : startYear;
+		
+		_.each( AppVars.years, function(y, index){
+			if( y < startYear ) {
+				return; 
+			} else if (index == 0) {
+				var chronoYear = y;
+			} else if( y == startYear ){
+				var chronoYear = startYear;
+			} else if( y > startYear && AppVars.years[index-1] < startYear ){
+				var chronoYear = y;
+			} else {
+				return;
+			}
+			
+			var $year = $( "#year" + chronoYear );
+			if ( !$( "#chronology" + chronoYear ).length ){
 				$chrono = $( "<div class='chronology timeline-entry'>" )
-					.html( '<i class="fa fa-clock-o"></i><span>' + date + '</span> | ' )
+					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
 					.click( function(){
 						if ( !$(this).hasClass( "active" ) ){
 							selectYear( chronoYear );
@@ -230,27 +233,6 @@ function drawChronology(){
 					$( '#year' + chronoYear + ' .chronology').last().after( $chrono );
 				} else {
 					$( '#year' + chronoYear ).prepend( $chrono );
-				}
-			}
-			
-			if ( y < startYear || y > endYear ) return;
-			
-			var $year = $( "#year" + y );
-			if ( !$( "#chronology" + y ).length ){
-				$chrono = $( "<div class='chronology timeline-entry'>" )
-					.html( '<i class="fa fa-clock-o"></i><span>' + date + '</span> | '  )
-					.click( function(){
-						if ( !$(this).hasClass( "active" ) ){
-							selectYear( y );
-							return;
-						}
-					})
-					.append( '<span>' + d.text + '</span>' );
-					
-				if( $( '#year' + y + ' .chronology').length > 0 ){
-					$( '#year' + y + ' .chronology').last().after( $chrono );
-				} else {
-					$( '#year' + y ).prepend( $chrono );
 				}
 			}
 				
