@@ -12,6 +12,7 @@
     "succinct": "~1.1.0",
     "underscore": "~1.7.0",
     "typeahead.js": "~0.10.5",
-    "papa-parse": "~4.1.0"
+    "papa-parse": "~4.1.0",
+    "jqueryui-touch-punch": "*"
   }
 }
