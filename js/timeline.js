@@ -112,11 +112,8 @@ function selectYear( year, noAutoScroll, noImages ){
 	if ( year == undefined || !$( "#year" + year).length ) return;
 	$( ".timeline-year.active" ).removeClass( "active" );
 	$( ".pulse-circle.active" ).removeClass( "active" );
-	$( ".chronology.active" ).removeClass( "active" );
 	$( "#year" + year).addClass( "active" );
 	$( ".p" + year).addClass( "active" );
-	$( "#chronology" + year )
-		.addClass( "active expanded" );
 	$( "#year" ).html( year );
 
 	AppVars.selectedYear = year;
@@ -217,27 +214,74 @@ function drawChronology(){
 				return;
 			}
 			
-			var $year = $( "#year" + chronoYear );
-			if ( !$( "#chronology" + chronoYear ).length ){
-				$chrono = $( "<div class='chronology timeline-entry'>" )
+			var $year = $( '#year' + chronoYear );
+			
+			console.log( y, chronoYear );
+			
+			//first chrono entry
+			if( $( '.chronology', $year ).length == 0 ){
+				$( '<div class="chronology">' )
+					.prependTo( $year );
+				$( "<div class='chrono-entry'>" )
 					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
-					.click( function(){
-						if ( !$(this).hasClass( "active" ) ){
-							selectYear( chronoYear );
-							return;
-						}
-					})
+					.appendTo( $( '.chronology', $year ) )
 					.append( '<span>' + d.text + '</span>' );
-					
-				if( $( '#year' + chronoYear + ' .chronology').length > 0 ){
-					$( '#year' + chronoYear + ' .chronology').last().after( $chrono );
-				} else {
-					$( '#year' + chronoYear ).prepend( $chrono );
-				}
+				return;
 			}
+			
+			//second chrono entry setup
+			// console.log( $( '.chrono-entry', $year ).length);
+			if( $( '.chrono-entry', $year ).length === 1 ){
+				console.log( 'need to refactor entry system' );
+				$( '<span class="chrono-title">' )
+					.prependTo( $('.chronology', $year ) )
+					.text( 'Events leading up to ' + chronoYear )
+					.on('click', function(){
+						if( $( this ).parent().hasClass( 'active' ) ){
+							$( '.chrono-entries', $year ).slideToggle();
+						}
+					});
 				
-			// Code for date	
-			// "<p>" + d.start + ( d.end ? ( "–" + d.end ) : "" ) + "</p>"
+				var $firstChrono = $( '.chrono-entry', $year ).clone();
+				$( '.chrono-entry', $year ).remove();
+				
+				$( '.chronology' ).append( $firstChrono ); //once bug is figured out, comment this out
+				
+				
+				//once bug is figured out, uncomment
+				// $( '<div class="chrono-entries">' )
+					// .appendTo( '.chronology', $year)
+					// .append( $firstChrono );
+			}
+			
+			//subsequent chrono entries
+			$chrono = $( "<div class='chrono-entry'>" )
+					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
+					.appendTo( $( '.chronology', $year ) ) //should appendTo '.chrono-entries'
+					.append( '<span>' + d.text + '</span>' );
+			console.log( 'added entry' );
+					
+			
+					
+					//---------------------------------//
+			
+			// $chrono = $( "<div class='chronology timeline-entry'>" )
+				// .html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
+				// .click( function(){
+					// if ( !$(this).hasClass( "active" ) ){
+						// selectYear( chronoYear );
+						// return;
+					// }
+					// expandEntry( $( this ).parent() );
+				// })
+				// .append( '<span>' + d.text + '</span>' );
+				
+			// if( $( '#year' + chronoYear + ' .chronology').length > 0 ){
+				// $( '#year' + chronoYear + ' .chronology').last().after( $chrono );
+			// } else {
+				// $( '#year' + chronoYear ).prepend( $chrono );
+			// }
+			
 		});
 	});
 }

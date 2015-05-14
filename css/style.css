@@ -652,10 +652,21 @@ h1 span.subtitle{
 .timeline-year.active .chronology{
 	background-color: #b2262e;
 }
-
-.chronology i{
+.chrono-title{
+	margin: 0;
 }
-.chronology span{
+.chrono-entries{
+	padding-top: 5px;
+}
+.chrono-entry{
+	margin: 5px 0 5px 10px;
+}
+.chrono-entry i{
+	width: 14px;
+	text-align: center;
+}
+
+.chrono-entry span{
 	margin: 5px;
 	text-align: left;
 	white-space: normal;
@@ -663,15 +674,6 @@ h1 span.subtitle{
 }
 .chronology span{
 	font-weight: bold;
-}
-.chronology.active:hover, .chronology.expanded{
-
-}
-.chronology.active:hover .chronology-content, .chronology.expanded .chronology-content{
-
-}
-.chronology.active:hover i, .chronology.expanded i{
-
 }
 
 /* Lightbox */
