@@ -220,10 +220,11 @@ function drawChronology(){
 			
 			//first chrono entry
 			if( $( '.chronology', $year ).length == 0 ){
+				console.log( 'adding a new chronology at year ' + chronoYear );
 				$( '<div class="chronology">' )
 					.prependTo( $year );
 				$( "<div class='chrono-entry'>" )
-					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
+					.html( '<i class="fa fa-clock-o"></i><span>Should only be the first one - ' + textDate + '</span> | '  )
 					.appendTo( $( '.chronology', $year ) )
 					.append( '<span>' + d.text + '</span>' );
 				return;
@@ -255,11 +256,11 @@ function drawChronology(){
 			}
 			
 			//subsequent chrono entries
-			$chrono = $( "<div class='chrono-entry'>" )
+			$( "<div class='chrono-entry'>" )
 					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
 					.appendTo( $( '.chrono-entries', $year ) ) //should appendTo '.chrono-entries'
 					.append( '<span>' + d.text + '</span>' );
-			// console.log( 'added entry' );
+			console.log( 'added entry' );
 					
 			
 					
