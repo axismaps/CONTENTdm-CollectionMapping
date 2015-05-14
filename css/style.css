@@ -646,7 +646,6 @@ h1 span.subtitle{
 	padding: 15px;
 	color: white;
 	background-color: #872c31;
-	cursor: pointer;
 	height: auto;
 }
 .timeline-year.active .chronology{
@@ -654,9 +653,11 @@ h1 span.subtitle{
 }
 .chrono-title{
 	margin: 0;
+	cursor: pointer;
 }
 .chrono-entries{
 	padding-top: 5px;
+	display: none;
 }
 .chrono-entry{
 	margin: 5px 0 5px 10px;
