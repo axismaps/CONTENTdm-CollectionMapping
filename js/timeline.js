@@ -245,21 +245,21 @@ function drawChronology(){
 				var $firstChrono = $( '.chrono-entry', $year ).clone();
 				$( '.chrono-entry', $year ).remove();
 				
-				$( '.chronology' ).append( $firstChrono ); //once bug is figured out, comment this out
+				// $( '.chronology', $year).append( $firstChrono ); //once bug is figured out, comment this out
 				
 				
 				//once bug is figured out, uncomment
-				// $( '<div class="chrono-entries">' )
-					// .appendTo( '.chronology', $year)
-					// .append( $firstChrono );
+				$( '<div class="chrono-entries">' )
+					.appendTo( '.chronology', $year)
+					.append( $firstChrono );
 			}
 			
 			//subsequent chrono entries
 			$chrono = $( "<div class='chrono-entry'>" )
 					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
-					.appendTo( $( '.chronology', $year ) ) //should appendTo '.chrono-entries'
+					.appendTo( $( '.chrono-entries', $year ) ) //should appendTo '.chrono-entries'
 					.append( '<span>' + d.text + '</span>' );
-			console.log( 'added entry' );
+			// console.log( 'added entry' );
 					
 			
 					
