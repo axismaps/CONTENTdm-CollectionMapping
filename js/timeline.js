@@ -13,7 +13,20 @@ function drawTimeline(){
 
 	drawPulse();
 	drawChronology();
-	selectYear( AppVars.years[0] );
+	
+	if( $( '#year' + AppVars.selectedYear).is( ':visible' ) ){
+		selectYear( AppVars.selectedYear );
+	} else {
+		//select year closest
+		var closest = 0;
+		$( '.timeline-year' ).each(function(i,v){
+			var tyear = parseInt( $( this ).attr( 'id' ).slice( -4 ) );
+			if( Math.abs( AppVars.selectedYear - tyear ) < Math.abs( AppVars.selectedYear - closest ) ) {
+				closest = tyear;
+			}
+		});
+		selectYear( closest );
+	}
 
 	$( ".entry-title" ).click( function(){
 		var $entry = $(this).parent().parent(),
