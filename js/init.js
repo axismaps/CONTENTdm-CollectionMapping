@@ -42,6 +42,7 @@ function init() {
 	drawTimeline();
 	initMap();
 	drawPoints();
+	selectYear( DataVars.data.minYear );
 }
 
 function initEvents(){

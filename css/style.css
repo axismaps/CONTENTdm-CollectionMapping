@@ -515,6 +515,13 @@ h1 span.subtitle{
 	overflow: hidden;
 }
 
+.timeline-year.show-year{
+	display: inline-block;
+}
+.timeline-year.hide-year{
+	display: none;
+}
+
 .timeline-year.active{
 	opacity: 1;
 	overflow: auto;

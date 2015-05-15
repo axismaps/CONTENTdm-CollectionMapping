@@ -23,20 +23,6 @@ function drawTimeline(){
 
 	drawPulse();
 	drawChronology();
-	
-	// if( $( '#year' + AppVars.selectedYear).is( ':visible' ) ){
-		// selectYear( AppVars.selectedYear );
-	// } else {
-		// select year closest
-		// var closest = 0;
-		// $( '.timeline-year' ).each(function(i,v){
-			// var tyear = parseInt( $( this ).attr( 'id' ).slice( -4 ) );
-			// if( Math.abs( AppVars.selectedYear - tyear ) < Math.abs( AppVars.selectedYear - closest ) ) {
-				// closest = tyear;
-			// }
-		// });
-		// selectYear( closest );
-	// }
 
 	$( ".entry-title" ).click( function(){
 		var $entry = $(this).parent().parent(),
@@ -61,6 +47,7 @@ function drawYear( year ){
 	var $div = $( "<div>" )
 		.attr( "class", "timeline-year" )
 		.attr( "id", "year" + year )
+		.addClass( 'hide-year' )
 		.appendTo( "#timeline-inner" )
 		.click( function(){
 			if ( !$(this).hasClass( "active" ) ) selectYear( year );
@@ -141,6 +128,14 @@ function selectYear( year, noAutoScroll, noImages ){
 	$( "#year" + year).addClass( "active" );
 	$( ".p" + year).addClass( "active" );
 	$( "#year" ).html( year );
+	
+	$( '.timeline-year:visible' ).toggleClass( 'show-year hide-year' );
+	
+	$( '.timeline-year.active' ).prev().prev().toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).prev().toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).next().toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).next().next().toggleClass( 'show-year hide-year' );
 
 	AppVars.selectedYear = year;
 	if ( !noAutoScroll ) recenterTimeline();
