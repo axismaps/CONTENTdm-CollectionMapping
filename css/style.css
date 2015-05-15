@@ -566,11 +566,8 @@ h1 span.subtitle{
 	top: 0;
 }
 .timeline-entry p.entry-title{
-	width: 370px;
+	width: auto;
 	color: white;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	cursor: pointer;
 	text-shadow: 1px 1px rgba(0,0,0,.5);
 	font-weight: bold;
