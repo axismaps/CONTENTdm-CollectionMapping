@@ -5,28 +5,38 @@ function drawTimeline(){
 	var allYears = _.map( DataVars.filteredData.entries, function(d){ return d.date.year } );
 
 	AppVars.years = _.uniq( _.reject( allYears, function(d){ return !d } ) );
-
+	
 	$("#timeline-inner").empty();
+	var closestYear = 0,
+		goalYear = AppVars.selectedYear;
 	for( var i in AppVars.years ){
 		drawYear( AppVars.years[i] );
+		
+		if( AppVars.years[i] == goalYear ) {
+			selectYear( goalYear );
+			closestYear = goalYear;
+		} else if( Math.abs( goalYear - AppVars.years[i] ) < Math.abs( goalYear - closestYear ) ) {
+			closestYear = AppVars.years[i];
+			selectYear( closestYear );
+		}
 	}
 
 	drawPulse();
 	drawChronology();
 	
-	if( $( '#year' + AppVars.selectedYear).is( ':visible' ) ){
-		selectYear( AppVars.selectedYear );
-	} else {
-		//select year closest
-		var closest = 0;
-		$( '.timeline-year' ).each(function(i,v){
-			var tyear = parseInt( $( this ).attr( 'id' ).slice( -4 ) );
-			if( Math.abs( AppVars.selectedYear - tyear ) < Math.abs( AppVars.selectedYear - closest ) ) {
-				closest = tyear;
-			}
-		});
-		selectYear( closest );
-	}
+	// if( $( '#year' + AppVars.selectedYear).is( ':visible' ) ){
+		// selectYear( AppVars.selectedYear );
+	// } else {
+		// select year closest
+		// var closest = 0;
+		// $( '.timeline-year' ).each(function(i,v){
+			// var tyear = parseInt( $( this ).attr( 'id' ).slice( -4 ) );
+			// if( Math.abs( AppVars.selectedYear - tyear ) < Math.abs( AppVars.selectedYear - closest ) ) {
+				// closest = tyear;
+			// }
+		// });
+		// selectYear( closest );
+	// }
 
 	$( ".entry-title" ).click( function(){
 		var $entry = $(this).parent().parent(),
