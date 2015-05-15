@@ -457,6 +457,7 @@ h1 span.subtitle{
 }
 #timeline-inner{
 	white-space: nowrap;
+	position: relative;
 	width: 100%;
 	overflow: auto;
 	-webkit-overflow-scrolling: touch;
@@ -637,6 +638,54 @@ h1 span.subtitle{
 	background-color: rgba(178,38,46,.5);
 	border: 2px solid #fff;
 	z-index: 100 !important;
+}
+
+/* Chronology */
+
+.chronology{
+	padding: 15px;
+	color: white;
+	background-color: #872c31;
+	height: auto;
+}
+.timeline-year.active .chronology{
+	background-color: #b2262e;
+}
+.chronology .fa-clock-o{
+	margin-right: 5px;
+}
+.chrono-title{
+	margin: 0;
+	cursor: pointer;
+}
+.chrono-title i{
+	float: right;
+}
+.chrono-title i.fa-clock-o{
+	float: left;
+}
+.chrono-entries{
+	padding-top: 5px;
+	display: none;
+}
+.chrono-entry{
+	margin: 5px 0 5px 10px;
+}
+.chrono-entries .chrono-entry{
+	margin-left: 18px;
+}
+.chrono-entry i{
+	width: 14px;
+	text-align: center;
+}
+
+.chrono-entry span{
+	text-align: left;
+	white-space: normal;
+	width: 340px;
+}
+.chronology span{
+	font-weight: bold;
 }
 
 /* Lightbox */
