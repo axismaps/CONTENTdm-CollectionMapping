@@ -13,13 +13,12 @@ function drawTimeline(){
 		drawYear( AppVars.years[i] );
 		
 		if( AppVars.years[i] == goalYear ) {
-			selectYear( goalYear );
 			closestYear = goalYear;
 		} else if( Math.abs( goalYear - AppVars.years[i] ) < Math.abs( goalYear - closestYear ) ) {
 			closestYear = AppVars.years[i];
-			selectYear( closestYear );
 		}
 	}
+	selectYear( closestYear );
 
 	drawPulse();
 	drawChronology();
