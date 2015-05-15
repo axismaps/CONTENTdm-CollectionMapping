@@ -517,9 +517,10 @@ h1 span.subtitle{
 
 .timeline-year.show-year{
 	display: inline-block;
+	visibility: visible;
 }
 .timeline-year.hide-year{
-	display: none;
+	visibility: hidden;
 }
 
 .timeline-year.active{

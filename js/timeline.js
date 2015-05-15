@@ -129,7 +129,7 @@ function selectYear( year, noAutoScroll, noImages ){
 	$( ".p" + year).addClass( "active" );
 	$( "#year" ).html( year );
 	
-	$( '.timeline-year:visible' ).toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.show-year' ).toggleClass( 'show-year hide-year' );
 	
 	$( '.timeline-year.active' ).prev().prev().toggleClass( 'show-year hide-year' );
 	$( '.timeline-year.active' ).prev().toggleClass( 'show-year hide-year' );
