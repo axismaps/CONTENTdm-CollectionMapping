@@ -685,6 +685,7 @@ h1 span.subtitle{
 }
 .chrono-title i.fa-clock-o{
 	float: left;
+	padding-left: 5px;
 }
 .chrono-entries{
 	padding-top: 5px;
