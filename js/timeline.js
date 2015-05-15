@@ -12,6 +12,7 @@ function drawTimeline(){
 	}
 
 	drawPulse();
+	drawChronology();
 	selectYear( AppVars.years[0] );
 
 	$( ".entry-title" ).click( function(){
@@ -46,7 +47,7 @@ function drawYear( year ){
 		return d.date.year == year;
 	});
 	_.each( entries, function(d,i){
-		var $entry = $( "<div class='timeline-entry e" + i + "' id='entry" + d.pointer + "'>" );
+		var $entry = $( "<div class='timeline-entry e" + i + " db-entry' id='entry" + d.pointer + "'>" );
 		var $imageContainer = $( "<div class='image-container'>" )
 			.appendTo( $entry );
 		$( "<img>" )
@@ -112,7 +113,6 @@ function drawYear( year ){
 
 function selectYear( year, noAutoScroll, noImages ){
 	if ( year == undefined || !$( "#year" + year).length ) return;
-	AppVars.selectedYearIndex = AppVars.years.indexOf( year );
 	$( ".timeline-year.active" ).removeClass( "active" );
 	$( ".pulse-circle.active" ).removeClass( "active" );
 	$( "#year" + year).addClass( "active" );
@@ -125,17 +125,19 @@ function selectYear( year, noAutoScroll, noImages ){
 	if ( noImages ) return;
 	loadTimelineImages( year );	// load selected year images before surrounding years
 	
-	selectPoint( $( '.timeline-year.active .timeline-entry:first-child' ).attr( 'id' ).replace( 'entry', '' ) );
+	selectPoint( $( '.timeline-year.active .db-entry:first' ).attr( 'id' ).replace( 'entry', '' ) );
 }
 
 function advanceTimeline(){
 	if ( AppVars.selectedYear == undefined ) return;
-	selectYear( AppVars.years[ AppVars.selectedYearIndex + 1 ] );
+	if ( $( '.timeline-year.active' ).next().length == 0 ) return;
+	selectYear( $( '.timeline-year.active' ).next().attr( 'id').slice(-4) );
 }
 
 function rewindTimeline(){
 	if ( AppVars.selectedYear == undefined ) return;
-	selectYear( AppVars.years[ AppVars.selectedYearIndex - 1 ] );
+	if ( $( '.timeline-year.active' ).prev().length == 0 ) return;
+	selectYear( $( '.timeline-year.active' ).prev().attr( 'id').slice(-4) );
 }
 
 function recenterTimeline(){
@@ -154,9 +156,11 @@ function timelineScroll(){
 	var left = $( this ).scrollLeft() + $("#timeline").width() / 2,
 		index = parseInt( left / 400 );
 	var year;
-	if ( left == 0 ) year = AppVars.years[0];
-	else if ( Math.abs( left - (AppVars.years.length - $( this ).parent().width()) ) < 10 ) year = AppVars.years[ AppVars.years.length - 1 ];
-	else year = AppVars.years[ index ];
+	
+	if ( left == 0 ) year = $( '.timeline-year' ).first();
+	else if ( Math.abs( left - ($( '.timeline-year' ).length - $( this ).parent().width()) ) < 10 ) year = $( '.timeline-year:nth-of-type(' + $( '.timeline-year' ).length - 1 + ')' );
+	else year = $( '.timeline-year:nth-of-type(' + ( index + 1 ) + ')' ).attr( 'id').slice(-4);
+	
 	clearTimeout( AppVars.scrollTimeout );
 	AppVars.scrollTimeout = setTimeout( timelineScrollStop, 100 );
 	if ( year != AppVars.selectedYear ){
@@ -190,4 +194,70 @@ function getTagLinks( tag ){
 		tag = tag.replace( t, "<a class='tag-link' href='#'>" + t + "</a>" );
 	});
 	return tag;
+}
+
+function drawChronology(){
+	if ( !DataVars.chronologyData.length || !AppVars.years || !AppVars.years.length ) return;
+	_.each( DataVars.chronologyData, function(d){
+		var startYear = parseInt( d.start.match(/\d{4}/)[0] ),
+			endYear = d.end ? d.end.match(/\d{4}/)[0] : startYear;
+			
+		var textDate = startYear !== endYear ? startYear + '-' + endYear : startYear;
+		
+		_.each( AppVars.years, function(y, index){
+			if( y < startYear ) {
+				return; 
+			} else if (index == 0) {
+				var chronoYear = y;
+			} else if( y == startYear ){
+				var chronoYear = startYear;
+			} else if( y > startYear && AppVars.years[index-1] < startYear ){
+				var chronoYear = y;
+			} else {
+				return;
+			}
+			
+			var $year = $( '#year' + chronoYear );
+			
+			//first chrono entry
+			if( $( '.chronology', $year ).length == 0 ){
+				$( '<div class="chronology">' )
+					.prependTo( $year );
+				$( "<div class='chrono-entry'>" )
+					.html( '<i class="fa fa-clock-o"></i><span>' + textDate + '</span> | '  )
+					.appendTo( $( '.chronology', $year ) )
+					.append( '<span>' + d.text + '</span>' );
+				return;
+			}
+			
+			//second chrono entry setup
+			if( $( '.chrono-entry', $year ).length === 1 ){
+				$( '<p class="chrono-title">' )
+					.prependTo( $('.chronology', $year ) )
+					.html( '<i class="fa fa-clock-o"></i><span>Events leading up to ' + chronoYear + '</span><i class="fa fa-chevron-right"></i>')
+					.on('click', function(){
+						if( $( this ).parent().parent().hasClass( 'active' ) ){
+							$( '.chrono-entries', $year ).slideToggle();
+							$( '.chrono-title i', $year ).eq(1).toggleClass( 'fa-chevron-right fa-chevron-down' );
+						}
+					});
+				
+				var $firstChrono = $( '.chrono-entry', $year ).clone();
+				$( '.chrono-entry', $year ).remove();
+
+				$( '.fa-clock-o', $firstChrono ).remove();
+				
+				$( '<div class="chrono-entries">' )
+					.appendTo( $( '.chronology', $year) )
+					.append( $firstChrono );
+			}
+			
+			//subsequent chrono entries
+			$( "<div class='chrono-entry'>" )
+					.html( '<span>' + textDate + '</span> | '  )
+					.appendTo( $( '.chrono-entries', $year ) )
+					.append( '<span>' + d.text + '</span>' );
+			
+		});
+	});
 }
