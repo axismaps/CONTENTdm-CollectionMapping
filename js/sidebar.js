@@ -119,8 +119,8 @@ function initFilters(){
 	$( '#format' ).append( '<div class="line"><span class="h4-title">Format</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#format .clear-text' ).on( 'click', function() {
-		$( '#format .format-paragraph.selected' ).remove();
-		$( '.format-paragraph' ).not( ':visible' ).show();
+		$( '#format p.selected' ).remove();
+		$( '#format p' ).not( ':visible' ).show();
 		DataVars.filters.format = [];
 		filter();
 	});
@@ -133,14 +133,10 @@ function initFilters(){
 		.appendTo( $( '#format' ) )
 		.on( 'click', function() {
 			
-			console.log( $( this ) );
-			var text = $( this ).innerText,
-				html = $( this ).innerHTML;
+			var text = $( this )[0].innerText,
+				html = $( this )[0].innerHTML;
 				$that = $( this );
-				console.log( text, html );
-			// $( this ).hide();
-			
-			
+			$( this ).hide();
 			
 			DataVars.filters.format.push( text );
 			filter();
@@ -157,22 +153,11 @@ function initFilters(){
 					$( this ).remove();
 				});
 			
-			$( '.format-paragraph.selected' ).sort(function( a, b ){
+			$( '#format p.selected' ).sort(function( a, b ){
 				if( $( a ).find( 'span' ).text() > $( b ).find( 'span' ).text() ) return 1;
 				if( $( b ).find( 'span' ).text() > $( a ).find( 'span' ).text() ) return -1;
 				return 0;
 			}).detach().insertAfter( $that.siblings( '.line' ) );
-			
-			// if( $( this ).hasClass( 'selected' ) ){
-				// $( this ).removeClass( 'selected' );
-				// DataVars.filters.format = _.without( DataVars.filters.format, text );
-				// filter();
-			// } else {
-				// $( this ).append( "<i class='fa fa-check'></i>" );
-				// $( this ).addClass( 'selected' );
-				// DataVars.filters.format.push( text );
-				// filter();
-			// }
 		});
 	});
 }
