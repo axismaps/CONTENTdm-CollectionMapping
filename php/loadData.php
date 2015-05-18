@@ -13,17 +13,17 @@ if( checkCacheAge() OR array_key_exists( 'force', $_REQUEST ) ) {
 	loadData( $fields );
 }
 
-$data = fopen( 'data.json', 'r' );
+$data = fopen( 'cache/data.json', 'r' );
 echo fgets( $data );
 fclose( $data );
 
 
 function checkCacheAge() {
-	if( ! file_exists( 'data.json' ) ) {
+	if( ! file_exists( 'cache/data.json' ) ) {
 		return true;
 	}
 	
-	if( time() - filemtime( 'data.json' ) > 7 * 24 * 3600) {
+	if( time() - filemtime( 'cache/data.json' ) > 7 * 24 * 3600) {
 		return true;
 	} else {
 		return false;
@@ -34,7 +34,7 @@ function loadData( $fields ){
 	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
 	
 	$ch = curl_init();
-	$temp = fopen( "temp.json", "w" );
+	$temp = fopen( "cache/temp.json", "w" );
 	
 	 //TODO: Trust actual certificate instead of all certificates. Do we need to do this or not?
 	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -62,10 +62,10 @@ function loadData( $fields ){
 }
 
 function processData( $fields ){
-	$temp_file = fopen( "temp.json", "r" );
+	$temp_file = fopen( "cache/temp.json", "r" );
 	$temp_json = json_decode( fgets ( $temp_file ) );
 	
-	$json_file = fopen( "data.json", "w" );
+	$json_file = fopen( "cache/data.json", "w" );
 	
 	$formats = [];
 	$tags = [];
@@ -144,7 +144,7 @@ function processData( $fields ){
 	fclose( $json_file );
 	
 	fclose( $temp_file );
-	unlink( "temp.json" );
+	unlink( "cache/temp.json" );
 }
 
 function checkLocation( $name ){
