@@ -13,7 +13,7 @@ if( array_key_exists( 'size', $_GET ) ) {
 	$size = 'full';
 }
 
-if( ! file_exists( '../images/' . $id . '-' . $size . '.jpg' ) ){
+if( ! file_exists( 'cache\\' . $id . '-' . $size . '.jpg' ) ){
 	$file_info = json_decode( file_get_contents( 'http://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmGetItemInfo/p15963coll18/' . $id . '/json' ) );
 	
 	//file is a pdf
@@ -25,12 +25,12 @@ if( ! file_exists( '../images/' . $id . '-' . $size . '.jpg' ) ){
 		$imagick = new Imagick();
 		$imagick->setResolution(300,300);
 		
-		$imagick->readimage( getcwd() . '/temp' . $id . '.pdf[0]' );
+		$imagick->readimage( getcwd() . '\temp' . $id . '.pdf[0]' );
 		$imagick->setImageFormat( 'jpeg' );
-		$imagick->writeImage( '../images/' . $id . '-full.jpg' );
+		$imagick->writeImage( getcwd() . '\cache\\' . $id . '-full.jpg' );
 			
 		$imagick->scaleImage( 400, 0 );
-		$imagick->writeImage( '../images/'. $id . '-small.jpg' );
+		$imagick->writeImage( getcwd() . '\cache\\' . $id . '-small.jpg' );
 					
 		$imagick->clear();
 		$imagick->destroy();
@@ -41,12 +41,12 @@ if( ! file_exists( '../images/' . $id . '-' . $size . '.jpg' ) ){
 		file_put_contents( 'temp' . $id . '.jpg', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
 		
 		$imagick = new Imagick();
-		$imagick->readimage( getcwd() . '/temp' . $id . '.jpg' );
+		$imagick->readimage( getcwd() . '\temp' . $id . '.jpg' );
 		$imagick->setImageFormat( 'jpeg' );
-		$imagick->writeImage( '../images/' . $id . '-full.jpg' );
+		$imagick->writeImage( getcwd() . '\cache\\' . $id . '-full.jpg' );
 		
 		$imagick->scaleImage( 400, 0 );
-		$imagick->writeImage( '../images/'. $id . '-small.jpg' );
+		$imagick->writeImage( getcwd() . '\cache\\'. $id . '-small.jpg' );
 		
 		$imagick->clear();
 		$imagick->destroy();
@@ -54,6 +54,6 @@ if( ! file_exists( '../images/' . $id . '-' . $size . '.jpg' ) ){
 	}
 }
 
-header( "Location: ../images/$id-$size.jpg" );
+header( "Location: cache/$id-$size.jpg" );
 exit;
 ?>
