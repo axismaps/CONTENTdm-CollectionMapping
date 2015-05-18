@@ -119,32 +119,45 @@ function initFilters(){
 	$( '#format' ).append( '<div class="line"><span class="h4-title">Format</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#format .clear-text' ).on( 'click', function() {
-		$( '#format p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
+		$( '#format p.selected' ).remove();
+		$( '#format p' ).not( ':visible' ).show();
 		DataVars.filters.format = [];
 		filter();
 	});
 	
 	
 	$.map( DataVars.data.formats.sort(), function( v ){
-		$('<p/>' , {
+		$('<p />' , {
 			html: '<span class="format-item">' + getIcon( v ) + v + '</span>'
 		})
 		.appendTo( $( '#format' ) )
 		.on( 'click', function() {
-			var text = $( this ).children( ' .format-item' ).text(),
-				html = $( this ).children( ' .format-item' );
-			$( this ).empty().html( html );
 			
-			if( $( this ).hasClass( 'selected' ) ){
-				$( this ).removeClass( 'selected' );
-				DataVars.filters.format = _.without( DataVars.filters.format, text );
-				filter();
-			} else {
-				$( this ).append( "<i class='fa fa-check'></i>" );
-				$( this ).addClass( 'selected' );
-				DataVars.filters.format.push( text );
-				filter();
-			}
+			var text = $( this )[0].innerText,
+				html = $( this )[0].innerHTML;
+				$that = $( this );
+			$( this ).hide();
+			
+			DataVars.filters.format.push( text );
+			filter();
+			
+			$( '<p class="selected" />' )
+				.html( html )
+				.append( "<i class='fa fa-check'></i>" )
+				.insertAfter( $that.siblings( '.line' ) )
+				.on( 'click', function(){
+					console.log( $( '#format p:contains( ' + text + ')' ) );
+					$( '#format p:contains(' + text + ')' ).show();
+					DataVars.filters.format = _.without( DataVars.filters.format, text );
+					filter();
+					$( this ).remove();
+				});
+			
+			$( '#format p.selected' ).sort(function( a, b ){
+				if( $( a ).find( 'span' ).text() > $( b ).find( 'span' ).text() ) return 1;
+				if( $( b ).find( 'span' ).text() > $( a ).find( 'span' ).text() ) return -1;
+				return 0;
+			}).detach().insertAfter( $that.siblings( '.line' ) );
 		});
 	});
 }
@@ -159,8 +172,9 @@ function initTags(){
 	sect.append( '<div class="line"><span class="h4-title">Tags</span><span class="clear-text">Clear</span></div>' );
 	
 	$( '#tags-expanded .expanded-section .clear-text' ).on( 'click', function() {
-		$( '#tags-expanded .expanded-section p.selected' ).removeClass( 'selected' ).children( 'i' ).remove();
-		$( '#tags-expanded .expanded-section p.temp' ).remove();
+		$( '#tags-expanded .tag.selected' ).remove();
+		$( '#tags-expanded .tag.temp' ).remove();
+		$( '.tag' ).not( ':visible' ).show();
 		DataVars.filters.tags = [];
 		filter();
 	});
@@ -172,19 +186,27 @@ function initTags(){
 		.attr( 'class', 'tag' )
 		.appendTo( sect )
 		.on( 'click', function() {
-			var text = $( this ).text();
-			$( this ).empty().text( text );
+			var text = $( this ).text(),
+				$that = $( this );
+			$( this ).hide();
 			
-			if( $( this ).hasClass( 'selected' ) ){
-				$( this ).removeClass( 'selected' );
-				DataVars.filters.tags = _.without( DataVars.filters.tags, $( this ).text() );
-				filter();
-			} else {
-				$( this ).append( "<i class='fa fa-check'></i>" );
-				$( this ).addClass( 'selected' );
-				DataVars.filters.tags.push( $( this ).text() );
-				filter();
-			}
+			DataVars.filters.tags.push( text );
+			filter();
+			$( '<p class="tag selected" />' )
+				.text( text )
+				.append( "<i class='fa fa-check'></i>" )
+				.insertAfter( $that.siblings( '.line' ) )
+				.on( 'click', function(){
+					$( '.tag:contains(' + text + ')' ).show();
+					DataVars.filters.tags = _.without( DataVars.filters.tags, text );
+					filter();
+					$( this ).remove();
+				});
+			$( '.tag.selected' ).sort(function( a, b ){
+				if( a.innerHTML > b.innerHTML ) return 1;
+				if( b.innerHTML > a.innerHTML ) return -1;
+				return 0;
+			}).detach().insertAfter( $that.siblings( '.line' ) );
 		});
 	});
 }

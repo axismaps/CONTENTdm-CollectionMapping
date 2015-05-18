@@ -42,6 +42,7 @@ function init() {
 	drawTimeline();
 	initMap();
 	drawPoints();
+	selectYear( DataVars.data.minYear );
 }
 
 function initEvents(){
@@ -92,6 +93,7 @@ function loadData(){
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		DataVars.filters.minYear = DataVars.data.minYear;
+		AppVars.selectedYear = DataVars.filters.minYear;
 		DataVars.filters.maxYear = DataVars.data.maxYear;
 		init();
 	});

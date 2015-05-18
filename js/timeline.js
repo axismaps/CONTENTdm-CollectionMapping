@@ -5,15 +5,23 @@ function drawTimeline(){
 	var allYears = _.map( DataVars.filteredData.entries, function(d){ return d.date.year } );
 
 	AppVars.years = _.uniq( _.reject( allYears, function(d){ return !d } ) );
-
+	
 	$("#timeline-inner").empty();
+	var closestYear = 0,
+		goalYear = AppVars.selectedYear;
 	for( var i in AppVars.years ){
 		drawYear( AppVars.years[i] );
+		
+		if( AppVars.years[i] == goalYear ) {
+			closestYear = goalYear;
+		} else if( Math.abs( goalYear - AppVars.years[i] ) < Math.abs( goalYear - closestYear ) ) {
+			closestYear = AppVars.years[i];
+		}
 	}
+	selectYear( closestYear );
 
 	drawPulse();
 	drawChronology();
-	selectYear( AppVars.years[0] );
 
 	$( ".entry-title" ).click( function(){
 		var $entry = $(this).parent().parent(),
@@ -31,13 +39,14 @@ function drawTimeline(){
 function expandEntry( $entry ){
 	var totalHeight = $("#timeline-inner").height();
 	$entry.addClass( "expanded" )
-		.css( "height", Math.max( 500, totalHeight - $entry.siblings().length * 51 )  + "px");
+		.css( "height", Math.max( 400, totalHeight - $entry.siblings().length * 51 )  + "px");
 }
 
 function drawYear( year ){
 	var $div = $( "<div>" )
 		.attr( "class", "timeline-year" )
 		.attr( "id", "year" + year )
+		.addClass( 'hide-year' )
 		.appendTo( "#timeline-inner" )
 		.click( function(){
 			if ( !$(this).hasClass( "active" ) ) selectYear( year );
@@ -67,7 +76,7 @@ function drawYear( year ){
 			.appendTo( $entry );
 		_.each( DataVars.data.headers, function(header,prop){
 			if ( !header.tag || !d[prop] ) return;
-			$textContainer.append( "<p><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
+			$textContainer.append( "<p class='tag-header'><strong>" + header.name.toUpperCase() + ":</strong> " + getTagLinks(d[prop]) + "</p>" );
 		});
 		
 		var foundStudentReport = false,
@@ -90,8 +99,11 @@ function drawYear( year ){
 
 		$( "a.tag-link", $entry ).click( function(){
 			var name = $(this).html();
-			if( $( '.tag:contains("' + name + '")').length >= 1 ) {
-				$( ".tag:contains('" + name + "')" ).click();
+			var $tags = $( '.tag' ).filter( function() {
+				return $( this ).text() === name;
+			});
+			if( $tags.length >= 1 ) {
+				$tags.click();
 			} else{
 				createTempTag( name );
 			}
@@ -115,6 +127,14 @@ function selectYear( year, noAutoScroll, noImages ){
 	$( "#year" + year).addClass( "active" );
 	$( ".p" + year).addClass( "active" );
 	$( "#year" ).html( year );
+	
+	$( '.timeline-year.show-year' ).toggleClass( 'show-year hide-year' );
+	
+	$( '.timeline-year.active' ).prev().prev().toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).prev().toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).next().toggleClass( 'show-year hide-year' );
+	$( '.timeline-year.active' ).next().next().toggleClass( 'show-year hide-year' );
 
 	AppVars.selectedYear = year;
 	if ( !noAutoScroll ) recenterTimeline();

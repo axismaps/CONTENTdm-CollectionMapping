@@ -6,11 +6,17 @@ function initMap(){
 		minZoom: AppVars.minZoom
 	} ).setView( [19,95], 6 );
 
+	L.control.zoom( {position: 'bottomright', zoomInText: '', zoomOutText: '' } ).addTo( AppVars.map );
+	$( '.leaflet-control-zoom-in' )
+		.append( '<i class="fa fa-plus fa-2x"></i>' );
+	$( '.leaflet-control-zoom-out' )
+		.append( '<i class="fa fa-minus fa-2x"></i>' );
+	
 	L.control.fullscreen( {position: 'bottomright' } ).addTo( AppVars.map );
 	$( '.leaflet-control-fullscreen a' )
 		.append( '<i class="fa fa-expand fa-2x"></i>' )
 		.append( '<i class="fa fa-compress fa-2x"></i>' );
-	
+		
 	/*placeholder tiles for now */
 	/* TODO: Do we want these? If not, restrict bounds so you can't see anything beyond historicTiles */
 	AppVars.modernTiles = L.tileLayer( "http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png" , { maxNativeZoom : 18, maxZoom : 21 }).addTo(AppVars.map);

@@ -5,3 +5,4 @@ images/*
 php/loadImage.php
 data.json
 images/*
+php/cache/*

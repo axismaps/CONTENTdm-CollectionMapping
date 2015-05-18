@@ -1,7 +1,7 @@
 <?php
 
 $fields = array();
-$fields_file = fopen( "fields.csv", "r" );
+$fields_file = fopen( "../csv/fields.csv", "r" );
 while ( !feof( $fields_file ) ){
 	$field = fgetcsv( $fields_file, 1024 );
 	array_push($fields, $field);
@@ -149,7 +149,7 @@ function processData( $fields ){
 
 function checkLocation( $name ){
 	
-	$location_file = fopen( "locations.csv", "r+" );
+	$location_file = fopen( "../csv/locations.csv", "r+" );
 	while ( !feof( $location_file ) ){
 		$line = fgetcsv( $location_file, 1024 );
 		if( $line[0] == $name ) {
