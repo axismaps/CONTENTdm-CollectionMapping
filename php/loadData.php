@@ -33,6 +33,10 @@ function checkCacheAge() {
 function loadData( $fields ){
 	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
 	
+	if( file_exists( "cache" ) == FALSE ){
+		mkdir( "cache" );
+	}
+	
 	$ch = curl_init();
 	$temp = fopen( "cache/temp.json", "w" );
 	
