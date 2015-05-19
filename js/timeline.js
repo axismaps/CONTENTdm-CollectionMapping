@@ -192,7 +192,7 @@ function timelineScrollStop(){
 }
 
 function loadTimelineImages(year){
-	year = parseFloat( year );
+	year = parseInt( year );
 	year = year || AppVars.selectedYear;
 	if ( year == undefined || !$( "#year" + year).length ) return;
 	var index = AppVars.years.indexOf( year );
