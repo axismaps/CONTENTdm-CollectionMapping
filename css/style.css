@@ -515,12 +515,11 @@ h1 span.subtitle{
 	overflow: hidden;
 }
 
-.timeline-year.show-year{
-	display: inline-block;
-	visibility: visible;
+.timeline-year.hide-year .chronology, .timeline-year.hide-year .text-container, .timeline-year.hide-year .image-container > *{
+	display: none;
 }
-.timeline-year.hide-year{
-	visibility: hidden;
+.timeline-year.hide-year .image-container > p.entry-title{
+	display: block;
 }
 
 .timeline-year.active{
@@ -579,6 +578,9 @@ h1 span.subtitle{
 	cursor: pointer;
 	text-shadow: 1px 1px rgba(0,0,0,.5);
 	font-weight: bold;
+}
+.timeline-year.hide-year .timeline-entry p.entry-title{
+	color: black;
 }
 .timeline-entry p.entry-title:hover{
 	text-decoration: underline;
