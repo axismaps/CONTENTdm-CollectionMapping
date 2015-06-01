@@ -74,7 +74,3 @@ function loadReport( report ){
 	
 	$( 'body' ).addClass( 'report' );
 }
-
-function showReportInfo(){
-	
-}
