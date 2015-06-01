@@ -66,8 +66,6 @@ function loadReport( report ){
 		}
 	});
 	
-	// if( ! $( '#reports-expanded' ).is( ':visible' ) ) $( '#reports-button' ).click();
-	// $( '#reports-accordion h3[dataId=' + report.id +']' ).click();
 	update();
 	var url = 'php/loadImage.php?id=' + report.CoverImage + '&size=small';
 	$( '#topbar-picture' ).css( 'background-image', 'url(' + url + ')' );
