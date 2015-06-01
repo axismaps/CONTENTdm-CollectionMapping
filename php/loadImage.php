@@ -3,8 +3,7 @@
 if( array_key_exists( 'id', $_GET ) ){
 	$id = $_GET['id'];
 } else {
-	// return
-	$id = 0; //set something so it doesn't crash TODO: return unloaded picture or generic image
+	$id = 0; //set something so it doesn't crash
 }
 
 if( array_key_exists( 'size', $_GET ) ) {
