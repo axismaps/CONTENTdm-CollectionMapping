@@ -17,8 +17,6 @@ function initMap(){
 		.append( '<i class="fa fa-expand fa-2x"></i>' )
 		.append( '<i class="fa fa-compress fa-2x"></i>' );
 		
-	/*placeholder tiles for now */
-	/* TODO: Do we want these? If not, restrict bounds so you can't see anything beyond historicTiles */
 	AppVars.modernTiles = L.tileLayer( "http://{s}.tile.stamen.com/toner/{z}/{x}/{y}.png" , { maxNativeZoom : 18, maxZoom : 21 }).addTo(AppVars.map);
 	
 	AppVars.mapBounds.bounds = L.latLngBounds([ 
