@@ -16,17 +16,16 @@ gulp.task( 'default', [ 'clean' ], function(){
 		.pipe( gulp.dest( 'public/' ) )
 
 	gulp.src( 'csv/*' )
-    	.pipe( chmod( 777 ) )
+    	.pipe( chmod( 666 ) )
 		.pipe( gulp.dest( 'public/csv' ) );
 	
 	gulp.src( 'img/*' )
 		.pipe( gulp.dest( 'public/img' ) );
 		
   var filter = gulpFilter( ['*', '!cache' ] );
-		
+  
   gulp.src( 'php/*' )
     .pipe( filter )
-    .pipe( chmod( 777 ) )
 		.pipe( gulp.dest( 'public/php' ) );
     	
 	gulp.src( 'bower_components/fontawesome/fonts/*' )
@@ -37,5 +36,5 @@ gulp.task( 'default', [ 'clean' ], function(){
 });
 
 gulp.task( 'clean', function( callback ){
-    del( [ 'public/css', 'public/js', 'public/csv', 'public/img', 'public/php', 'public/tiles', 'public/index.html' ], callback );
+    del( [ 'public/**/*' ], callback );
 });
