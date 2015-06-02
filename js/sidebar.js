@@ -69,6 +69,7 @@ function sidebarEvents() {
 
 function allDocs(){
 	$( '.clear-text' ).click();
+  $( '#reports-accordion' ).find( 'i.fa-check' ).removeClass( 'fa-check' ).addClass( 'fa-folder' );
 }
 
 function initFilters(){
