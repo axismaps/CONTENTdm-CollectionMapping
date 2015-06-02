@@ -36,10 +36,13 @@ function initReports(){
 		});
 		
 		$( '<div/>', {
-				'class': 'button',
-				html : 'View Report <i class="fa fa-chevron-right"></i>'
-		}).appendTo( '#reports-accordion > div:last-child' )
+			'class': 'button',
+			html : 'View Report <i class="fa fa-chevron-right"></i>'
+		})
+		.appendTo( '#reports-accordion > div:last-child' )
 		.on( 'click', function(){
+			$( '#reports-accordion' ).find( 'i.fa-check' ).removeClass( 'fa-check' ).addClass( 'fa-folder' );
+			$( this ).parent().prev().find( 'i' ).removeClass( 'fa-folder' ).addClass( 'fa-check' );
 			loadReport( v );
 		});
 	});
