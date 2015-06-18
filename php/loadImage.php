@@ -35,7 +35,7 @@ if( ! file_exists( 'cache/' . $id . '-' . $size . '.jpg' ) ){
 		$imagick->destroy();
 		
 		unlink( "temp" . $id . ".pdf" );
-	} elseif ( substr( $file_info->{'find'}, -3 ) == 'jpg' OR substr( $file_info->{'find'}, -4 ) == 'jpeg' ){
+	} elseif ( substr( $file_info->{'find'}, -3 ) == 'jpg' OR substr( $file_info->{'find'}, -4 ) == 'jpeg' OR substr( $file_info->{'find'}, -3 ) == 'jp2' ){
 		
 		file_put_contents( 'temp' . $id . '.jpg', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll18/id/' . $id ) );
 		
