@@ -31,14 +31,20 @@ function checkCacheAge() {
 }
 
 function loadData( $fields ){
-	//TODO: if fields is greater than 5, need to make 2 or more cURL requests and merge
-	
 	if( file_exists( "cache" ) == FALSE ){
 		mkdir( "cache" );
 	}
 	
-	$ch = curl_init();
-	$temp = fopen( "cache/temp.json", "w" );
+	curlRequest( $fields, 1 ); //limit this to 5 only, make a second (or third) call if more than 5
+  
+  //use http://stackoverflow.com/questions/9241800/merging-two-complex-objects-in-php to merge as temp-final.json
+	
+	processData( $fields );
+}
+
+function curlRequest( $fields, $i ){
+  $ch = curl_init();
+	$temp = fopen( "cache/temp" . $i . ".json", "w" );
 	
 	 //TODO: Trust actual certificate instead of all certificates. Do we need to do this or not?
 	curl_setopt( $ch, CURLOPT_SSL_VERIFYPEER, false);
@@ -61,12 +67,10 @@ function loadData( $fields ){
 	
 	curl_close( $ch );
 	fclose( $temp );
-	
-	processData( $fields );
 }
 
 function processData( $fields ){
-	$temp_file = fopen( "cache/temp.json", "r" );
+	$temp_file = fopen( "cache/temp1.json", "r" );
 	$temp_json = json_decode( fgets ( $temp_file ) );
 	
 	$json_file = fopen( "cache/data.json", "w" );
@@ -150,7 +154,7 @@ function processData( $fields ){
 	fclose( $json_file );
 	
 	fclose( $temp_file );
-	unlink( "cache/temp.json" );
+	unlink( "cache/temp1.json" );
 }
 
 function getLocation( $name ){
