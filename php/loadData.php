@@ -93,13 +93,13 @@ function processData( $fields ){
 		}
 		
 		//Convert date into exact format just in case
-		$value -> {'date'} = date_parse( $value -> {'date'} );
-		if( $value -> {'date'}['year'] == 0 ){
+		$value -> {'datea'} = date_parse( $value -> {'datea'} );
+		if( $value -> {'datea'}['year'] == 0 ){
 			continue;
 		}
 
-		if ( ! in_array( $value -> format, $formats ) )
-			array_push( $formats, $value -> format);
+		if ( ! in_array( $value -> family, $formats ) )
+			array_push( $formats, $value -> family);
 		
 		$entry_tags = [];
 		foreach ( $headers as $key => $header_value ){
@@ -113,7 +113,7 @@ function processData( $fields ){
 			}
 		}
 
-		$locations = explode( ';', $value -> covera );
+		$locations = explode( ';', $value -> coveraa );
 		foreach( $locations as $location ){
 			$location = trim( $location );
 			$value -> {'location'} = checkLocation( $location );
@@ -122,10 +122,10 @@ function processData( $fields ){
 		$value -> {'tags'} = $entry_tags;
 		array_push( $entries, $value );
 		
-		if ( $minYear > $value -> {'date'}['year'] && $value -> {'date'}['year'] > 0 )
-			$minYear = $value -> {'date'}['year'];
-		if ( $maxYear < $value -> {'date'}['year'] )
-			$maxYear = $value -> {'date'}['year'];
+		if ( $minYear > $value -> {'datea'}['year'] && $value -> {'datea'}['year'] > 0 )
+			$minYear = $value -> {'datea'}['year'];
+		if ( $maxYear < $value -> {'datea'}['year'] )
+			$maxYear = $value -> {'datea'}['year'];
 	}
 	
 	foreach( array_count_values( $all_tags ) as $k => $v ){
@@ -148,7 +148,7 @@ function processData( $fields ){
 	fclose( $json_file );
 	
 	fclose( $temp_file );
-	unlink( "cache/temp.json" );
+	// unlink( "cache/temp.json" );
 }
 
 function checkLocation( $name ){
