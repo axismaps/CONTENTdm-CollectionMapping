@@ -1,5 +1,5 @@
 subjec,Subject,true
-date,Date,false
-covera,Location,true
+datea,Date,false
+coveraa,Location,true
 descri,Description,false
-format,Format,false
+family,Family,true
