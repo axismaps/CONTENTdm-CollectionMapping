@@ -50,7 +50,21 @@ if( ! file_exists( 'cache/' . $id . '-' . $size . '.jpg' ) ){
 		$imagick->clear();
 		$imagick->destroy();
 		unlink( "temp" . $id . ".jpg" );
-	}
+  } elseif( substr( $file_info->{'find'}, -3 ) == 'jp2' ){
+    file_put_contents( 'temp' . $id . '.jp2', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/p15963coll43/id/' . $id ) );
+		    
+    $imagick = new Imagick();
+    $imagick->readimage( getcwd() . '/temp' . $id . '.jp2' );
+    $imagick->setImageFormat( 'jpeg' );
+    $imagick->writeImage( getcwd() . '/cache/' . $id . '-full.jpg' );
+    
+    $imagick->scaleImage( 400, 0 );
+    $imagick->writeImage( getcwd() . '/cache/'. $id . '-small.jpg' );
+    
+    $imagick->clear();
+    $imagick->destroy();
+    unlink( "temp" . $id . ".jp2" );
+  }
 }
 
 header( "Location: cache/$id-$size.jpg" );
