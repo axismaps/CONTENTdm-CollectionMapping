@@ -3,3 +3,5 @@ datea,Date,false
 coveraa,Location,true
 descri,Description,false
 family,Family,true
+latitu,Latitude,false
+longit,Longitude,false

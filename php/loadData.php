@@ -35,8 +35,34 @@ function loadData( $fields ){
 		mkdir( "cache" );
 	}
 	
-	curlRequest( $fields, 1 ); //limit this to 5 only, make a second (or third) call if more than 5
+  $numRequests = ceil( count($fields) / 5 );
+  for( $i = 1; $i <= $numRequests; $i++ ){
+    $arr_begin = ($i * 5) - 5;
+    $arr_end = ($i * 5) - 1;
+    curlRequest( array_slice( $fields, $arr_begin, $arr_end ), $i );
+  }
   
+  rename( "cache/temp1.json", "cache/temp-final.json" );
+  if( $numRequests > 1 ){
+    $tempFinal_file = fopen( "cache/temp-final.json", "r+" );
+    $tempFinal_json = json_decode( fgets ( $tempFinal_file ), true );
+      
+    for( $i = 2; $i <= $numRequests; $i++ ){
+      $temp_file = fopen( "cache/temp" . $i . ".json", "r" );
+      $temp_json = json_decode( fgets ( $temp_file ), true );
+      
+      $tempFinal_json = array_merge_recursive( $tempFinal_json, $temp_json );
+      
+      print_r( $tempFinal_json );
+      
+      fclose( $temp_file );
+      unlink( "cache/temp" . $i . ".json" );
+    }
+    
+    fwrite( $tempFinal_file, json_encode( $tempFinal_json, JSON_NUMERIC_CHECK ) );
+    fclose( $tempFinal_file );
+  }
+  // 
   //use http://stackoverflow.com/questions/9241800/merging-two-complex-objects-in-php to merge as temp-final.json
 	
 	processData( $fields );
@@ -70,7 +96,7 @@ function curlRequest( $fields, $i ){
 }
 
 function processData( $fields ){
-	$temp_file = fopen( "cache/temp1.json", "r" );
+	$temp_file = fopen( "cache/temp-final.json", "r" );
 	$temp_json = json_decode( fgets ( $temp_file ) );
 	
 	$json_file = fopen( "cache/data.json", "w" );
@@ -154,7 +180,7 @@ function processData( $fields ){
 	fclose( $json_file );
 	
 	fclose( $temp_file );
-	unlink( "cache/temp1.json" );
+	// unlink( "cache/temp-final.json" );
 }
 
 function getLocation( $name ){
