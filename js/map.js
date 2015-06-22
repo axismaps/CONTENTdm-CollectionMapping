@@ -4,7 +4,7 @@ function initMap(){
 		attributionControl: false,
 		maxZoom: AppVars.maxZoom,
 		minZoom: AppVars.minZoom
-	} ).setView( [0,0], 2 );
+	} ).setView( AppVars.startCoords, AppVars.startZoom );
 
 	L.control.zoom( {position: 'bottomright', zoomInText: '', zoomOutText: '' } ).addTo( AppVars.map );
 	$( '.leaflet-control-zoom-in' )
