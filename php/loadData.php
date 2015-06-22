@@ -116,7 +116,9 @@ function processData( $fields ){
 		$locations = explode( ';', $value -> coveraa );
 		foreach( $locations as $location ){
 			$location = trim( $location );
-			$value -> {'location'} = checkLocation( $location );
+      
+      
+			$value -> {'location'} = getLocation( $location );
 		}
 				
 		$value -> {'tags'} = $entry_tags;
@@ -151,7 +153,7 @@ function processData( $fields ){
 	unlink( "cache/temp.json" );
 }
 
-function checkLocation( $name ){
+function getLocation( $name ){
 	
 	$location_file = fopen( "../csv/locations.csv", "r+" );
 	while ( !feof( $location_file ) ){
@@ -162,22 +164,31 @@ function checkLocation( $name ){
 			return $location;
 		}
 	}
-	
+  fclose( $location_file );
+
+  $location = searchLocation( $name );
+  return $location;
+}
+
+function searchLocation( $name ){
 	$escaped_params = urlencode( '"' . $name . '"' );
 	$url = 'http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82d622l%2C70%3Do5-94ygha&location=' . $escaped_params;
 	echo $url . ' ';
 	$json = file_get_contents( $url );
 	$jsonArr = json_decode($json);
 
-	$lat1 = $jsonArr->results[0]->locations[0]->latLng->lat;
-	$lon1 = $jsonArr->results[0]->locations[0]->latLng->lng;
+	$lat = $jsonArr->results[0]->locations[0]->latLng->lat;
+	$lon = $jsonArr->results[0]->locations[0]->latLng->lng;
 
-	fputcsv( $location_file, [ $name, $lat1, $lon1 ] );
-	$location = array( 'name' => $name, 'lat' => $lat1, 'lng' => $lon1 );
-	
+  addLocationToCSV( $name, $lat, $lon );
+  $location = array( 'name' => $name, 'lat' => $lat, 'lng' => $lon );
+  return $location;
+}
+
+function addLocationToCSV( $name, $lat, $lon ){
+  $location_file = fopen( "../csv/locations.csv", "r+" );
+	fputcsv( $location_file, [ $name, $lat, $lon ] );
 	fclose( $location_file );
-	
-	return $location;
 }
 
 ?>
