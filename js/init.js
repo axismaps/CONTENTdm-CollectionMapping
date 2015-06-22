@@ -6,16 +6,16 @@ $( document ).ready(function() {
 /* Globals */
 var ServerVars = {},
 	AppVars = {
-		collectionAlias: 'p15963coll18',
+		collectionAlias: 'p15963coll43',
 		map: {},
 		mapBounds: {
-			north: 27.5,
-			south: 15,
-			east: 99.5,
-			west: 90.5
+			north: 90,
+			south: -90,
+			east: 180,
+			west: -180
 		},
 		maxZoom: 10,
-		minZoom: 4,
+		minZoom: 0,
 		years: undefined,
 		selectedYear: undefined,
 		selectedYearIndex: undefined,
@@ -70,8 +70,8 @@ function update(){
 	
 	//Return topbar to it's normal state
 	$( '#topbar-picture' ).css( 'background-image', 'none' );
-	$( '#topbar .title' ).text( 'Baptists in Burma: ' );
-	$( '#topbar .subtitle' ).text( 'Midwestern Missionaries at Home and Abroad' );
+	$( '#topbar .title' ).text( 'Herbarium: ' );
+	$( '#topbar .subtitle' ).text( 'A test of a new content server' );
 	$( 'body' ).removeClass( 'report' );
 }
 
