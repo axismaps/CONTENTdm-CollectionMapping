@@ -17,8 +17,9 @@ if( array_key_exists( 'size', $_GET ) ) {
 if( ! file_exists( 'cache/' . $id . '-' . $size . '.jpg' ) ){
 	$file_info = json_decode( file_get_contents( 'http://server15963.contentdm.oclc.org/dmwebservices/index.php?q=dmGetItemInfo/' . $collectionAlias . '/' . $id . '/json' ) );
 	
+  $filetype = substr( $file_info->{'find'}, -3 );
 	//file is a pdf
-	if( substr( $file_info->{'find'}, -3 ) == 'pdf' ) {
+	if( $filetype == 'pdf' ) {
 		
 		file_put_contents( 'temp' . $id . '.pdf', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/' . $collectionAlias . '/id/' . $id ) );
 
@@ -37,26 +38,25 @@ if( ! file_exists( 'cache/' . $id . '-' . $size . '.jpg' ) ){
 		$imagick->destroy();
 		
 		unlink( "temp" . $id . ".pdf" );
-	} elseif ( substr( $file_info->{'find'}, -3 ) == 'jpg' OR substr( $file_info->{'find'}, -4 ) == 'jpeg' ){
-		
-		file_put_contents( 'temp' . $id . '.jpg', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/' . $collectionAlias . '/id/' . $id ) );
-		
-		$imagick = new Imagick();
-		$imagick->readimage( getcwd() . '/temp' . $id . '.jpg' );
-		$imagick->setImageFormat( 'jpeg' );
-		$imagick->writeImage( getcwd() . '/cache/' . $id . '-full.jpg' );
-		
-		$imagick->scaleImage( 400, 0 );
-		$imagick->writeImage( getcwd() . '/cache/'. $id . '-small.jpg' );
-		
-		$imagick->clear();
-		$imagick->destroy();
-		unlink( "temp" . $id . ".jpg" );
-  } elseif( substr( $file_info->{'find'}, -3 ) == 'jp2' ){
-    file_put_contents( 'temp' . $id . '.jp2', file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/getfile/collection/' . $collectionAlias . '/id/' . $id ) );
+	} elseif ( $filetype == 'jpg' OR $filetype == 'jpeg' OR $filetype == 'jp2' ){
+    $file = json_decode( file_get_contents( 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' . $collectionAlias . '&CISOPTR=' . $id ) );
+    $width = $file -> {'imageinfo'} -> {'width'};
+    $height = $file -> {'imageinfo'} -> {'height'};
+    
+    if( $width > 1600 ){
+      $scale = ( 1600 / $width ) * 100;
+      $height = ( $height / $width ) * 1600;
+      $width = 1600;
+    } else {
+      $scale = 100;
+    }
+    
+    $url = 'http://cdm15963.contentdm.oclc.org/utils/ajaxhelper/?CISOROOT=' . $collectionAlias . '&CISOPTR=' . $id . '&action=2&DMWIDTH=' . $width . '&DMHEIGHT=' . $height . '&DMSCALE=' . $scale;
+    
+    file_put_contents( 'temp' . $id . '.' . $filetype, file_get_contents( $url ) );
 		    
     $imagick = new Imagick();
-    $imagick->readimage( getcwd() . '/temp' . $id . '.jp2' );
+    $imagick->readimage( getcwd() . '/temp' . $id . '.' . $filetype );
     $imagick->setImageFormat( 'jpeg' );
     $imagick->writeImage( getcwd() . '/cache/' . $id . '-full.jpg' );
     
@@ -65,7 +65,7 @@ if( ! file_exists( 'cache/' . $id . '-' . $size . '.jpg' ) ){
     
     $imagick->clear();
     $imagick->destroy();
-    unlink( "temp" . $id . ".jp2" );
+    unlink( "temp" . $id . '.' . $filetype );
   }
 }
 
