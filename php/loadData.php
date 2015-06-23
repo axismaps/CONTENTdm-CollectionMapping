@@ -18,6 +18,8 @@ echo fgets( $data );
 fclose( $data );
 
 
+//END OF MAIN - START OF FUNCTIONS
+
 function checkCacheAge() {
 	if( ! file_exists( 'cache/data.json' ) ) {
 		return true;
