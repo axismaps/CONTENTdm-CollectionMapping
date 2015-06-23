@@ -1,5 +1,6 @@
 <?php
 
+//load fields into array
 $fields = array();
 $fields_file = fopen( "../csv/fields.csv", "r" );
 while ( !feof( $fields_file ) ){
@@ -7,7 +8,16 @@ while ( !feof( $fields_file ) ){
 	array_push($fields, $field);
 }
 fclose( $fields_file );
-	
+
+//load field mappings into array
+$field_mapping = array();
+$field_mapping_file = fopen( "../csv/field_maps.csv", "r" );
+while ( !feof( $field_mapping_file ) ){
+	$field = fgetcsv( $field_mapping_file, 1024 );
+  $field_mapping[$field[0]] = $field[1];
+}
+fclose( $field_mapping_file );
+
 
 if( checkCacheAge() OR array_key_exists( 'force', $_REQUEST ) ) {
 	loadData( $fields );
@@ -107,6 +117,8 @@ function curlRequest( $fields, $i ){
 }
 
 function processData( $fields ){
+  global $field_mapping;
+  
 	$temp_file = fopen( "cache/temp-final.json", "r" );
 	$temp_json = json_decode( fgets ( $temp_file ) );
 	
@@ -129,19 +141,22 @@ function processData( $fields ){
 	
 	foreach( $temp_json -> records as $value ) {
 		
+    //if filetype is .cpd, skip as we can't do anything with it
 		if( substr( $value -> {'find'}, -3 ) == 'cpd' ){
 			continue;
 		}
 		
 		//Convert date into exact format just in case
-		$value -> {'date'} = date_parse( $value -> {'datea'} );
+		$value -> {'date'} = date_parse( $value -> {$field_mapping['date']} );
 		if( $value -> {'date'}['year'] == 0 ){
 			continue;
 		}
 
-		if ( ! in_array( $value -> family, $formats ) )
-			array_push( $formats, $value -> family);
+    //category
+		if ( ! in_array( $value -> {$field_mapping['category']}, $formats ) )
+			array_push( $formats, $value -> {$field_mapping['category']});
 		
+    //tags
 		$entry_tags = [];
 		foreach ( $headers as $key => $header_value ){
 		 	if ( $header_value['tag'] != true ) continue;
@@ -153,18 +168,19 @@ function processData( $fields ){
 					array_push( $all_tags, trim( $tag ) );
 			}
 		}
-
-		$locations = explode( ';', $value -> coveraa );
+    
+    //location
+		$locations = explode( ';', $value -> {$field_mapping['location']} );
 		foreach( $locations as $location ){
 			$location = trim( $location );
-      
-      
 			$value -> {'location'} = getLocation( $location );
 		}
-				
+		
+    //compilation tags
 		$value -> {'tags'} = $entry_tags;
 		array_push( $entries, $value );
 		
+    //max and min years
 		if ( $minYear > $value -> {'date'}['year'] && $value -> {'date'}['year'] > 0 )
 			$minYear = $value -> {'date'}['year'];
 		if ( $maxYear < $value -> {'date'}['year'] )
