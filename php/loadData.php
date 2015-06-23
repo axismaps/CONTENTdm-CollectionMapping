@@ -171,11 +171,16 @@ function processData( $fields ){
 		}
     
     //location
-		$locations = explode( ';', $value -> {$field_mapping['location']} );
-		foreach( $locations as $location ){
-			$location = trim( $location );
-			$value -> {'location'} = getLocation( $location );
-		}
+    //if location[lat] is null or location[lng] is null then
+    if( empty( $value -> {$field_mapping['lat']}) OR empty( $value -> {$field_mapping['lng']}) ) {
+      $locations = explode( ';', $value -> {$field_mapping['location']} );
+      foreach( $locations as $location ){
+        $location = trim( $location );
+        $value -> {'location'} = getLocation( $location );
+      }
+    } else {
+      $value -> {'location'} = array( 'name' => $value -> {$field_mapping['location']}, 'lat' => $value -> {$field_mapping['lat']}, 'lng' => $value -> {$field_mapping['lng']} );
+    }
 		
     //compilation tags
 		$value -> {'tags'} = $entry_tags;
@@ -212,7 +217,6 @@ function processData( $fields ){
 }
 
 function getLocation( $name ){
-	
 	$location_file = fopen( "../csv/locations.csv", "r+" );
 	while ( !feof( $location_file ) ){
 		$line = fgetcsv( $location_file, 1024 );
@@ -244,7 +248,7 @@ function searchLocation( $name ){
 }
 
 function addLocationToCSV( $name, $lat, $lon ){
-  $location_file = fopen( "../csv/locations.csv", "r+" );
+  $location_file = fopen( "../csv/locations.csv", "a" );
 	fputcsv( $location_file, [ $name, $lat, $lon ] );
 	fclose( $location_file );
 }
