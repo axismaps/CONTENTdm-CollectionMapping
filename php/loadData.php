@@ -107,6 +107,7 @@ function curlRequest( $fields, $i ){
 	$url = $url . "/title/1024/1/0/0/0/0/0/0/json";
 	
 	curl_setopt( $ch, CURLOPT_URL, $url );
+  curl_setopt($ch, CURLOPT_TIMEOUT, 60);
 	
 	if( curl_exec( $ch ) === false ) {
 		echo 'Curl error: ' . curl_error( $ch );
@@ -124,7 +125,7 @@ function processData( $fields ){
 	
 	$json_file = fopen( "cache/data.json", "w" );
 	
-	$formats = [];
+	$categories = [];
 	$tags = [];
 	$all_tags = [];
 	$minYear = 9999;
@@ -153,8 +154,8 @@ function processData( $fields ){
 		}
 
     //category
-		if ( ! in_array( $value -> {$field_mapping['category']}, $formats ) )
-			array_push( $formats, $value -> {$field_mapping['category']});
+		if ( ! in_array( $value -> {$field_mapping['category']}, $categories ) )
+			array_push( $categories, $value -> {$field_mapping['category']});
 		
     //tags
 		$entry_tags = [];
@@ -195,7 +196,7 @@ function processData( $fields ){
 	sort( $tags );
 	
 	$json = [ 
-		'formats' => $formats,
+		'categories' => $categories,
 		'tags' => $tags,
 		'minYear' => $minYear,
 		'maxYear' => $maxYear,

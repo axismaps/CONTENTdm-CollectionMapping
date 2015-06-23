@@ -7,7 +7,7 @@ function filter( type ){
 	$( "#tags-button span" ).html( "Tags" );
 		
 	//Default parameters, exit early
-	if( filters.minYear === DataVars.data.minYear && filters.maxYear === DataVars.data.maxYear && filters.tags.length === 0 && filters.format.length === 0 ) {
+	if( filters.minYear === DataVars.data.minYear && filters.maxYear === DataVars.data.maxYear && filters.tags.length === 0 && filters.category.length === 0 ) {
 		DataVars.filteredData = data;
 	} else {
 	
@@ -17,7 +17,7 @@ function filter( type ){
 			entries: []
 		};
 		
-		var filterCount = filters.format.length;
+		var filterCount = filters.category.length;
 
 		if ( filters.minYear !== DataVars.data.minYear || filters.maxYear !== DataVars.data.maxYear ) filterCount ++;
 		if ( filterCount ) $( "#filters-button span" ).html( "Filters (" + filterCount + ")" );
@@ -30,7 +30,7 @@ function filter( type ){
 			//filters
 			if( v.date.year < filters.minYear ) return false;
 			if( v.date.year > filters.maxYear ) return false;
-			if( filters.format.length > 0 && _.indexOf( filters.format, v.format ) == -1 ) return false;
+			if( filters.category.length > 0 && _.indexOf( filters.category, v.category ) == -1 ) return false;
 
 			var tag_value = filters.tags.length ? false : true;
 			_.each( v.tags, function( tag ) {

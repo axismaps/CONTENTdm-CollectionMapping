@@ -116,22 +116,22 @@ function initFilters(){
 	$( '#minYear' ).text( $( '#date-slider' ).slider( 'values', 0 ) );
 	$( '#maxYear' ).text( $( '#date-slider' ).slider( 'values', 1 ) );
 	
-	//Formats
-	$( '#format' ).append( '<div class="line"><span class="h4-title">Format</span><span class="clear-text">Clear</span></div>' );
+	//Categories
+	$( '#category' ).append( '<div class="line"><span class="h4-title">' + DataVars.fieldMaps.category + '</span><span class="clear-text">Clear</span></div>' );
 	
-	$( '#format .clear-text' ).on( 'click', function() {
-		$( '#format p.selected' ).remove();
-		$( '#format p' ).not( ':visible' ).show();
-		DataVars.filters.format = [];
+	$( '#category .clear-text' ).on( 'click', function() {
+		$( '#category p.selected' ).remove();
+		$( '#category p' ).not( ':visible' ).show();
+		DataVars.filters.category = [];
 		filter();
 	});
 	
 	
-	$.map( DataVars.data.formats.sort(), function( v ){
+	$.map( DataVars.data.categories.sort(), function( v ){
 		$('<p />' , {
-			html: '<span class="format-item">' + getIcon( v ) + v + '</span>'
+			html: '<span class="category-item">' + getIcon( v ) + v + '</span>'
 		})
-		.appendTo( $( '#format' ) )
+		.appendTo( $( '#category' ) )
 		.on( 'click', function() {
 			
 			var text = $( this )[0].innerText,
@@ -139,7 +139,7 @@ function initFilters(){
 				$that = $( this );
 			$( this ).hide();
 			
-			DataVars.filters.format.push( text );
+			DataVars.filters.category.push( text );
 			filter();
 			
 			$( '<p class="selected" />' )
@@ -147,14 +147,14 @@ function initFilters(){
 				.append( "<i class='fa fa-check'></i>" )
 				.insertAfter( $that.siblings( '.line' ) )
 				.on( 'click', function(){
-					console.log( $( '#format p:contains( ' + text + ')' ) );
-					$( '#format p:contains(' + text + ')' ).show();
-					DataVars.filters.format = _.without( DataVars.filters.format, text );
+					console.log( $( '#category p:contains( ' + text + ')' ) );
+					$( '#category p:contains(' + text + ')' ).show();
+					DataVars.filters.category = _.without( DataVars.filters.category, text );
 					filter();
 					$( this ).remove();
 				});
 			
-			$( '#format p.selected' ).sort(function( a, b ){
+			$( '#category p.selected' ).sort(function( a, b ){
 				if( $( a ).find( 'span' ).text() > $( b ).find( 'span' ).text() ) return 1;
 				if( $( b ).find( 'span' ).text() > $( a ).find( 'span' ).text() ) return -1;
 				return 0;
@@ -269,8 +269,8 @@ function getIcon( text ){
 		defaultIcon = '';
 	
 	_.each( DataVars.icons, function( icon ){
-		if( text == icon.format ) iconToUse = icon['fa-icon'];
-		if( icon.format == "Default" ) defaultIcon = icon['fa-icon'];
+		if( text == icon.category ) iconToUse = icon['fa-icon'];
+		if( icon.category == "Default" ) defaultIcon = icon['fa-icon'];
 	});
 	
 	if( iconToUse ) return '<i class="fa ' + iconToUse + '"></i>';
