@@ -147,7 +147,6 @@ function initFilters(){
 				.append( "<i class='fa fa-check'></i>" )
 				.insertAfter( $that.siblings( '.line' ) )
 				.on( 'click', function(){
-					console.log( $( '#category p:contains( ' + text + ')' ) );
 					$( '#category p:contains(' + text + ')' ).show();
 					DataVars.filters.category = _.without( DataVars.filters.category, text );
 					filter();
