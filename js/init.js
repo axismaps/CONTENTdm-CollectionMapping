@@ -97,8 +97,7 @@ function loadData(){
 	});
 	
 	$.get( "php/loadData.php", {
-		collection: AppVars.collectionAlias,
-    force: true
+		collection: AppVars.collectionAlias
 	}).done( function( data ) {
     // console.log( data );
 		DataVars.data = $.parseJSON( data );
