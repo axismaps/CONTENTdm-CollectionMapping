@@ -7,6 +7,7 @@ $( document ).ready(function() {
 var ServerVars = {},
 	AppVars = {
 		collectionAlias: 'p15963coll43',
+    useTiles: false,
 		map: {},
 		mapBounds: {
 			north: 90,

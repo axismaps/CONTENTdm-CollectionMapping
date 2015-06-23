@@ -24,10 +24,12 @@ function initMap(){
 		[AppVars.mapBounds.north, AppVars.mapBounds.east]
 	]);
 	
-	AppVars.historicTiles = L.tileLayer( "tiles/{z}/{x}/{y}.png", {
-		tms : true,
-		bounds: AppVars.mapBounds.bounds
-	}).addTo(AppVars.map);
+  if( AppVars.useTiles === true ){
+    AppVars.historicTiles = L.tileLayer( "tiles/{z}/{x}/{y}.png", {
+      tms : true,
+      bounds: AppVars.mapBounds.bounds
+    }).addTo(AppVars.map);
+  }
 	
 	AppVars.points = new L.MarkerClusterGroup({
 		showCoverageOnHover: false,
