@@ -6,19 +6,19 @@ $( document ).ready(function() {
 /* Globals */
 var ServerVars = {},
 	AppVars = {
-		collectionAlias: 'p15963coll43',
-    useTiles: false,
+		collectionAlias: 'p15963coll18',
+    useTiles: true,
 		map: {},
 		mapBounds: {
-			north: 90,
-			south: -90,
-			east: 180,
-			west: -180
+			north: 27.5,
+			south: 15,
+			east: 99.5,
+			west: 90.5
 		},
 		maxZoom: 10,
-		minZoom: 0,
-    startCoords: [0,0],
-    startZoom: 2,
+		minZoom: 4,
+    startCoords: [19,95],
+    startZoom: 6,
 		years: undefined,
 		selectedYear: undefined,
 		selectedYearIndex: undefined,
@@ -102,7 +102,7 @@ function loadData(){
 	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias
 	}).done( function( data ) {
-    // console.log( data );
+    console.log( data );
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		DataVars.filters.minYear = DataVars.data.minYear;
