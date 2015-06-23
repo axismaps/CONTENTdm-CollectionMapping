@@ -171,7 +171,6 @@ function processData( $fields ){
 		}
     
     //location
-    //if location[lat] is null or location[lng] is null then
     if( empty( $value -> {$field_mapping['lat']}) OR empty( $value -> {$field_mapping['lng']}) ) {
       $locations = explode( ';', $value -> {$field_mapping['location']} );
       foreach( $locations as $location ){
