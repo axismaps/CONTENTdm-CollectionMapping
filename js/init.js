@@ -30,7 +30,7 @@ var ServerVars = {},
 		filters: {
 			minYear: 0,
 			maxYear: 9999,
-			format: [],
+			category: [],
 			tags: []
 		},
 		chronologyData: []
@@ -81,6 +81,13 @@ function loadData(){
 	$.get( "csv/icons.csv", function( csv ){
 		DataVars.icons = Papa.parse( csv, {header: true} ).data;
 	});
+  $.get( "csv/field_maps.csv", function( csv ){
+    var fieldMaps = Papa.parse( csv, {header: false} ).data;
+    DataVars.fieldMaps = {};
+    _.each( fieldMaps, function( entry, i ){
+      DataVars.fieldMaps[entry[0]] = entry[1];
+    });
+  });
 	$.get( "csv/reports.csv", function( csv ){
 		DataVars.reports = Papa.parse( csv, {header: true} ).data;
 		_.each( DataVars.reports, function( entry, i ){
@@ -93,6 +100,7 @@ function loadData(){
 		collection: AppVars.collectionAlias,
     force: true
 	}).done( function( data ) {
+    // console.log( data );
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		DataVars.filters.minYear = DataVars.data.minYear;
