@@ -102,7 +102,6 @@ function loadData(){
 	$.get( "php/loadData.php", {
 		collection: AppVars.collectionAlias
 	}).done( function( data ) {
-    console.log( data );
 		DataVars.data = $.parseJSON( data );
 		DataVars.filteredData = $.parseJSON( data );
 		DataVars.filters.minYear = DataVars.data.minYear;

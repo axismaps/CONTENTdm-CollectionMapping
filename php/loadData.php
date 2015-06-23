@@ -72,6 +72,8 @@ function loadData( $fields ){
     $tempFinal_file = fopen( "cache/temp-final.json", "w" );
     fwrite( $tempFinal_file, json_encode( $temp1_json, JSON_NUMERIC_CHECK ) );
     fclose( $tempFinal_file );
+  } else {
+    rename( "cache/temp1.json", "cache/temp-final.json" );
   }
 	
 	processData( $fields );
@@ -171,7 +173,7 @@ function processData( $fields ){
 		}
     
     //location
-    if( empty( $value -> {$field_mapping['lat']}) OR empty( $value -> {$field_mapping['lng']}) ) {
+    if( empty( $field_mapping['lat']) OR empty( $field_mapping['lng']) ) {
       $locations = explode( ';', $value -> {$field_mapping['location']} );
       foreach( $locations as $location ){
         $location = trim( $location );
