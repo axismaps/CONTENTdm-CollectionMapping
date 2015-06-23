@@ -25,7 +25,9 @@ var ServerVars = {},
 		scrollTimeout: 1,
 		timelineRecenterFlag: false,
 		pdfCapable: false,
-		selectedPoint: undefined
+		selectedPoint: undefined,
+    title: $( '#topbar .title' ).text(),
+    subtitle: $( '#topbar .subtitle' ).text()
 	},
 	DataVars = {
 		filters: {
@@ -73,8 +75,8 @@ function update(){
 	
 	//Return topbar to it's normal state
 	$( '#topbar-picture' ).css( 'background-image', 'none' );
-	$( '#topbar .title' ).text( 'Herbarium: ' );
-	$( '#topbar .subtitle' ).text( 'A test of a new content server' );
+	$( '#topbar .title' ).text( AppVars.title );
+	$( '#topbar .subtitle' ).text( AppVars.subtitle );
 	$( 'body' ).removeClass( 'report' );
 }
 
