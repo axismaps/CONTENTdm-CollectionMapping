@@ -5,3 +5,7 @@ descri,Description,false
 family,Family,true
 latitu,Latitude,false
 longit,Longitude,false
+class,Class,true
+genus,Genus,false
+specie,Species,false
+creato,Creator,false
