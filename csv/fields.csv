@@ -1,5 +1,11 @@
 subjec,Subject,true
-date,Date,false
-covera,Location,true
+datea,Date,false
+coveraa,Location,true
 descri,Description,false
-format,Format,false
+family,Family,true
+latitu,Latitude,false
+longit,Longitude,false
+class,Class,true
+genus,Genus,false
+specie,Species,false
+creato,Creator,false
