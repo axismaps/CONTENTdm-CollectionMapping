@@ -88,7 +88,7 @@ function initMap(){
 function drawPoints(){
 	if( AppVars.points )	AppVars.points.clearLayers();
 	_.each( DataVars.filteredData.entries, function( v, k, l ){
-		if( v.location.lat !== null){
+		if( v.location.lat !== null && v.location.lng !== null ){
 			var year = v.date.year ? (v.date.year + " | ") : "";
 			var marker = L.marker( [ v.location.lat, v.location.lng ],
 				{

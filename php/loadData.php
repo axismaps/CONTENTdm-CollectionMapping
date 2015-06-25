@@ -1,6 +1,7 @@
 <?php
 
-//load fields into array
+set_time_limit( 60 );
+
 $fields = array();
 $fields_file = fopen( "../csv/fields.csv", "r" );
 while ( !feof( $fields_file ) ){
@@ -222,9 +223,11 @@ function getLocation( $name ){
 	while ( !feof( $location_file ) ){
 		$line = fgetcsv( $location_file, 1024 );
 		if( $line[0] == $name ) {
-			$location = array( 'name' => $line[0], 'lat' => $line[1], 'lng' => $line[2] );
-			fclose( $location_file );
-			return $location;
+      if( ! empty( $line[1] ) AND ! empty( $line[2] ) ){
+        $location = array( 'name' => $line[0], 'lat' => $line[1], 'lng' => $line[2] );
+        fclose( $location_file );
+        return $location;
+      }
 		}
 	}
   fclose( $location_file );
@@ -236,7 +239,6 @@ function getLocation( $name ){
 function searchLocation( $name ){
 	$escaped_params = urlencode( '"' . $name . '"' );
 	$url = 'http://open.mapquestapi.com/geocoding/v1/address?key=Fmjtd%7Cluu82d622l%2C70%3Do5-94ygha&location=' . $escaped_params;
-	echo $url . ' ';
 	$json = file_get_contents( $url );
 	$jsonArr = json_decode($json);
 
