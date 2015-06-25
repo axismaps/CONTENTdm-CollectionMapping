@@ -13,6 +13,8 @@ function lightboxEntry( $entry, data ){
 			height: 270
 		});
 	}
+  
+  $( ".entry-title", $div ).hide();
 	$( '<h4 />' ).text( $( ".entry-title", $div ).text() ).prependTo( $(".text-container", $div) );
 	
 	function loadFullImage(){
@@ -41,6 +43,7 @@ function lightboxEntry( $entry, data ){
 			.load( function(){
 				$( ".mask", $div ).remove();
 				var size = onFullImageLoad( $(this), $div );
+        $( '.lightbox > div.text-container').css( 'overflow', 'auto' );
 			})
 	}
 }
@@ -93,6 +96,7 @@ function lightboxReport( $report, data ){
 		$image.attr( "src", src )
 			.load( function(){
 				onFullImageLoad( $(this), $div );
+        $( '.lightbox p.accordion-text' ).css( 'overflow', 'auto' );
 			});
 		$imageDiv.css( "background-image", "none" );
 	}
@@ -110,7 +114,7 @@ function startLightbox( $content, data, callback ){
 		w = .8 * $(window).width();
 		h = .8 * $(window).height();
 	} else {
-		w = 600;
+		w = 700;
 		h = $( ".image-container", $div ).height();
 	}
 	var $div = $content.clone( true)
@@ -157,7 +161,6 @@ function startLightbox( $content, data, callback ){
 	if( $( '.text-container p.tag-header:last strong' ).text() === "LOCATION:" ){
 		$( '<ul class="tag-list" />' ).insertAfter( $( '.tag-header:last strong', $div ) );
 		$div.find( '.text-container p.tag-header:last a' ).each(function(){
-			console.log( this );
 			$( '<li />' ).append( this ).appendTo( $( '.tag-list:last', $div ) );
 		});
 		$( '.tag-header:last', $div ).contents().filter(function(){ return this.nodeType === 3; }).remove(); //removes text nodes
@@ -165,7 +168,7 @@ function startLightbox( $content, data, callback ){
 	
 	$( $div ).prepend( '<div class="lightbox-close"><i class="fa fa-times"></i></div>' );
 	$( '.lightbox-close', $div ).on( 'click', function(){ $( ".lightbox" ).remove(); });
-	
+
 	$( ".image-expand", $div ).remove();
 	return $div;
 }

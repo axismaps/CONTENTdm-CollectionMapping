@@ -723,6 +723,12 @@ h1 span.subtitle{
 	float: left;
 	overflow: hidden;
 }
+
+.image-container{
+  height: 100%;
+  width: 400px;
+}
+
 .lightbox{
 	z-index: 1001;
 	background-color: white;
@@ -757,7 +763,8 @@ h1 span.subtitle{
 	margin-top: 0;
 }
 .lightbox > div.text-container, .lightbox > p.accordion-text{
-	overflow: auto;
+	overflow: hidden;
+  height: 270px;
 }
 .lightbox > p.accordion-text{
 	height: 100%;
@@ -777,6 +784,11 @@ h1 span.subtitle{
 		-1px -1px 5px black;
 	text-align: center;
 }
+
+.image-container .mask{
+  width: 400px;
+}
+
 .image-loader i{
 	font-size: 60px;
 	margin-top: 105px;
