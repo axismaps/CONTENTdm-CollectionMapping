@@ -1,5 +1,7 @@
 <?php
 
+set_time_limit( 60 );
+
 $fields = array();
 $fields_file = fopen( "../csv/fields.csv", "r" );
 while ( !feof( $fields_file ) ){
