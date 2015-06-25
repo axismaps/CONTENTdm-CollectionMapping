@@ -43,7 +43,10 @@ function lightboxEntry( $entry, data ){
 			.load( function(){
 				$( ".mask", $div ).remove();
 				var size = onFullImageLoad( $(this), $div );
-        $( '.lightbox > div.text-container').css( 'overflow', 'auto' );
+        $( '.lightbox > div.text-container').css( {
+          'overflow': 'auto',
+          'height': 'initial'
+        });
 			})
 	}
 }
