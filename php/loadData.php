@@ -1,5 +1,9 @@
 <?php
 
+//Make sure data.json exists
+$data_json_file = fopen( 'cache/data.json', 'a' );
+fclose( $data_json_file );
+
 $fields = array();
 $fields_file = fopen( "../csv/fields.csv", "r" );
 while ( !feof( $fields_file ) ){
