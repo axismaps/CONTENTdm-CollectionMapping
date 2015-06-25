@@ -7,6 +7,7 @@ $( document ).ready(function() {
 var ServerVars = {},
 	AppVars = {
 		collectionAlias: 'p15963coll18',
+    useTiles: true,
 		map: {},
 		mapBounds: {
 			north: 27.5,
@@ -16,19 +17,23 @@ var ServerVars = {},
 		},
 		maxZoom: 10,
 		minZoom: 4,
+    startCoords: [19,95],
+    startZoom: 6,
 		years: undefined,
 		selectedYear: undefined,
 		selectedYearIndex: undefined,
 		scrollTimeout: 1,
 		timelineRecenterFlag: false,
 		pdfCapable: false,
-		selectedPoint: undefined
+		selectedPoint: undefined,
+    title: $( '#topbar .title' ).text(),
+    subtitle: $( '#topbar .subtitle' ).text()
 	},
 	DataVars = {
 		filters: {
 			minYear: 0,
 			maxYear: 9999,
-			format: [],
+			category: [],
 			tags: []
 		},
 		chronologyData: []
@@ -70,8 +75,8 @@ function update(){
 	
 	//Return topbar to it's normal state
 	$( '#topbar-picture' ).css( 'background-image', 'none' );
-	$( '#topbar .title' ).text( 'Baptists in Burma: ' );
-	$( '#topbar .subtitle' ).text( 'Midwestern Missionaries at Home and Abroad' );
+	$( '#topbar .title' ).text( AppVars.title );
+	$( '#topbar .subtitle' ).text( AppVars.subtitle );
 	$( 'body' ).removeClass( 'report' );
 }
 
@@ -79,6 +84,13 @@ function loadData(){
 	$.get( "csv/icons.csv", function( csv ){
 		DataVars.icons = Papa.parse( csv, {header: true} ).data;
 	});
+  $.get( "csv/field_maps.csv", function( csv ){
+    var fieldMaps = Papa.parse( csv, {header: false} ).data;
+    DataVars.fieldMaps = {};
+    _.each( fieldMaps, function( entry, i ){
+      DataVars.fieldMaps[entry[0]] = entry[1];
+    });
+  });
 	$.get( "csv/reports.csv", function( csv ){
 		DataVars.reports = Papa.parse( csv, {header: true} ).data;
 		_.each( DataVars.reports, function( entry, i ){
